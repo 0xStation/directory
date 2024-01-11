@@ -5,6 +5,7 @@ import {
   PermissionsAbi,
   ExtensionsAbi,
   OwnerAbi,
+  ERC1155RailsAbi,
 } from "./abis";
 
 const START_BLOCK = 10200000;
@@ -32,6 +33,7 @@ export default createConfig({
         TokenFactoryAbi,
         ExtensionsAbi,
         OwnerAbi,
+        ERC1155RailsAbi,
       ]),
       factory: {
         address: "0x2c333bd1316ce1af9ebf017a595d6f8ab5f6bd1a",
