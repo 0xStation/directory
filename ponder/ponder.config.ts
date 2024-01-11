@@ -56,5 +56,21 @@ export default createConfig({
       },
       startBlock: START_BLOCK,
     },
+    // Rails ERC 20
+    Rails20: {
+      network: "goerli",
+      abi: mergeAbis([
+        PermissionsAbi,
+        TokenFactoryAbi,
+        ExtensionsAbi,
+        OwnerAbi,
+      ]),
+      factory: {
+        address: "0x2c333bd1316ce1af9ebf017a595d6f8ab5f6bd1a",
+        event: parseAbiItem("event ERC29Created(address indexed token)"),
+        parameter: "token",
+      },
+      startBlock: START_BLOCK,
+    },
   },
 });

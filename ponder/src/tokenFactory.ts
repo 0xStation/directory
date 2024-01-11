@@ -1,27 +1,40 @@
 import { ponder } from "@/generated";
 
 ponder.on("TokenFactory:ERC1155Created", async ({ event, context }) => {
-  const { args, log, block, transaction } = event;
-  const { db, network, client, contracts } = context;
+  const { args } = event;
+  const { db } = context;
 
-  await db.Rails1155.create({
+  await db.TokenContract.create({
     id: args.token,
     data: {
       address: args.token,
-      owner: "0x0",
+      type: "ERC1155",
     },
   });
 });
 
 ponder.on("TokenFactory:ERC721Created", async ({ event, context }) => {
-  const { args, log, block, transaction } = event;
-  const { db, network, client, contracts } = context;
+  const { args } = event;
+  const { db } = context;
 
-  await db.Rails721.create({
+  await db.TokenContract.create({
     id: args.token,
     data: {
       address: args.token,
-      owner: "0x0",
+      type: "ERC721",
+    },
+  });
+});
+
+ponder.on("TokenFactory:ERC20Created", async ({ event, context }) => {
+  const { args } = event;
+  const { db } = context;
+
+  await db.TokenContract.create({
+    id: args.token,
+    data: {
+      address: args.token,
+      type: "ERC20",
     },
   });
 });

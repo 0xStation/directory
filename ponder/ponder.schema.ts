@@ -1,27 +1,35 @@
 import { createSchema } from "@ponder/core";
 
 export default createSchema((p) => ({
-  Rails1155: p.createTable({
+  TokenType: p.createEnum(["ERC20", "ERC721", "ERC1155"]),
+  TokenContract: p.createTable({
     id: p.string(),
     address: p.string(),
-    owner: p.string(),
-    admins: p.many("Rails1155Admins.contractAddress"),
-    extensions: p.many("Rails1155Extension.contractAddress"),
+    type: p.enum("TokenType"),
+    admins: p.many("RailsAdmin.contractAddress"),
+    extensions: p.many("RailsExtension.contractAddress"),
   }),
-  Rails721: p.createTable({
-    id: p.string(),
-    address: p.string(),
-    owner: p.string(),
-  }),
-  Rails1155Admins: p.createTable({
+  RailsAdmin: p.createTable({
     id: p.string(),
     adminAddress: p.string(),
-    contractAddress: p.string().references("Rails1155.id"),
+    contractAddress: p.string().references("TokenContract.id"),
   }),
-  Rails1155Extension: p.createTable({
+  RailsExtension: p.createTable({
     id: p.string(),
-    contractAddress: p.string().references("Rails1155.id"),
+    contractAddress: p.string().references("TokenContract.id"),
     signature: p.string(),
     selector: p.string(),
+  }),
+  ERC1155Owner: p.createTable({
+    id: p.string(),
+    ownerAddress: p.string(),
+    quantity: p.int(),
+    token: p.string().references("ERC1155Token.id"),
+    contractAddress: p.string().references("TokenContract.id"),
+  }),
+  ERC1155Token: p.createTable({
+    id: p.string(),
+    tokenId: p.string(),
+    contractAddress: p.string().references("TokenContract.id"),
   }),
 }));
