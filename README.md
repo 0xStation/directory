@@ -1,6 +1,6 @@
-# groupos
+# GroupOS 
 
-> GroupOS is a batteries-included open-source repo for creating and managing token ecosystems.
+A batteries-included open-source repo for creating and managing token ecosystems.
 
 ## Design Principles
 1. Configurable boilerplate -> easy to start using immediately and make small adjustments
