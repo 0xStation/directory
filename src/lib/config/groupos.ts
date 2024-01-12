@@ -1,4 +1,4 @@
-import { GroupOsConfig } from "@/lib/config/types";
+import { GroupOsConfig } from "./types";
 
 const config: Partial<GroupOsConfig> = {
   name: "Station Arcade",

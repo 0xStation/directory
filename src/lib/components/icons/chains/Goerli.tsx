@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/src/lib/utils";
 
-export const Ethereum = ({ className }: { className?: string }) => {
+export const Goerli = ({ className }: { className?: string }) => {
   return (
     <svg
       aria-hidden="true"
@@ -9,7 +9,9 @@ export const Ethereum = ({ className }: { className?: string }) => {
       viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn(`bg-[#25292E] rounded-full ${className}`)}
+      className={cn(
+        `rounded-full bg-gradient-to-r from-[#958989] to-[#8995A9] ${className}`
+      )}
     >
       <path
         d="M21.9967 6.99621L21.7955 7.67987V27.5163L21.9967 27.7171L31.2044 22.2744L21.9967 6.99621Z"
@@ -34,5 +36,5 @@ export const Ethereum = ({ className }: { className?: string }) => {
         fill="var(--ck-chain-ethereum-02, #ffffff)"
       ></path>
     </svg>
-  )
-}
+  );
+};

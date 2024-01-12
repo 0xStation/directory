@@ -1,4 +1,3 @@
-import Image from "next/image";
 import ConfigContext from "../context/ConfigContext";
 import { useContext } from "react";
 import Home from "./home";

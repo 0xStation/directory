@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/src/lib/utils";
 
 export const Linea = ({ className }: { className?: string }) => {
   return (
@@ -10,7 +10,7 @@ export const Linea = ({ className }: { className?: string }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(
-        `bg-[#black] rounded-full border border-gray-50 ${className}`,
+        `bg-[#black] rounded-full border border-gray-50 ${className}`
       )}
     >
       <g transform="matrix(1,0,0,1,-2.5,-3.5)">
@@ -28,5 +28,5 @@ export const Linea = ({ className }: { className?: string }) => {
         </g>
       </g>
     </svg>
-  )
-}
+  );
+};

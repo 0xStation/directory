@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/src/lib/utils";
 
 export const Polygon = ({ className }: { className?: string }) => {
   return (
@@ -16,5 +16,5 @@ export const Polygon = ({ className }: { className?: string }) => {
         fill="white"
       ></path>
     </svg>
-  )
-}
+  );
+};
