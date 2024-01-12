@@ -8,7 +8,7 @@ import {
 } from "@/lib/components/ui/DropdownMenu";
 import Link from "next/link";
 import { pages } from "@/lib/utils";
-import { TokenConfig } from "@/lib/config/types";
+import { TokenConfig } from "@/lib/types";
 
 type DirectoryDropdownProps = {
   token: TokenConfig;

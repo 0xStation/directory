@@ -1,10 +1,11 @@
-import getGroupOsConfig from "@/lib/config";
+import { useContext } from "react";
 import { TokenContractCard } from "@/lib/components/TokenContractCard";
 import { pages } from "@/lib/utils";
 import { Button } from "@/lib/components/ui/Button";
+import ConfigContext from "../context/ConfigContext";
 
 export default function App() {
-  const cfg = getGroupOsConfig();
+  const { tokenContracts } = useContext(ConfigContext);
 
   return (
     <>
@@ -18,7 +19,7 @@ export default function App() {
       </nav>
       <div className="px-4 py-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:flex xl:flex-wrap w-full xl:justify-items-center gap-4 xl:gap-x-2">
-          {cfg.tokenContracts.map((tokenContract, i) => (
+          {tokenContracts.map((tokenContract, i) => (
             <TokenContractCard
               key={`tokenContract-${i}`}
               href={pages.tokenDirectory(tokenContract)}

@@ -1,11 +1,15 @@
 import React, { createContext } from "react";
 import config from "../../groupos.config";
+import { GroupOsConfig } from "@/lib/types";
 
-const defaultConfig = {
+const defaultConfig: GroupOsConfig = {
+  logo: "",
+  name: "Default Collection",
   theme: {
     backgroundColor: "#FFF",
     textColor: "#000",
   },
+  tokenContracts: [],
 };
 
 const ConfigContext = createContext(defaultConfig);
