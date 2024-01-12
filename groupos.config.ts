@@ -1,6 +1,6 @@
 const config = {
   theme: {
-    backgroundColor: "#222222",
+    backgroundColor: "#0d0e11",
     textColor: "#ffffff",
   },
 };
