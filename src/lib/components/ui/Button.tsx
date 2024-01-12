@@ -4,20 +4,19 @@ import { cn } from "@/lib/utils";
 
 //temporary button setup
 const buttonVariants = cva(
-  "flex flex-shrink items-center justify-center rounded-md text-center font-favoritpro border outline-none font-bold transition-all duration-75 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none whitespace-nowrap text-ellipsis overflow-hidden",
+  "flex flex-shrink items-center justify-center rounded-md text-center border outline-none font-bold transition-all duration-75 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none whitespace-nowrap text-ellipsis overflow-hidden",
   {
     variants: {
       variant: {
-        primary:
-          "!bg-violet-100 border-violet-100 hover:opacity-80 !text-black ",
+        primary: "!bg-[#AD72FF] border-[#AD72FF] hover:opacity-80 !text-black",
         secondary:
-          "!bg-transparent border-violet-100 hover:bg-gray-90 !text-violet-100",
-        input:
-          "!bg-gray-100 border-gray-100 !text-marbleWhite hover:bg-gray-80",
+          "!bg-transparent border-[#AD72FF] hover:[#2E2E2E] !text-[#AD72FF]",
+        input: "!bg-[#1A1A1A] border-[#1A1A1A] !text-white hover:[#4d4d4d]",
         unemphasized:
-          "!bg-transparent border-white hover:bg-gray-90 !text-white",
-        error: "!bg-transparent border-red-100 hover:bg-gray-90 !text-red-100",
-        danger: "!bg-red-100 !text-white border-red-100 hover:bg-gray-90",
+          "!bg-transparent border-white hover:[#2E2E2E] !text-white",
+        error:
+          "!bg-transparent border-[#FF5650] hover:[#2E2E2E] !text-[#FF5650]",
+        danger: "!bg-[#FF5650] !text-white border-[#FF5650] hover:[#2E2E2E]",
       },
       size: {
         sm: "px-4 text-base-xxs max-h-7 h-7",
@@ -86,10 +85,10 @@ const spinnerVariants = cva("animate-spin", {
   variants: {
     variant: {
       primary: "text-black",
-      secondary: "text-violet-100",
-      input: "text-marbleWhite",
+      secondary: "text-[#AD72FF]",
+      input: "text-white",
       unemphasized: "text-white",
-      error: "text-red100",
+      error: "text-[#FF5650]",
       danger: "text-white",
     },
     size: {
