@@ -7,5 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const pages = {
-  tokenDirectory: (token: TokenConfig) => `${token.slug}/directory`,
+  tokenDirectory: (token: TokenConfig) => `/${token.slug}/directory`,
+  settings: (token: TokenConfig) => `/${token.slug}/settings`,
 };

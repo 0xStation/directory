@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Link from "next/link";
 import ConfigContext from "../../context/ConfigContext";
-import { Button } from "@/lib/components/ui/Button";
 
 const DefaultLayout = ({ children }: { children: any }) => {
   const { theme } = useContext(ConfigContext);
@@ -18,14 +17,6 @@ const DefaultLayout = ({ children }: { children: any }) => {
           </Link>
         </div>
       </header>
-      <nav className="z-20 border-b border-[#1A1A1A] py-2 px-6">
-        <div className="relative flex items-center justify-between max-w-content mx-auto">
-          <h2>Tokens</h2>
-          <div className="hidden md:block">
-            <Button>+ New token</Button>
-          </div>
-        </div>
-      </nav>
       {children}
     </main>
   );

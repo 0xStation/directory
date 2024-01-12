@@ -10,13 +10,13 @@ const buttonVariants = cva(
       variant: {
         primary: "!bg-[#AD72FF] border-[#AD72FF] hover:opacity-80 !text-black",
         secondary:
-          "!bg-transparent border-[#AD72FF] hover:[#2E2E2E] !text-[#AD72FF]",
+          "!bg-transparent border-[#AD72FF] hover:bg-[#2E2E2E] !text-[#AD72FF]",
         input: "!bg-[#1A1A1A] border-[#1A1A1A] !text-white hover:[#4d4d4d]",
         unemphasized:
-          "!bg-transparent border-white hover:[#2E2E2E] !text-white",
+          "!bg-transparent border-white hover:bg-[#2E2E2E] !text-white",
         error:
-          "!bg-transparent border-[#FF5650] hover:[#2E2E2E] !text-[#FF5650]",
-        danger: "!bg-[#FF5650] !text-white border-[#FF5650] hover:[#2E2E2E]",
+          "!bg-transparent border-[#FF5650] hover:bg-[#2E2E2E] !text-[#FF5650]",
+        danger: "!bg-[#FF5650] !text-white border-[#FF5650] hover:bg-[#2E2E2E]",
       },
       size: {
         sm: "px-4 text-base-xxs max-h-7 h-7",

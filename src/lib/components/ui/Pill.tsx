@@ -6,7 +6,7 @@ export const PillStyles = cva(
   {
     variants: {
       color: {
-        gray: "bg-gray-800 text-white",
+        gray: "[#4d4d4d]0 text-white",
         blue: "bg-[#5f6fff]/20 text-[#5F6FFF]",
         orange: "bg-[#FF9956]/20 text-[#FF9956]",
         green: "bg-[#50B488]/20 text-[#50B488]",
