@@ -40,7 +40,7 @@ export const TokenContractCard = (props: {
             <NetworkIcon chainId={props.chainId} className="h-4 w-4" />
             <p>Network name</p>
           </div>
-          <Pill>{props.tokenStandard}</Pill>
+          <Pill color={"blue"}>{props.tokenStandard}</Pill>
         </div>
       </div>
     </Link>

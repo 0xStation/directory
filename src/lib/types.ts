@@ -1,1 +1,1 @@
-export type TokenStandard = "ERC20" | "ERC721" | "ERC1155";
+export type TokenStandard = "ERC-20" | "ERC-721" | "ERC-1155";
