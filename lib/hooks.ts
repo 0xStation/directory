@@ -8,7 +8,5 @@ export function useTokenContractName(chainId: number, address: `0x${string}`) {
     functionName: "name",
     abi: TokenAbi,
   });
-  console.log(nameResult);
-
   return (nameResult.data as string) ?? "";
 }

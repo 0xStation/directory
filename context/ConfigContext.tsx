@@ -1,5 +1,4 @@
 import React, { createContext } from "react";
-import config from "../../groupos.config.js";
 
 const defaultConfig = {
   theme: {
@@ -9,11 +8,15 @@ const defaultConfig = {
 
 const ConfigContext = createContext(defaultConfig);
 
-export const ConfigProvider = ({ children }: { children: any }) => {
+export const ConfigProvider = ({
+  config,
+  children,
+}: {
+  config: { theme: { backgroundColor: string } };
+  children: any;
+}) => {
   return (
-    <ConfigContext.Provider value={{ theme: config.theme }}>
-      {children}
-    </ConfigContext.Provider>
+    <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>
   );
 };
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import ConfigContext from "./context/ConfigContext";
+import ConfigContext from "../context/ConfigContext";
 import { useContext } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
