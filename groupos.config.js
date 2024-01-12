@@ -1,5 +1,5 @@
 module.exports = {
   theme: {
-    backgroundColor: "#DDEED2",
+    backgroundColor: "#222222",
   },
 };

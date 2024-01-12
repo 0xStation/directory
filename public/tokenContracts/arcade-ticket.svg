@@ -1,0 +1,73 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="640" height="640" fill="black"/>
+<rect x="440" y="224" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="440" y="176" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="440" y="128" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="152" y="128" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="176" y="512" width="24" height="24" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="440" y="512" width="24" height="24" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="440" y="104" width="24" height="24" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="176" y="104" width="24" height="24" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="152" y="176" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="200" y="80" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="248" y="80" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="296" y="80" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="344" y="80" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="392" y="80" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="152" y="224" width="48" height="48" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 152 512)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 440 320)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 440 368)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 440 416)" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="200" y="128" width="240" height="384" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 200 560)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 248 560)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 296 560)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 344 560)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 392 560)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 440 464)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 440 512)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 152 416)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 152 368)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 152 464)" fill="#FF5650" fill-opacity="0.2"/>
+<rect width="48" height="48" transform="matrix(1 0 0 -1 152 320)" fill="#FF5650" fill-opacity="0.2"/>
+<rect x="464" y="224" width="24" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="464" y="176" width="24" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="464" y="128" width="24" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="152" y="128" width="24" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="176" y="512" width="24" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="440" y="512" width="24" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="440" y="104" width="24" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="176" y="104" width="24" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="152" y="176" width="24" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="200" y="80" width="48" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="248" y="80" width="48" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="296" y="80" width="48" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="344" y="80" width="48" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="392" y="80" width="48" height="24" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="152" y="224" width="24" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 152 512)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 464 320)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 464 368)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 464 416)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="48" height="24" transform="matrix(1 0 0 -1 200 560)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="48" height="24" transform="matrix(1 0 0 -1 248 560)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="48" height="24" transform="matrix(1 0 0 -1 296 560)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="48" height="24" transform="matrix(1 0 0 -1 344 560)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="48" height="24" transform="matrix(1 0 0 -1 392 560)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 464 464)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 464 512)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 152 416)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 152 368)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 152 464)" fill="#FF5650" fill-opacity="0.5"/>
+<rect width="24" height="48" transform="matrix(1 0 0 -1 152 320)" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="344" y="200" width="48" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="392" y="200" width="24" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="224" y="200" width="24" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="248" y="200" width="48" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="296" y="248" width="48" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="296" y="296" width="48" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="296" y="344" width="48" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="296" y="392" width="48" height="48" fill="#FF5650" fill-opacity="0.5"/>
+<rect x="296" y="200" width="48" height="48" fill="#FF5650" fill-opacity="0.5"/>
+</svg>
