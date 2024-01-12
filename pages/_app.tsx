@@ -9,7 +9,8 @@ const queryClient = new QueryClient();
 
 const themeConfig = {
   theme: {
-    backgroundColor: "#FFF",
+    backgroundColor: "#0d0e11",
+    textColor: "#fff",
   },
 };
 
