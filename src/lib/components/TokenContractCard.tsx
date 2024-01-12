@@ -4,7 +4,6 @@ import { NetworkIcon } from "@/lib/components/icons/chains/NetworkIcon";
 import { TokenStandard } from "../types";
 import { Pill } from "./ui/Pill";
 import { useTokenContractName } from "../hooks";
-import Image from "next/image";
 
 export const TokenContractCard = (props: {
   href: string;

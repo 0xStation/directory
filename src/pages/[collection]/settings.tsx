@@ -1,8 +1,8 @@
 const TokenContractSettingsPage = () => {
   return (
-    <div>
+    <section className="px-6">
       <p>settings</p>
-    </div>
+    </section>
   );
 };
 
