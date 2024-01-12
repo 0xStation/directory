@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { NetworkIcon } from "@/src/lib/components/icons/chains/NetworkIcon";
+import { NetworkIcon } from "@/lib/components/icons/chains/NetworkIcon";
 import { TokenStandard } from "../types";
 import { Pill } from "./ui/Pill";
 import { useTokenContractName } from "../hooks";
