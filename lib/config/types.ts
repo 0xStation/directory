@@ -1,4 +1,4 @@
-import { Color, TokenStandard } from "../types";
+import { TokenStandard } from "../types";
 
 export type TokenConfig = {
   image: string;
