@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 
 export const PillStyles = cva(
-  "relative ml-auto !text-base-xs rounded-full py-1 px-2 text-center w-fit",
+  "relative ml-auto text-sm rounded-full md:py-0.5 px-2 text-center w-fit capitalize",
   {
     variants: {
       color: {
