@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function App() {
   const { theme } = useContext(ConfigContext);
 
   return (
@@ -34,7 +34,7 @@ export default function Home() {
               height={24}
               priority
             />
-          ))}
+          </a>
         </div>
       </div>
 
