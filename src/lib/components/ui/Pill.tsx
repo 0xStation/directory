@@ -1,3 +1,4 @@
+import { Color } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 
@@ -6,20 +7,20 @@ export const PillStyles = cva(
   {
     variants: {
       color: {
-        gray: "[#4d4d4d]0 text-white",
-        blue: "bg-[#5f6fff]/20 text-[#5F6FFF]",
-        orange: "bg-[#FF9956]/20 text-[#FF9956]",
-        green: "bg-[#50B488]/20 text-[#50B488]",
+        gray: "bg-highlight text-primary",
+        blue: "bg-blue/20 text-blue",
+        orange: "bg-orange/20 text-orange",
+        green: "bg-green/20 text-green",
+        yellow: "bg-yellow/20 text-yellow",
+        red: "bg-red/20 text-red",
+        purple: "bg-purple/20 text-purple",
       },
+    },
+    defaultVariants: {
+      color: "gray",
     },
   }
 );
-export const Pill = ({
-  color,
-  children,
-}: {
-  color: "gray" | "blue" | "orange" | "green";
-  children: any;
-}) => {
+export const Pill = ({ color, children }: { color?: Color; children: any }) => {
   return <div className={cn(PillStyles({ color }))}>{children}</div>;
 };

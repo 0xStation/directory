@@ -23,6 +23,7 @@ const config: GroupOsConfig = {
   ],
   theme: {
     colors: {
+      // accents
       action: "#AD72FF",
       red: "#FF5650",
       green: "#63EBAF",

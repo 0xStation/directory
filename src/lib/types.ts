@@ -1,4 +1,12 @@
 export type TokenStandard = "ERC-20" | "ERC-721" | "ERC-1155";
+export type Color =
+  | "gray"
+  | "blue"
+  | "orange"
+  | "green"
+  | "purple"
+  | "red"
+  | "yellow";
 
 export type TokenConfig = {
   image: string;

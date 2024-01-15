@@ -4,6 +4,8 @@ import { NetworkIcon } from "@/lib/components/icons/chains/NetworkIcon";
 import { TokenStandard } from "../types";
 import { Pill } from "./ui/Pill";
 import { useTokenContractName } from "../hooks";
+import { TokenStandardPill } from "./TokenStandardPill";
+import { networkName } from "../utils";
 
 export const TokenContractCard = (props: {
   href: string;
@@ -38,9 +40,9 @@ export const TokenContractCard = (props: {
           <div className="flex flex-row space-x-4 items-center">
             <div className="flex flex-row items-center space-x-1">
               <NetworkIcon chainId={props.chainId} className="h-4 w-4" />
-              <p>Network name</p>
+              <p>{networkName[props.chainId]}</p>
             </div>
-            <Pill color={"blue"}>{props.tokenStandard}</Pill>
+            <TokenStandardPill tokenStandard={props.tokenStandard} />
           </div>
         </div>
       </div>
