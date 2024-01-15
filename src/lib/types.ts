@@ -13,7 +13,21 @@ export type GroupOsConfig = {
   name: string;
   tokenContracts: TokenConfig[];
   theme: {
-    backgroundColor: string;
-    textColor: string;
+    colors: {
+      // accents
+      action: string;
+      red: string;
+      green: string;
+      blue: string;
+      orange: string;
+      yellow: string;
+      purple: string;
+      // core
+      primary: string;
+      secondary: string;
+      highlight: string;
+      highlightFaint: string;
+      background: string;
+    };
   };
 };

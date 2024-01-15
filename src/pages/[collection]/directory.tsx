@@ -14,9 +14,9 @@ const TokenDirectoryPage = () => {
   };
   return (
     <>
-      <nav className="z-20 border-b border-[#1A1A1A] py-2 px-6">
+      <nav className="z-20 border-b border-highlight py-2 px-6">
         <div className="relative flex items-center justify-between max-w-content mx-auto">
-          <h2 className="whitespace-nowrap overflow-hidden text-ellipsis text-xl">
+          <h2 className="whitespace-nowrap overflow-hidden text-ellipsis text-xl font-bold">
             0xTokenName
           </h2>
           <div className="flex flex-row space-x-2">

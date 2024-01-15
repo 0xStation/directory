@@ -21,18 +21,18 @@ export const DirectoryDropdown = ({
 }: DirectoryDropdownProps) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="p-1.5 rounded-md bg-[#2E2E2E] hover:bg-gray-80">
-        <EllipsisVerticalIcon className="w-6 h-6 fill-white" />
+      <DropdownMenuTrigger className="p-1.5 rounded-md bg-highlight hover:opacity-80">
+        <EllipsisVerticalIcon className="w-6 h-6 fill-primary" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={12}>
-        <DropdownMenuItem className="hover:bg-gray-80 pr-11" asChild>
+        <DropdownMenuItem className="hover:bg-highlightFaint pr-11" asChild>
           <Link href="/" target="_blank">
             View on Explorer
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem
-          className="hover:bg-gray-80 flex items-center"
+          className="hover:bg-highlightFaint flex items-center"
           disabled={!isAdmin}
           asChild
         >
@@ -40,7 +40,10 @@ export const DirectoryDropdown = ({
             <span>Settings</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="hover:bg-gray-80" onClick={() => {}}>
+        <DropdownMenuItem
+          className="hover:bg-highlightFaint"
+          onClick={() => {}}
+        >
           Export
         </DropdownMenuItem>
       </DropdownMenuContent>

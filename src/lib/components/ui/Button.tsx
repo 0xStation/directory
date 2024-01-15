@@ -8,15 +8,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "!bg-[#AD72FF] border-[#AD72FF] hover:opacity-80 !text-black",
+        primary: "border-action bg-action hover:opacity-80 !text-black",
         secondary:
-          "!bg-transparent border-[#AD72FF] hover:bg-[#2E2E2E] !text-[#AD72FF]",
-        input: "!bg-[#1A1A1A] border-[#1A1A1A] !text-white hover:[#4d4d4d]",
+          "border-action bg-transparent hover:bg-highlight !text-action",
         unemphasized:
-          "!bg-transparent border-white hover:bg-[#2E2E2E] !text-white",
-        error:
-          "!bg-transparent border-[#FF5650] hover:bg-[#2E2E2E] !text-[#FF5650]",
-        danger: "!bg-[#FF5650] !text-white border-[#FF5650] hover:bg-[#2E2E2E]",
+          "border-primary bg-transparent hover:bg-highlight !text-primary",
+        input:
+          "border-highlightFaint bg-highlightFaint hover:opacity-80 !text-white",
+        error: "border-red bg-transparent hover:bg-highlight !text-red",
+        danger: "border-red bg-red hover:opacity-80 !text-white",
       },
       size: {
         sm: "px-4 text-base-xxs max-h-7 h-7",
@@ -85,10 +85,10 @@ const spinnerVariants = cva("animate-spin", {
   variants: {
     variant: {
       primary: "text-black",
-      secondary: "text-[#AD72FF]",
+      secondary: "text-action",
       input: "text-white",
       unemphasized: "text-white",
-      error: "text-[#FF5650]",
+      error: "text-red",
       danger: "text-white",
     },
     size: {

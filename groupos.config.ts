@@ -22,8 +22,27 @@ const config: GroupOsConfig = {
     },
   ],
   theme: {
-    backgroundColor: "#0d0e11",
-    textColor: "#ffffff",
+    colors: {
+      action: "#AD72FF",
+      red: "#FF5650",
+      green: "#63EBAF",
+      blue: "#5F6FFF",
+      orange: "#FF9956",
+      yellow: "#CEDC4B",
+      purple: "#AD72FF",
+      // dark mode
+      primary: "#ffffff",
+      secondary: "#858585",
+      highlight: "#2E2E2E",
+      highlightFaint: "#1A1A1A",
+      background: "#000000",
+      // light mode
+      // primary: "#010101",
+      // secondary: "#858585",
+      // highlight: "#D7D7D7",
+      // highlightFaint: "#EEEEEE",
+      // background: "#FAFAFA",
+    },
   },
 };
 

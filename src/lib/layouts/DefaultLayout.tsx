@@ -8,10 +8,13 @@ const DefaultLayout = ({ children }: { children: any }) => {
   return (
     <main
       className={`flex min-h-[100vh] h-screen flex-col max-w-content mx-auto items-stretch overflow-auto`}
-      style={{ backgroundColor: theme.backgroundColor, color: theme.textColor }}
+      style={{
+        backgroundColor: theme.colors.background,
+        color: theme.colors.primary,
+      }}
     >
-      <header className="px-6 border-b border-[#1A1A1A] py-4">
-        <div className="relative flex items-center justify-between max-w-content mx-auto">
+      <header className="px-6 border-b border-highlight py-4">
+        <Link href="/" className="text-violet-100 text-base-sm font-bold">
           <Image
             src={logo}
             alt="logo"
@@ -19,10 +22,7 @@ const DefaultLayout = ({ children }: { children: any }) => {
             height={38}
             className="flex-shrink-0"
           />
-          <Link href="/" className="text-violet-100 text-base-sm font-bold">
-            Dashboard
-          </Link>
-        </div>
+        </Link>
       </header>
       {children}
     </main>

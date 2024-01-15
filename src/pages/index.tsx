@@ -9,11 +9,11 @@ export default function App() {
 
   return (
     <>
-      <nav className="z-20 border-b border-[#1A1A1A] py-2 px-6">
+      <nav className="z-20 border-b border-highlight py-2 px-6">
         <div className="relative flex items-center justify-between max-w-content mx-auto">
-          <h2>Tokens</h2>
+          <h2 className="text-xl font-bold">Tokens</h2>
           <div className="hidden md:block">
-            <Button>+ New token</Button>
+            <Button variant="primary">+ New token</Button>
           </div>
         </div>
       </nav>

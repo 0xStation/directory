@@ -19,21 +19,20 @@ export const TokenContractCard = (props: {
 
   return (
     <Link href={props.href} className="w-full max-w-[257px]">
-      <div className="flex flex-col w-full max-w-[257px] gap-2 md:gap-3 hover:bg-[#1A1A1A] rounded-lg p-2 hover:[&_img]:scale-110">
-        <div className="w-full max-w-[241px] overflow-hidden rounded-md relative aspect-square">
-          <div className="bg-gray-[#1A1A1A] w-full [&_img]:transition-all [&_img]:duration-300 aspect-square">
+      <div className="flex flex-col w-full max-w-[257px] gap-2 md:gap-3 hover:bg-highlightFaint rounded-lg p-2 hover:[&_img]:scale-110">
+        <div className="w-full max-w-[241px] overflow-hidden border border-highlight  rounded-lg relative aspect-square">
+          <div className="w-full [&_img]:transition-all [&_img]:duration-300 aspect-square">
             <img
               src={props.image}
-              alt="default tape image"
+              alt="Token image"
               width={250}
               height={250}
-              className="w-full h-full object-cover rounded-md"
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
         </div>
-
         <div className="flex flex-col">
-          <h3 className="text-sm md:text-base 2xl:text-lg text-white whitespace-nowrap text-ellipsis overflow-hidden font-bold">
+          <h3 className="text-sm md:text-base 2xl:text-lg whitespace-nowrap text-ellipsis overflow-hidden font-bold">
             {tokenContractName}
           </h3>
           <div className="flex flex-row space-x-4 items-center">
