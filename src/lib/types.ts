@@ -39,3 +39,9 @@ export type GroupOsConfig = {
     };
   };
 };
+
+export type Erc20Owner = {
+  id: string;
+  ownerAddress: `0x${string}`;
+  balance: string;
+};

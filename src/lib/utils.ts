@@ -18,3 +18,15 @@ export const networkName: Record<number, string> = {
   10: "Optimism",
   137: "Polygon",
 };
+
+export function truncateBytes(bytes: string = "0x", visibleChars: number = 4) {
+  if (2 * visibleChars + 1 < bytes.length) {
+    return (
+      bytes?.slice(0, 2 + visibleChars) +
+      "..." +
+      bytes?.slice(bytes.length - visibleChars, bytes.length)
+    );
+  }
+
+  return bytes;
+}

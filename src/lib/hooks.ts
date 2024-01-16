@@ -5,6 +5,7 @@ import { useContext } from "react";
 import ConfigContext from "@/context/ConfigContext";
 import { useQuery } from "@tanstack/react-query";
 import { request, gql } from "graphql-request";
+import { Erc20Owner } from "./types";
 
 export function useTokenContractName(
   chainId?: number,
@@ -37,20 +38,19 @@ export function useErc20Owners() {
   return useQuery({
     queryKey: ["erc20Owners"],
     queryFn: async () => {
-      const data = await request(
+      const data = (await request(
         endpoint,
         gql`
           {
             erc20Owners {
-              chainId
-              contractAddress
+              id
               ownerAddress
               balance
             }
           }
         `
-      );
-      return data?.erc20Owners ?? [];
+      )) as { erc20Owners: any[] };
+      return (data?.erc20Owners ?? []) as Erc20Owner[];
     },
   });
 }

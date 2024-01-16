@@ -1,11 +1,23 @@
+import { AvatarAddress } from "@/lib/components/ui/AvatarAddress";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/lib/components/ui/Table";
 import {
   Tabs,
   TabsList,
   TabsTrigger,
   TabsContent,
 } from "@/lib/components/ui/TabsHorizontal";
+import { Erc20Owners } from "@/lib/components/views/Erc20Owners";
 import { TokenSettings } from "@/lib/components/views/TokenSettings";
 import { useErc20Owners } from "@/lib/hooks";
+import { ColumnDef } from "@tanstack/react-table";
 
 const TokenDirectoryPage = () => {
   return (
@@ -27,9 +39,7 @@ const TokenDirectoryPage = () => {
 };
 
 function TokenDirectory() {
-  const { status, data, error, isFetching } = useErc20Owners();
-  console.log(status, data, error, isFetching);
-  return <div className="px-6 pt-8">Directory</div>;
+  return <Erc20Owners />;
 }
 
 export default TokenDirectoryPage;
