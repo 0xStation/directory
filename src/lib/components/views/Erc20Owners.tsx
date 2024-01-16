@@ -2,23 +2,13 @@
 
 import {
   ColumnDef,
-  flexRender,
   getCoreRowModel,
   useReactTable,
-  Table as TTable,
   RowSelectionState,
 } from "@tanstack/react-table";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/lib/components/ui/Table";
 import { useErc20Owners } from "@/lib/hooks";
-import { Erc20Owner } from "@/lib/types";
+import { Erc20Owner, TokenConfig } from "@/lib/types";
 import { AvatarAddress } from "../ui/AvatarAddress";
 import { formatUnits } from "viem";
 import { useState } from "react";
@@ -47,8 +37,15 @@ const columns: ColumnDef<Erc20Owner>[] = [
   },
 ];
 
-export function Erc20Owners() {
-  const { status, data, error, isFetching } = useErc20Owners();
+export function Erc20Owners({
+  tokenContract
+}: {
+  tokenContract?: TokenConfig
+}) {
+  const { status, data, error, isFetching } = useErc20Owners(
+    tokenContract?.chainId,
+    tokenContract?.contractAddress
+  );
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const table = useReactTable({
     columns,

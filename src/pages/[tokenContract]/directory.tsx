@@ -16,7 +16,7 @@ import {
 } from "@/lib/components/ui/TabsHorizontal";
 import { Erc20Owners } from "@/lib/components/views/Erc20Owners";
 import { TokenSettings } from "@/lib/components/views/TokenSettings";
-import { useErc20Owners } from "@/lib/hooks";
+import { useErc20Owners, useTokenContractRoute } from "@/lib/hooks";
 import { ColumnDef } from "@tanstack/react-table";
 
 const TokenDirectoryPage = () => {
@@ -39,7 +39,8 @@ const TokenDirectoryPage = () => {
 };
 
 function TokenDirectory() {
-  return <Erc20Owners />;
+  const tokenContract = useTokenContractRoute()
+  return <Erc20Owners tokenContract={tokenContract}/>;
 }
 
 export default TokenDirectoryPage;
