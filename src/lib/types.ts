@@ -1,4 +1,4 @@
-export type TokenStandard = "ERC-20" | "ERC-721" | "ERC-1155";
+export type TokenStandard = "ERC20" | "ERC721" | "ERC1155";
 export type Color =
   | "gray"
   | "blue"
@@ -38,4 +38,10 @@ export type GroupOsConfig = {
       background: string;
     };
   };
+};
+
+export type Erc20Owner = {
+  id: string;
+  ownerAddress: `0x${string}`;
+  balance: string;
 };
