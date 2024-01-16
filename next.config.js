@@ -17,6 +17,14 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/ponder/:path*",
+        destination: "http://localhost:42069/:path*", // Proxy to Backend
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

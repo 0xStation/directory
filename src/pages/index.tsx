@@ -10,12 +10,12 @@ export default function App() {
   return (
     <>
       <nav className="z-20 border-b border-highlight py-2 px-6">
-        <div className="relative flex items-center justify-between max-w-content mx-auto">
+        {/* <div className="relative flex items-center justify-between max-w-content mx-auto">
           <h2 className="text-xl font-bold">Tokens</h2>
           <div className="hidden md:block">
             <Button variant="primary">+ New token</Button>
           </div>
-        </div>
+        </div> */}
       </nav>
       <div className="px-4 py-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:flex xl:flex-wrap w-full xl:justify-items-center gap-4 xl:gap-x-2">

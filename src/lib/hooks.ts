@@ -3,6 +3,8 @@ import TokenAbi from "./abi/Token";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import ConfigContext from "@/context/ConfigContext";
+import { useQuery } from "@tanstack/react-query";
+import { request, gql } from "graphql-request";
 
 export function useTokenContractName(
   chainId?: number,
@@ -28,4 +30,27 @@ export function useTokenContractRoute() {
   );
 
   return tokenContract ?? null;
+}
+
+export function useErc20Owners() {
+  const endpoint = "/api/ponder";
+  return useQuery({
+    queryKey: ["erc20Owners"],
+    queryFn: async () => {
+      const data = await request(
+        endpoint,
+        gql`
+          {
+            erc20Owners {
+              chainId
+              contractAddress
+              ownerAddress
+              balance
+            }
+          }
+        `
+      );
+      return data?.erc20Owners ?? [];
+    },
+  });
 }
