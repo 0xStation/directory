@@ -29,7 +29,7 @@ const DefaultLayout = ({ children }: { children: any }) => {
               alt="logo"
               width={36}
               height={38}
-              className="flex-shrink-0"
+              className="flex-shrink-0 rounded-md"
             />
           </Link>
           <p className="text-2xl font-thin text-highlight">/</p>

@@ -17,6 +17,7 @@ export const networkName: Record<number, string> = {
   11155111: "Ethereum Sepolia",
   10: "Optimism",
   137: "Polygon",
+  59144: "Linea",
 };
 
 export function truncateBytes(bytes: string = "0x", visibleChars: number = 4) {
