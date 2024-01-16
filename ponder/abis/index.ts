@@ -3,4 +3,6 @@ export * from "./TokenFactoryAbi";
 export * from "./ExtensionsAbi";
 export * from "./ExtensionAbi";
 export * from "./OwnerAbi";
-export * from "./ERC1155RailsAbi";
+export * from "./ERC20Rails";
+export * from "./ERC721Rails";
+export * from "./ERC1155Rails";

@@ -1,4 +1,4 @@
-export const ERC1155RailsAbi = [
+export const ERC20RailsAbi = [
   {
     inputs: [],
     stateMutability: "nonpayable",
@@ -18,6 +18,48 @@ export const ERC1155RailsAbi = [
     inputs: [
       {
         internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "currentAllowance",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "requestedDecrease",
+        type: "uint256",
+      },
+    ],
+    name: "ERC20FailedDecreaseAllowance",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "allowance",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "needed",
+        type: "uint256",
+      },
+    ],
+    name: "ERC20InsufficientAllowance",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "sender",
         type: "address",
       },
@@ -31,13 +73,8 @@ export const ERC1155RailsAbi = [
         name: "needed",
         type: "uint256",
       },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
     ],
-    name: "ERC1155InsufficientBalance",
+    name: "ERC20InsufficientBalance",
     type: "error",
   },
   {
@@ -48,34 +85,7 @@ export const ERC1155RailsAbi = [
         type: "address",
       },
     ],
-    name: "ERC1155InvalidApprover",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "idsLength",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "valuesLength",
-        type: "uint256",
-      },
-    ],
-    name: "ERC1155InvalidArrayLength",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-    ],
-    name: "ERC1155InvalidOperator",
+    name: "ERC20InvalidApprover",
     type: "error",
   },
   {
@@ -86,7 +96,7 @@ export const ERC1155RailsAbi = [
         type: "address",
       },
     ],
-    name: "ERC1155InvalidReceiver",
+    name: "ERC20InvalidReceiver",
     type: "error",
   },
   {
@@ -97,23 +107,18 @@ export const ERC1155RailsAbi = [
         type: "address",
       },
     ],
-    name: "ERC1155InvalidSender",
+    name: "ERC20InvalidSender",
     type: "error",
   },
   {
     inputs: [
       {
         internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "owner",
+        name: "spender",
         type: "address",
       },
     ],
-    name: "ERC1155MissingApprovalForAll",
+    name: "ERC20InvalidSpender",
     type: "error",
   },
   {
@@ -324,23 +329,23 @@ export const ERC1155RailsAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "account",
+        name: "owner",
         type: "address",
       },
       {
         indexed: true,
         internalType: "address",
-        name: "operator",
+        name: "spender",
         type: "address",
       },
       {
         indexed: false,
-        internalType: "bool",
-        name: "approved",
-        type: "bool",
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
       },
     ],
-    name: "ApprovalForAll",
+    name: "Approval",
     type: "event",
   },
   {
@@ -577,49 +582,6 @@ export const ERC1155RailsAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256[]",
-        name: "ids",
-        type: "uint256[]",
-      },
-      {
-        indexed: false,
-        internalType: "uint256[]",
-        name: "values",
-        type: "uint256[]",
-      },
-    ],
-    name: "TransferBatch",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
         name: "from",
         type: "address",
       },
@@ -632,36 +594,11 @@ export const ERC1155RailsAbi = [
       {
         indexed: false,
         internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
         name: "value",
         type: "uint256",
       },
     ],
-    name: "TransferSingle",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "string",
-        name: "value",
-        type: "string",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-    ],
-    name: "URI",
+    name: "Transfer",
     type: "event",
   },
   {
@@ -723,13 +660,56 @@ export const ERC1155RailsAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "account",
+        name: "owner",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+    ],
+    name: "allowance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "id",
+        name: "value",
         type: "uint256",
+      },
+    ],
+    name: "approve",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
       },
     ],
     name: "balanceOf",
@@ -746,47 +726,24 @@ export const ERC1155RailsAbi = [
   {
     inputs: [
       {
-        internalType: "address[]",
-        name: "accounts",
-        type: "address[]",
-      },
-      {
-        internalType: "uint256[]",
-        name: "ids",
-        type: "uint256[]",
-      },
-    ],
-    name: "balanceOfBatch",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "address",
         name: "from",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "value",
+        name: "amount",
         type: "uint256",
       },
     ],
     name: "burnFrom",
-    outputs: [],
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -843,6 +800,24 @@ export const ERC1155RailsAbi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "bytes8",
+        name: "operation",
+        type: "bytes8",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "checkPermission",
+    outputs: [],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "contractURI",
     outputs: [
@@ -853,6 +828,43 @@ export const ERC1155RailsAbi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "decimals",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "requestedDecrease",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -887,6 +899,35 @@ export const ERC1155RailsAbi = [
       },
     ],
     name: "execute",
+    outputs: [
+      {
+        internalType: "bytes",
+        name: "executeData",
+        type: "bytes",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes",
+        name: "data",
+        type: "bytes",
+      },
+    ],
+    name: "executeCall",
     outputs: [
       {
         internalType: "bytes",
@@ -943,7 +984,7 @@ export const ERC1155RailsAbi = [
             type: "string",
           },
         ],
-        internalType: "struct IExtensionsInternal.Extension[]",
+        internalType: "struct IExtensions.Extension[]",
         name: "extensions",
         type: "tuple[]",
       },
@@ -973,7 +1014,7 @@ export const ERC1155RailsAbi = [
             type: "uint40",
           },
         ],
-        internalType: "struct IGuardsInternal.Guard[]",
+        internalType: "struct IGuards.Guard[]",
         name: "guards",
         type: "tuple[]",
       },
@@ -1003,7 +1044,7 @@ export const ERC1155RailsAbi = [
             type: "uint40",
           },
         ],
-        internalType: "struct IPermissionsInternal.Permission[]",
+        internalType: "struct IPermissions.Permission[]",
         name: "permissions",
         type: "tuple[]",
       },
@@ -1096,6 +1137,30 @@ export const ERC1155RailsAbi = [
     inputs: [
       {
         internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "owner_",
         type: "address",
       },
@@ -1113,6 +1178,11 @@ export const ERC1155RailsAbi = [
         internalType: "bytes",
         name: "initData",
         type: "bytes",
+      },
+      {
+        internalType: "address",
+        name: "forwarder_",
+        type: "address",
       },
     ],
     name: "initialize",
@@ -1137,16 +1207,11 @@ export const ERC1155RailsAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "operator",
+        name: "forwarder",
         type: "address",
       },
     ],
-    name: "isApprovedForAll",
+    name: "isTrustedForwarder",
     outputs: [
       {
         internalType: "bool",
@@ -1166,17 +1231,18 @@ export const ERC1155RailsAbi = [
       },
       {
         internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "value",
+        name: "amount",
         type: "uint256",
       },
     ],
     name: "mintTo",
-    outputs: [],
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -1309,97 +1375,6 @@ export const ERC1155RailsAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256[]",
-        name: "ids",
-        type: "uint256[]",
-      },
-      {
-        internalType: "uint256[]",
-        name: "values",
-        type: "uint256[]",
-      },
-      {
-        internalType: "bytes",
-        name: "data",
-        type: "bytes",
-      },
-    ],
-    name: "safeBatchTransferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes",
-        name: "data",
-        type: "bytes",
-      },
-    ],
-    name: "safeTransferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-      {
-        internalType: "bool",
-        name: "approved",
-        type: "bool",
-      },
-    ],
-    name: "setApprovalForAll",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "bytes4",
@@ -1494,6 +1469,72 @@ export const ERC1155RailsAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "transfer",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "transferFrom",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -1504,6 +1545,19 @@ export const ERC1155RailsAbi = [
     name: "transferOwnership",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "trustedForwarder",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -1535,25 +1589,6 @@ export const ERC1155RailsAbi = [
     name: "upgradeToAndCall",
     outputs: [],
     stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "uri",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {

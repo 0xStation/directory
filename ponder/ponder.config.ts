@@ -1,78 +1,56 @@
-import { createConfig, mergeAbis } from "@ponder/core";
-import { http, parseAbiItem } from "viem";
-import {
-  TokenFactoryAbi,
-  PermissionsAbi,
-  ExtensionsAbi,
-  OwnerAbi,
-  ERC1155RailsAbi,
-} from "./abis";
+import { createConfig } from "@ponder/core";
+import { http } from "viem";
+import { ERC20RailsAbi, ERC721RailsAbi, ERC1155RailsAbi } from "./abis";
+import config from "../groupos.config";
+import { TokenConfig } from "../src/lib/types";
 
-const START_BLOCK = 10200000;
+const chainIdToName: Record<number, string> = {
+  10: "optimism",
+};
+
+const defaultNetworks: Record<
+  string,
+  { address: `0x${string}`[]; startBlock: number }
+> = Object.values(chainIdToName).reduce(
+  (acc, v) => ({
+    ...acc,
+    [v]: {
+      address: [],
+      startBlock: 0,
+    },
+  }),
+  {}
+);
+
+const contracts = (config.tokenContracts as TokenConfig[]).reduce(
+  (acc: any, v) => {
+    acc[v.tokenStandard].network[chainIdToName[v.chainId]!]?.address.push(
+      v.contractAddress
+    );
+    return acc;
+  },
+  {
+    ERC20: {
+      abi: ERC20RailsAbi,
+      network: defaultNetworks,
+    },
+    ERC721: {
+      abi: ERC721RailsAbi,
+      network: defaultNetworks,
+    },
+    ERC1155: {
+      abi: ERC1155RailsAbi,
+      network: defaultNetworks,
+    },
+  }
+);
 
 export default createConfig({
   networks: {
-    goerli: {
-      chainId: 5,
+    optimism: {
+      chainId: 10,
       transport: http(process.env.PONDER_RPC_URL_1),
     },
   },
-  contracts: {
-    // Token Factory
-    TokenFactory: {
-      network: "goerli",
-      abi: TokenFactoryAbi,
-      address: "0x2c333bd1316ce1af9ebf017a595d6f8ab5f6bd1a",
-      startBlock: START_BLOCK,
-    },
-    // Rails ERC 1155
-    Rails1155: {
-      network: "goerli",
-      abi: mergeAbis([
-        PermissionsAbi,
-        TokenFactoryAbi,
-        ExtensionsAbi,
-        OwnerAbi,
-        ERC1155RailsAbi,
-      ]),
-      factory: {
-        address: "0x2c333bd1316ce1af9ebf017a595d6f8ab5f6bd1a",
-        event: parseAbiItem("event ERC1155Created(address indexed token)"),
-        parameter: "token",
-      },
-      startBlock: START_BLOCK,
-    },
-    // Rails ERC 721
-    Rails721: {
-      network: "goerli",
-      abi: mergeAbis([
-        PermissionsAbi,
-        TokenFactoryAbi,
-        ExtensionsAbi,
-        OwnerAbi,
-      ]),
-      factory: {
-        address: "0x2c333bd1316ce1af9ebf017a595d6f8ab5f6bd1a",
-        event: parseAbiItem("event ERC721Created(address indexed token)"),
-        parameter: "token",
-      },
-      startBlock: START_BLOCK,
-    },
-    // Rails ERC 20
-    Rails20: {
-      network: "goerli",
-      abi: mergeAbis([
-        PermissionsAbi,
-        TokenFactoryAbi,
-        ExtensionsAbi,
-        OwnerAbi,
-      ]),
-      factory: {
-        address: "0x2c333bd1316ce1af9ebf017a595d6f8ab5f6bd1a",
-        event: parseAbiItem("event ERC29Created(address indexed token)"),
-        parameter: "token",
-      },
-      startBlock: START_BLOCK,
-    },
-  },
+  contracts,
 });
