@@ -87,16 +87,14 @@ export const getNftUrl = (
     59144: "linea", // not actually on Opesea, uses Alienswap instead!
   };
 
-  let baseUrl = `https://opensea.io/assets/${chainIdToOpenseaNetwork[chainId]}`;
+  if (!chainId) return "";
+  const networkName = chainIdToOpenseaNetwork[chainId];
+  if (!networkName) return "";
+  let baseUrl = `https://opensea.io/assets/${networkName}`;
   if (chainId === 5) {
-    baseUrl = `https://testnets.opensea.io/assets/${chainIdToOpenseaNetwork[chainId]}`;
+    baseUrl = `https://testnets.opensea.io/assets/${networkName}`;
   } else if (chainId === 59144) {
     baseUrl = "https://alienswap.xyz/assets/linea";
-  }
-
-  const networkName = chainIdToOpenseaNetwork[chainId];
-  if (!networkName) {
-    return "";
   }
 
   return `${baseUrl}/${contractAddress}/${tokenId ? tokenId : ""}`;

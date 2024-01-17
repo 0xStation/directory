@@ -23,6 +23,12 @@ import formatDate from "@/lib/utils";
 import Image from "next/image";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { NftLink } from "../NftLink";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/Accordion";
 
 const columns: ColumnDef<Erc721Token>[] = [
   {
@@ -100,7 +106,6 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
     error,
     isFetching,
   } = useNftMetadata(tokenContract, token?.tokenId);
-  console.log("metadata", metadata);
 
   if (!token) return null;
   return (
@@ -121,7 +126,9 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
         )}
         <div className="flex flex-col gap-2 overflow-hidden">
           <p className="text-lg font-bold">
-            {tokenContractName + " #" + token.tokenId}
+            {metadata?.name
+              ? metadata.name
+              : tokenContractName + " #" + token.tokenId}
           </p>
           <div className="flex flex-row space-x-2">
             <NftLink
@@ -139,6 +146,10 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
         <TabsContent value="info">
           <div className="space-y-4 mt-6">
             <div className="w-full flex flex-row justify-between items-center">
+              <p className="text-secondary">Token ID</p>
+              <p>#{token.tokenId}</p>
+            </div>
+            <div className="w-full flex flex-row justify-between items-center">
               <p className="text-secondary">Owner</p>
               <AvatarAddress address={token.ownerAddress} />
             </div>
@@ -146,21 +157,50 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
               <p className="text-secondary">Minted At</p>
               <p>{formatDate(token.mintedAt)}</p>
             </div>
-          </div>
-          <div className="mt-6">
             {isFetching ? (
               <div className="flex flex-col items-center justify-center pt-4">
                 <LoadingSpinner />
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-4">
-                {metadata?.attributes?.map((trait) => (
-                  <div className="flex flex-col space-y-1 w-full bg-highlightFaint justify-center items-center p-3 rounded-md">
-                    <p className="text-secondary text-sm">{trait.trait_type}</p>
-                    <p>{trait.value}</p>
-                  </div>
-                ))}
-              </div>
+              <Accordion
+                type="multiple"
+                defaultValue={["description", "traits"]}
+                className="space-y-4 w-full"
+              >
+                <AccordionItem value="description">
+                  <AccordionTrigger>Description</AccordionTrigger>
+                  <AccordionContent>
+                    {metadata?.description ? (
+                      <p>{metadata?.description}</p>
+                    ) : (
+                      <div className="flex flex-col rounded-md bg-highlightFaint justify-center items-center py-2 text-secondary">
+                        No description
+                      </div>
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="traits">
+                  <AccordionTrigger>Traits</AccordionTrigger>
+                  <AccordionContent>
+                    {metadata?.attributes && metadata?.attributes.length > 0 ? (
+                      <div className="grid grid-cols-2 gap-4">
+                        {metadata?.attributes?.map((trait) => (
+                          <div className="flex flex-col space-y-1 w-full bg-highlightFaint justify-center items-center p-3 rounded-md">
+                            <p className="text-secondary text-sm">
+                              {trait.trait_type}
+                            </p>
+                            <p>{trait.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex flex-col rounded-md bg-highlightFaint justify-center items-center py-2 text-secondary">
+                        No traits
+                      </div>
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             )}
           </div>
         </TabsContent>
