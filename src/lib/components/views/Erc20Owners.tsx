@@ -38,9 +38,9 @@ const columns: ColumnDef<Erc20Owner>[] = [
 ];
 
 export function Erc20Owners({
-  tokenContract
+  tokenContract,
 }: {
-  tokenContract?: TokenConfig
+  tokenContract?: TokenConfig;
 }) {
   const { status, data, error, isFetching } = useErc20Owners(
     tokenContract?.chainId,
@@ -65,7 +65,7 @@ export function Erc20Owners({
         <DataTable table={table} />
       </div>
       <div className="col-span-1 pt-8 px-6">
-        <HighlightedAccount
+        <SelectedRowDetails
           owner={data?.find((v) => v.id === Object.keys(rowSelection)[0])}
         />
       </div>
@@ -82,7 +82,7 @@ export function Erc20Owners({
   );
 }
 
-function HighlightedAccount({ owner }: { owner?: Erc20Owner | null }) {
+function SelectedRowDetails({ owner }: { owner?: Erc20Owner | null }) {
   if (!owner) return null;
 
   return (

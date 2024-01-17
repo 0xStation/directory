@@ -8,12 +8,13 @@ export default createSchema((p) => ({
     ownerAddress: p.bytes(),
     balance: p.bigint(),
   }),
-  Erc721Owner: p.createTable({
+  Erc721Token: p.createTable({
     id: p.string(),
     chainId: p.int(),
     contractAddress: p.bytes(),
     tokenId: p.bigint(),
     ownerAddress: p.bytes(),
+    mintedAt: p.bigint(),
   }),
   Erc1155Owner: p.createTable({
     id: p.string(),

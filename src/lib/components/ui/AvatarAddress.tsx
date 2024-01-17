@@ -17,7 +17,7 @@ export const AvatarAddress = ({
   return (
     <div
       className={cn(
-        "flex items-center gap-2 overflow-hidden w-full",
+        "flex items-center gap-2 overflow-hidden w-fit",
         interactive ? "cursor-pointer" : "cursor-default"
       )}
       onClick={() => {

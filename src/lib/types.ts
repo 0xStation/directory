@@ -45,3 +45,21 @@ export type Erc20Owner = {
   ownerAddress: `0x${string}`;
   balance: string;
 };
+
+export type Erc721Token = {
+  id: string;
+  tokenId: string;
+  ownerAddress: `0x${string}`;
+  mintedAt: Date;
+};
+
+export type NftMetadata = {
+  name: string;
+  description?: string;
+  image: string;
+  external_url?: string;
+  attributes?: {
+    trait_type: string;
+    value: string | number;
+  }[];
+};

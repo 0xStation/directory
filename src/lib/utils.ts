@@ -31,3 +31,73 @@ export function truncateBytes(bytes: string = "0x", visibleChars: number = 4) {
 
   return bytes;
 }
+
+const formatDate = (timestamp: any, omitTime?: boolean) => {
+  let date = new Date(timestamp);
+
+  let monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  let month = monthNames[date.getMonth()];
+  let day = date.getDate();
+  let year = date.getFullYear();
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let ampm = hours >= 12 ? "PM" : "AM";
+
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+
+  let parsedMinutes = minutes < 10 ? "0" + String(minutes) : minutes;
+
+  return (
+    month +
+    " " +
+    day +
+    ", " +
+    year +
+    (omitTime ? "" : " " + hours + ":" + parsedMinutes + " " + ampm)
+  );
+};
+
+export default formatDate;
+
+export const getNftUrl = (
+  chainId?: number,
+  contractAddress?: string,
+  tokenId?: string
+) => {
+  const chainIdToOpenseaNetwork: Record<number, string> = {
+    1: "ethereum",
+    5: "goerli",
+    10: "optimism",
+    137: "matic",
+    59144: "linea", // not actually on Opesea, uses Alienswap instead!
+  };
+
+  let baseUrl = `https://opensea.io/assets/${chainIdToOpenseaNetwork[chainId]}`;
+  if (chainId === 5) {
+    baseUrl = `https://testnets.opensea.io/assets/${chainIdToOpenseaNetwork[chainId]}`;
+  } else if (chainId === 59144) {
+    baseUrl = "https://alienswap.xyz/assets/linea";
+  }
+
+  const networkName = chainIdToOpenseaNetwork[chainId];
+  if (!networkName) {
+    return "";
+  }
+
+  return `${baseUrl}/${contractAddress}/${tokenId ? tokenId : ""}`;
+};

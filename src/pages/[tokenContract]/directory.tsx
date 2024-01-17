@@ -1,13 +1,3 @@
-import { AvatarAddress } from "@/lib/components/ui/AvatarAddress";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/lib/components/ui/Table";
 import {
   Tabs,
   TabsList,
@@ -15,9 +5,9 @@ import {
   TabsContent,
 } from "@/lib/components/ui/TabsHorizontal";
 import { Erc20Owners } from "@/lib/components/views/Erc20Owners";
+import { Erc721Tokens } from "@/lib/components/views/Erc721Tokens";
 import { TokenSettings } from "@/lib/components/views/TokenSettings";
-import { useErc20Owners, useTokenContractRoute } from "@/lib/hooks";
-import { ColumnDef } from "@tanstack/react-table";
+import { useTokenContractRoute } from "@/lib/hooks";
 
 const TokenDirectoryPage = () => {
   return (
@@ -39,8 +29,15 @@ const TokenDirectoryPage = () => {
 };
 
 function TokenDirectory() {
-  const tokenContract = useTokenContractRoute()
-  return <Erc20Owners tokenContract={tokenContract}/>;
+  const tokenContract = useTokenContractRoute();
+  switch (tokenContract?.tokenStandard) {
+    case "ERC20":
+      return <Erc20Owners tokenContract={tokenContract} />;
+    case "ERC721":
+      return <Erc721Tokens tokenContract={tokenContract} />;
+    default:
+      return <div>token</div>;
+  }
 }
 
 export default TokenDirectoryPage;
