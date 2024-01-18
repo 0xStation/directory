@@ -7,7 +7,6 @@ import {
   RowSelectionState,
 } from "@tanstack/react-table";
 
-import { useErc20Owners } from "@/lib/hooks";
 import { Erc20Owner, TokenConfig } from "@/lib/types";
 import { AvatarAddress } from "../ui/AvatarAddress";
 import { formatUnits } from "viem";
@@ -15,6 +14,7 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/TabsHorizontal";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { DataTable } from "../DataTable";
+import { useErc20Owners } from "@/lib/api/hooks";
 
 const columns: ColumnDef<Erc20Owner>[] = [
   {

@@ -99,3 +99,16 @@ export const getNftUrl = (
 
   return `${baseUrl}/${contractAddress}/${tokenId ? tokenId : ""}`;
 };
+
+export const getContractUrl = (chainId?: number, address?: string) => {
+  const cleanedChainId = parseInt(chainId?.toString() ?? "1");
+  return `${
+    cleanedChainId === 5
+      ? "https://goerli.etherscan.io"
+      : cleanedChainId === 137
+      ? "https://polygonscan.com"
+      : cleanedChainId === 10
+      ? "https://optimistic.etherscan.io"
+      : "https://etherscan.io"
+  }/address/${address}`;
+};

@@ -1,6 +1,6 @@
-import { GroupOsConfig } from "@/lib/types";
+import { createConfig } from "../src/lib/config";
 
-const config: GroupOsConfig = {
+export default createConfig({
   logo: "https://groupos.xyz/_next/image?url=%2Fimages%2Fterminal_logo.png&w=96&q=75",
   name: "Station Arcade",
   tokenContracts: [
@@ -11,6 +11,7 @@ const config: GroupOsConfig = {
       tokenStandard: "ERC721",
       chainId: 10,
       contractAddress: "0x006114ef647d42c11b6b3dc257280f720307bb03",
+      addTokenboundAccounts: true,
     },
     {
       slug: "arcade-tickets",
@@ -29,6 +30,11 @@ const config: GroupOsConfig = {
       contractAddress: "0xc333266f3a93572a1a628f433e4a86c0b2053b0c",
     },
   ],
+  tokenboundAccounts: {
+    registry: "0x000000006551c19487814612e58fe06813775758",
+    implementation: "0xee0b927f5065923d49dda69dce229ef467663310",
+    salt: "0x852517b7ffed0f98d714dd1787995aff4d6b1892000000000000000000000000",
+  },
   theme: {
     colors: {
       // accents
@@ -47,6 +53,4 @@ const config: GroupOsConfig = {
       background: "#000000",
     },
   },
-};
-
-export default config;
+});

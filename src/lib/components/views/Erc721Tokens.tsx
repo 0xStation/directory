@@ -8,10 +8,10 @@ import {
 } from "@tanstack/react-table";
 
 import {
-  useErc721Tokens,
   useNftMetadata,
   useTokenContractName,
   useTokenContractRoute,
+  useTokenInventory,
 } from "@/lib/hooks";
 import { Erc721Token, TokenConfig } from "@/lib/types";
 import { AvatarAddress } from "../ui/AvatarAddress";
@@ -19,7 +19,7 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/TabsHorizontal";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { DataTable } from "../DataTable";
-import formatDate from "@/lib/utils";
+import formatDate, { cn, getContractUrl, truncateBytes } from "@/lib/utils";
 import Image from "next/image";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { NftLink } from "../NftLink";
@@ -29,6 +29,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/Accordion";
+import { Wallet } from "../icons/Wallet";
+import { useErc721Tokens } from "@/lib/api/hooks";
+import { formatUnits, zeroAddress } from "viem";
+import { Pill } from "../ui/Pill";
+import { Etherscan } from "../icons/Etherscan";
 
 const columns: ColumnDef<Erc721Token>[] = [
   {
@@ -106,6 +111,14 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
     error,
     isFetching,
   } = useNftMetadata(tokenContract, token?.tokenId);
+  const {
+    fts,
+    nfts,
+    isFetching: isFetchingTokenInvetory,
+  } = useTokenInventory({
+    chainId: tokenContract?.chainId,
+    address: token?.tbaAddress,
+  });
 
   if (!token) return null;
   return (
@@ -131,6 +144,20 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
               : tokenContractName + " #" + token.tokenId}
           </p>
           <div className="flex flex-row space-x-2">
+            {tokenContract?.addTokenboundAccounts && (
+              <span
+                className="px-3 py-1 rounded border border-highlight flex flex-row items-center space-x-2 cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigator.clipboard.writeText(token.tbaAddress).then(() => {
+                    console.log("Contract address copied to clipboard");
+                  });
+                }}
+              >
+                <Wallet className="h-4 w-4" />
+                <span>{truncateBytes(token.tbaAddress)}</span>
+              </span>
+            )}
             <NftLink
               chainId={tokenContract?.chainId}
               contractAddress={tokenContract?.contractAddress}
@@ -142,6 +169,9 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
       <Tabs defaultValue="info">
         <TabsList>
           <TabsTrigger value="info">Info</TabsTrigger>
+          {tokenContract?.addTokenboundAccounts && (
+            <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          )}
         </TabsList>
         <TabsContent value="info">
           <div className="space-y-4 mt-6">
@@ -202,6 +232,51 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
                 </AccordionItem>
               </Accordion>
             )}
+          </div>
+        </TabsContent>
+        <TabsContent value="tokens">
+          <div className="mt-4 space-y-4">
+            {fts.map((token) => {
+              const formattedBalance = formatUnits(
+                BigInt(token.balance),
+                token.decimals
+              );
+              return (
+                <div className="rounded-lg text-primary text-base flex w-full justify-between px-4 py-5 gap-4 bg-highlightFaint">
+                  <div className="flex items-center gap-2.5 overflow-hidden">
+                    <p className="font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+                      {token.contractAddress == zeroAddress
+                        ? token.name
+                        : "$" + token.symbol}
+                    </p>
+                    <Pill>ERC20</Pill>
+                  </div>
+                  <div className="flex flex-row space-x-2 items-center">
+                    <p>
+                      {parseFloat(formattedBalance) === 0
+                        ? "< 1"
+                        : formattedBalance}
+                    </p>
+                    <div>
+                      <a
+                        href={getContractUrl(
+                          tokenContract?.chainId,
+                          token.contractAddress
+                        )}
+                        target="_blank"
+                        className={cn(
+                          token.contractAddress !== zeroAddress
+                            ? ""
+                            : "invisible"
+                        )}
+                      >
+                        <Etherscan className="text-white h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </TabsContent>
       </Tabs>

@@ -15,6 +15,7 @@ export default createSchema((p) => ({
     tokenId: p.bigint(),
     ownerAddress: p.bytes(),
     mintedAt: p.bigint(),
+    tbaAddress: p.bytes().optional(),
   }),
   Erc1155Owner: p.createTable({
     id: p.string(),

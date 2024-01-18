@@ -4,10 +4,9 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import ConfigContext from "@/context/ConfigContext";
 import { useQuery } from "@tanstack/react-query";
-import { request, gql } from "graphql-request";
-import { Erc20Owner, Erc721Token, NftMetadata, TokenConfig } from "./types";
-import { checksumAddress } from "viem";
+import { NftMetadata, TokenConfig } from "./types";
 import NftAbi from "./abi/Nft";
+import { useAlchemyTokenBalances } from "./alchemy/hooks";
 
 export function useTokenContractName(
   chainId?: number,
@@ -35,74 +34,7 @@ export function useTokenContractRoute() {
   return tokenContract ?? undefined;
 }
 
-export function useErc20Owners(
-  chainId?: number,
-  contractAddress?: `0x${string}`
-) {
-  const endpoint = "/api/ponder";
-  return useQuery({
-    queryKey: ["erc20Owners"],
-    queryFn: async () => {
-      const data = (await request(
-        endpoint,
-        gql`
-          {
-            erc20Owners(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
-          contractAddress ?? "0x"
-        )}\", balance_not: \"0\"}) {
-              id
-              ownerAddress
-              balance
-            }
-          }
-        `
-      )) as { erc20Owners: any[] };
-      return (data?.erc20Owners ?? []) as Erc20Owner[];
-    },
-    enabled: Boolean(chainId && contractAddress),
-  });
-}
-
-export function useErc721Tokens(
-  chainId?: number,
-  contractAddress?: `0x${string}`
-) {
-  const endpoint = "/api/ponder";
-  return useQuery({
-    queryKey: ["erc721Tokens"],
-    queryFn: async () => {
-      const data = (await request(
-        endpoint,
-        gql`
-          {
-            erc721Tokens(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
-          contractAddress ?? "0x"
-        )}\"}) {
-              id
-              tokenId
-              ownerAddress
-              mintedAt
-            }
-          }
-        `
-      )) as { erc721Tokens: any[] };
-      return (data?.erc721Tokens ?? []).map((v) => ({
-        ...v,
-        mintedAt: new Date(parseInt(v.mintedAt) * 1000),
-      })) as Erc721Token[];
-    },
-    enabled: Boolean(chainId && contractAddress),
-  });
-}
-
 export function useNftMetadata(tokenContract?: TokenConfig, tokenId?: string) {
-  console.log(
-    tokenContract?.chainId,
-    tokenContract?.contractAddress,
-    tokenContract?.tokenStandard,
-    tokenId
-  );
-
   const functionName =
     tokenContract?.tokenStandard === "ERC721" ? "tokenURI" : "uri";
   const uriResult = useReadContract({
@@ -118,7 +50,6 @@ export function useNftMetadata(tokenContract?: TokenConfig, tokenId?: string) {
     },
   });
   const uri = uriResult.data as string;
-  console.log("uri", uri);
 
   const metadata = useQuery({
     queryKey: [tokenContract?.chainId, tokenContract?.contractAddress, tokenId],
@@ -132,4 +63,23 @@ export function useNftMetadata(tokenContract?: TokenConfig, tokenId?: string) {
   });
 
   return metadata;
+}
+
+export function useTokenInventory({
+  chainId,
+  address,
+}: {
+  chainId?: number;
+  address?: `0x${string}`;
+}) {
+  const { data: fts, isFetching: isFetchingFts } = useAlchemyTokenBalances({
+    chainId,
+    address,
+  });
+
+  return {
+    fts,
+    nfts: [],
+    isFetching: isFetchingFts,
+  };
 }

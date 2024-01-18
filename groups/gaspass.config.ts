@@ -1,6 +1,6 @@
-import { GroupOsConfig } from "@/lib/types";
+import { createConfig } from "../src/lib/config";
 
-const config: GroupOsConfig = {
+export default createConfig({
   logo: "https://pbs.twimg.com/profile_images/1639402103486521344/erDLnbwE_400x400.jpg",
   name: "Linea Gas Pass",
   tokenContracts: [
@@ -31,6 +31,4 @@ const config: GroupOsConfig = {
       background: "#000000",
     },
   },
-};
-
-export default config;
+});

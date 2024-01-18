@@ -1,6 +1,6 @@
-import { GroupOsConfig } from "@/lib/types";
+import { createConfig } from "../src/lib/config";
 
-const config: GroupOsConfig = {
+export default createConfig({
   logo: "https://pbs.twimg.com/profile_images/1660360628941324290/GQYSBPow_400x400.jpg",
   name: "Mangrove DAO",
   tokenContracts: [
@@ -103,6 +103,4 @@ const config: GroupOsConfig = {
       background: "#FAFAFA",
     },
   },
-};
-
-export default config;
+});

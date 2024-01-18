@@ -14,12 +14,18 @@ export type TokenConfig = {
   contractAddress: `0x${string}`;
   tokenStandard: TokenStandard;
   slug: string;
+  addTokenboundAccounts?: boolean;
 };
 
 export type GroupOsConfig = {
   logo: string;
   name: string;
   tokenContracts: TokenConfig[];
+  tokenboundAccounts: {
+    registry: `0x${string}`;
+    implementation: `0x${string}`;
+    salt: `0x${string}`;
+  };
   theme: {
     colors: {
       // accents
@@ -51,6 +57,7 @@ export type Erc721Token = {
   tokenId: string;
   ownerAddress: `0x${string}`;
   mintedAt: Date;
+  tbaAddress: `0x${string}`;
 };
 
 export type NftMetadata = {
