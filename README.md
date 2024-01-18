@@ -40,3 +40,71 @@ A batteries-included open-source repo for creating and managing token ecosystems
 * customize brand identity
   * colors configurable in json file
   * extend components with your own code
+
+## Set Up Locally
+
+**Clone this repo**
+
+```bash
+git clone https://github.com/0xStation/groupos.git
+cd groupos
+```
+
+**Install app dependencies**
+
+```bash
+npm i
+```
+
+**Define environment variables**
+
+We recommend [Alchemy](https://www.alchemy.com/) given their wide range of services from access to ethereum nodes to token indexing.
+This key will be re-used across many potential networks and parts of the app. Make a free account to get your API key.
+
+```
+echo "ALCHEMY_API_KEY=key" >> .env.local
+echo "NEXT_PUBLIC_ALCHEMY_API_KEY=key" >> .env.local
+```
+
+**Run app**
+
+```bash
+npm run dev
+```
+
+Your NextJS app will now occupy this tab. Create a new tab and navitage to the root of this `groupos` repo for the remaining steps.
+
+**Move to Ponder sub-directory**
+
+```bash
+cd ponder
+```
+
+[Ponder](https://ponder.sh/) is an open-source indexing framework used to track token balances for GroupOS. It has a dedicated subdirectory, [`ponder/`](./ponder), 
+with its own package management and environment variables.
+
+**Install ponder dependencies**
+
+```bash
+npm i
+```
+
+**Copy environment variables**
+
+We will reuse the same alchemy environment variables defined before.
+
+```bash
+cp ../.env.local .
+```
+
+**Run ponder**
+
+```bash
+npm run dev
+```
+
+Ponder will now occupy this tab. Create new tabs as needed or cancel Ponder with `ctrl+C`.
+
+**Open app**
+
+You can now view your GroupOS app at [localhost:3000](http://localhost:3000/)
