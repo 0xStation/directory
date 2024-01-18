@@ -11,6 +11,8 @@ export default createConfig({
       tokenStandard: "ERC721",
       chainId: 1,
       contractAddress: "0x33dbde2e093b7cf8446d9ac0de79220d42423501",
+      creationBlock: 18629642,
+      addTokenboundAccounts: true,
     },
     {
       slug: "pods",
@@ -19,6 +21,8 @@ export default createConfig({
       tokenStandard: "ERC721",
       chainId: 1,
       contractAddress: "0x9763a9d2b17756b6531ecbf6c7097f7225e22da7",
+      creationBlock: 18629889,
+      addTokenboundAccounts: true,
     },
     {
       slug: "protocol-council",
@@ -27,6 +31,8 @@ export default createConfig({
       tokenStandard: "ERC721",
       chainId: 1,
       contractAddress: "0x760559c824db794a307f3c98e03a87d1b10c12db",
+      creationBlock: 18630656,
+      addTokenboundAccounts: true,
     },
     {
       slug: "ecosystem-council",
@@ -35,6 +41,8 @@ export default createConfig({
       tokenStandard: "ERC721",
       chainId: 1,
       contractAddress: "0x93cf0a3b67962d475d9514d9955fe6621a26d42c",
+      creationBlock: 18630638,
+      addTokenboundAccounts: true,
     },
     {
       slug: "builder-score",
@@ -43,6 +51,7 @@ export default createConfig({
       tokenStandard: "ERC20",
       chainId: 1,
       contractAddress: "0x5f120453dfd0c55f55370d1f718089ae0fcf6387",
+      creationBlock: 18627720,
     },
     {
       slug: "pod-score",
@@ -51,6 +60,7 @@ export default createConfig({
       tokenStandard: "ERC20",
       chainId: 1,
       contractAddress: "0xd0805e6b373223322e341018cb8c024c3baa98b0",
+      creationBlock: 18642123,
     },
     {
       slug: "active-builders",
@@ -59,6 +69,7 @@ export default createConfig({
       tokenStandard: "ERC1155",
       chainId: 1,
       contractAddress: "0xd1502a7659eaad60278ae3ef27edea849504f4da",
+      creationBlock: 18627698,
     },
     {
       slug: "active-pods",
@@ -67,6 +78,7 @@ export default createConfig({
       tokenStandard: "ERC1155",
       chainId: 1,
       contractAddress: "0xa2956d29d879ab7b9a1d16723e376d9e2be5c911",
+      creationBlock: 18658230,
     },
     {
       slug: "active-protocol-council",
@@ -75,6 +87,7 @@ export default createConfig({
       tokenStandard: "ERC1155",
       chainId: 1,
       contractAddress: "0xcb42f61a0e42eacd0091b9ffc6a182cdcec7bd4a",
+      creationBlock: 18658220,
     },
     {
       slug: "active-ecosystem-council",
@@ -83,6 +96,7 @@ export default createConfig({
       tokenStandard: "ERC1155",
       chainId: 1,
       contractAddress: "0x7c49ef1e6565af0e112f3727005f85208f81ba91",
+      creationBlock: 18642109,
     },
   ],
   theme: {

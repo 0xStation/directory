@@ -244,7 +244,7 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
                 <div className="grid grid-cols-3 gap-2">
                   {nfts.map((nft: any, i) => (
                     <div
-                      className="relative group w-full h-full aspect-square rounded-lg"
+                      className="relative group w-full h-full aspect-square rounded-lg border border-highlight"
                       key={`nft-${i}`}
                     >
                       <Image
@@ -303,7 +303,7 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
                               : "invisible"
                           )}
                         >
-                          <Etherscan className="text-white h-4 w-4" />
+                          <Etherscan className="text-primary h-4 w-4" />
                         </a>
                       </div>
                     </div>

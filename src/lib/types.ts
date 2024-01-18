@@ -14,6 +14,7 @@ export type TokenConfig = {
   contractAddress: `0x${string}`;
   tokenStandard: TokenStandard;
   slug: string;
+  creationBlock: number;
   addTokenboundAccounts?: boolean;
 };
 

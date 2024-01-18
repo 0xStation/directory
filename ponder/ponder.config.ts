@@ -6,11 +6,11 @@ import { TokenConfig } from "../src/lib/types";
 import { alchemyEndpointCore } from "../src/lib/alchemy/hooks";
 
 const chainIdToName: Record<number, string> = {
-  // 1: "mainnet",
-  10: "optimism",
+  1: "mainnet",
+  // 10: "optimism",
 };
 
-const defaultNetworks: Record<
+const contractNetworks: Record<
   string,
   { address: `0x${string}`[]; startBlock: number }
 > = Object.values(chainIdToName).reduce(
@@ -41,20 +41,31 @@ const contracts = (config.tokenContracts as TokenConfig[]).reduce(
     acc[v.tokenStandard].network[chainIdToName[v.chainId]!]?.address.push(
       v.contractAddress
     );
+    if (
+      // no startBlock set yet
+      !acc[v.tokenStandard].network[chainIdToName[v.chainId]!]?.startBlock ||
+      // or this token's creationBlock is earlier than the current startBlock value
+      acc[v.tokenStandard].network[chainIdToName[v.chainId]!].startBlock >
+        v.creationBlock
+    ) {
+      // set this contract's startBlock as the new token's creationBlock
+      acc[v.tokenStandard].network[chainIdToName[v.chainId]!].startBlock =
+        v.creationBlock;
+    }
     return acc;
   },
   {
     ERC20: {
       abi: ERC20RailsAbi,
-      network: defaultNetworks,
+      network: contractNetworks,
     },
     ERC721: {
       abi: ERC721RailsAbi,
-      network: defaultNetworks,
+      network: contractNetworks,
     },
     ERC1155: {
       abi: ERC1155RailsAbi,
-      network: defaultNetworks,
+      network: contractNetworks,
     },
   }
 );
