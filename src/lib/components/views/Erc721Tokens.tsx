@@ -34,6 +34,7 @@ import { useErc721Tokens } from "@/lib/api/hooks";
 import { formatUnits, zeroAddress } from "viem";
 import { Pill } from "../ui/Pill";
 import { Etherscan } from "../icons/Etherscan";
+import { emptyImage } from "@/lib/constants";
 
 const columns: ColumnDef<Erc721Token>[] = [
   {
@@ -112,7 +113,7 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
     isFetching,
   } = useNftMetadata(tokenContract, token?.tokenId);
   const {
-    fts,
+    tokens,
     nfts,
     isFetching: isFetchingTokenInvetory,
   } = useTokenInventory({
@@ -235,48 +236,81 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
           </div>
         </TabsContent>
         <TabsContent value="tokens">
-          <div className="mt-4 space-y-4">
-            {fts.map((token) => {
-              const formattedBalance = formatUnits(
-                BigInt(token.balance),
-                token.decimals
-              );
-              return (
-                <div className="rounded-lg text-primary text-base flex w-full justify-between px-4 py-5 gap-4 bg-highlightFaint">
-                  <div className="flex items-center gap-2.5 overflow-hidden">
-                    <p className="font-medium whitespace-nowrap overflow-hidden text-ellipsis">
-                      {token.contractAddress == zeroAddress
-                        ? token.name
-                        : "$" + token.symbol}
-                    </p>
-                    <Pill>ERC20</Pill>
-                  </div>
-                  <div className="flex flex-row space-x-2 items-center">
-                    <p>
-                      {parseFloat(formattedBalance) === 0
-                        ? "< 1"
-                        : formattedBalance}
-                    </p>
-                    <div>
+          <div className="flex flex-col gap-6 mt-4">
+            {!nfts ? (
+              <div>loading</div>
+            ) : (
+              nfts.length > 0 && (
+                <div className="grid grid-cols-3 gap-2">
+                  {nfts.map((nft: any, i) => (
+                    <div
+                      className="relative group w-full h-full aspect-square rounded-lg"
+                      key={`nft-${i}`}
+                    >
+                      <Image
+                        src={nft.image ?? emptyImage}
+                        fill
+                        alt=""
+                        className="rounded-lg"
+                      />
+                      {/* {getNft && (
                       <a
-                        href={getContractUrl(
-                          tokenContract?.chainId,
-                          token.contractAddress
-                        )}
+                        className="absolute bottom-1 right-1 group-hover:block hidden p-2 bg-gray-90 rounded cursor-pointer"
                         target="_blank"
-                        className={cn(
-                          token.contractAddress !== zeroAddress
-                            ? ""
-                            : "invisible"
-                        )}
+                        rel="noreferrer"
+                        href={openseaLink}
                       >
-                        <Etherscan className="text-white h-4 w-4" />
+                        <Opensea className={cn("h-5 w-5")} />
                       </a>
+                    )} */}
+                    </div>
+                  ))}
+                </div>
+              )
+            )}
+            <div className="space-y-4">
+              {tokens.map((token) => {
+                const formattedBalance = formatUnits(
+                  BigInt(token.balance),
+                  token.decimals
+                );
+                return (
+                  <div className="rounded-lg text-primary text-base flex w-full justify-between px-4 py-5 gap-4 bg-highlightFaint">
+                    <div className="flex items-center gap-2.5 overflow-hidden">
+                      <p className="font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+                        {token.contractAddress == zeroAddress
+                          ? token.name
+                          : "$" + token.symbol}
+                      </p>
+                      <Pill>ERC20</Pill>
+                    </div>
+                    <div className="flex flex-row space-x-2 items-center">
+                      <p>
+                        {parseFloat(formattedBalance) === 0
+                          ? "< 1"
+                          : formattedBalance}
+                      </p>
+                      <div>
+                        <a
+                          href={getContractUrl(
+                            tokenContract?.chainId,
+                            token.contractAddress
+                          )}
+                          target="_blank"
+                          className={cn(
+                            token.contractAddress !== zeroAddress
+                              ? ""
+                              : "invisible"
+                          )}
+                        >
+                          <Etherscan className="text-white h-4 w-4" />
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </TabsContent>
       </Tabs>

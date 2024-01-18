@@ -6,7 +6,10 @@ import ConfigContext from "@/context/ConfigContext";
 import { useQuery } from "@tanstack/react-query";
 import { NftMetadata, TokenConfig } from "./types";
 import NftAbi from "./abi/Nft";
-import { useAlchemyTokenBalances } from "./alchemy/hooks";
+import {
+  useAlchemyNftBalances,
+  useAlchemyTokenBalances,
+} from "./alchemy/hooks";
 
 export function useTokenContractName(
   chainId?: number,
@@ -59,6 +62,8 @@ export function useNftMetadata(tokenContract?: TokenConfig, tokenId?: string) {
       console.log("data", data);
       return data as NftMetadata;
     },
+    staleTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
     enabled: Boolean(tokenContract && tokenId),
   });
 
@@ -72,14 +77,20 @@ export function useTokenInventory({
   chainId?: number;
   address?: `0x${string}`;
 }) {
-  const { data: fts, isFetching: isFetchingFts } = useAlchemyTokenBalances({
-    chainId,
-    address,
-  });
+  const { data: tokens, isFetching: isFetchingTokenBalances } =
+    useAlchemyTokenBalances({
+      chainId,
+      address,
+    });
+  const { data: nfts, isFetching: isFetchingNftBalances } =
+    useAlchemyNftBalances({
+      chainId,
+      address,
+    });
 
   return {
-    fts,
-    nfts: [],
-    isFetching: isFetchingFts,
+    tokens,
+    nfts,
+    isFetching: isFetchingTokenBalances || isFetchingNftBalances,
   };
 }

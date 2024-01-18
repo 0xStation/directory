@@ -21,7 +21,7 @@ export const networkName: Record<number, string> = {
 };
 
 export function truncateBytes(bytes: string = "0x", visibleChars: number = 4) {
-  if (2 * visibleChars + 1 < bytes.length) {
+  if (2 * visibleChars + 1 < bytes?.length ?? 0) {
     return (
       bytes?.slice(0, 2 + visibleChars) +
       "..." +

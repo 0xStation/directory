@@ -1,10 +1,12 @@
 import { createConfig } from "@ponder/core";
-import { http } from "viem";
+import { Transport, http } from "viem";
 import { ERC20RailsAbi, ERC721RailsAbi, ERC1155RailsAbi } from "./abis";
 import config from "../groupos.config";
 import { TokenConfig } from "../src/lib/types";
+import { alchemyEndpointCore } from "../src/lib/alchemy/hooks";
 
 const chainIdToName: Record<number, string> = {
+  // 1: "mainnet",
   10: "optimism",
 };
 
@@ -21,6 +23,18 @@ const defaultNetworks: Record<
   }),
   {}
 );
+
+const networks: Record<string, { chainId: number; transport: Transport }> =
+  Object.entries(chainIdToName).reduce((acc, v) => {
+    const chainId = parseInt(v[0]);
+    return {
+      ...acc,
+      [v[1]]: {
+        chainId,
+        transport: http(alchemyEndpointCore(chainId)),
+      },
+    };
+  }, {});
 
 const contracts = (config.tokenContracts as TokenConfig[]).reduce(
   (acc: any, v) => {
@@ -46,11 +60,6 @@ const contracts = (config.tokenContracts as TokenConfig[]).reduce(
 );
 
 export default createConfig({
-  networks: {
-    optimism: {
-      chainId: 10,
-      transport: http(process.env.PONDER_RPC_URL_1),
-    },
-  },
+  networks,
   contracts,
 });

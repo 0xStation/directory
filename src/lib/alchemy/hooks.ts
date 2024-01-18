@@ -132,3 +132,35 @@ export function useAlchemyTokenBalances({
     isFetching: isFetchingTokenBalances || isFetchingTokenMetadata,
   };
 }
+
+export function useAlchemyNftBalances({
+  chainId,
+  address,
+}: {
+  chainId?: number;
+  address?: `0x${string}`;
+}) {
+  const { data, isFetching } = useQuery({
+    queryKey: ["alchemyNftBalances", chainId, address],
+    queryFn: async () => {
+      const url = alchemyEndpointNftBalances(chainId!, address!);
+      const data = await (
+        await fetch(url, {
+          method: "GET",
+          headers: { accept: "application/json" },
+        })
+      ).json();
+
+      return data.ownedNfts.map((nft: any) => ({
+        chainId,
+        contractAddress: nft.contract.addres,
+        type: nft.tokenType,
+        tokenId: nft.tokenId,
+        image: nft.image.cachedUrl,
+      }));
+    },
+    enabled: Boolean(chainId && address),
+  });
+
+  return { data, isFetching };
+}

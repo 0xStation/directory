@@ -11,6 +11,7 @@ export default createConfig({
       tokenStandard: "ERC721",
       chainId: 10,
       contractAddress: "0x9c46fe757ea200dfba1a77d1300f77289d8314cd",
+      addTokenboundAccounts: true,
     },
     {
       slug: "guild-tokens",

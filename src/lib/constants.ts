@@ -10,3 +10,6 @@ export const PFP_MAP = {
   2: pfp3,
   3: pfp4,
 } as { [key: number]: StaticImageData };
+
+export const emptyImage =
+  "https://station-images.nyc3.digitaloceanspaces.com/c3e5a9f4-3ba1-4ec2-a88a-a82f54c2ef42.svg";
