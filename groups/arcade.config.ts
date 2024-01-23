@@ -12,6 +12,7 @@ export default createConfig({
       chainId: 10,
       contractAddress: "0x006114ef647d42c11b6b3dc257280f720307bb03",
       addTokenboundAccounts: true,
+      creationBlock: 18629889,
     },
     {
       slug: "arcade-tickets",
@@ -20,6 +21,7 @@ export default createConfig({
       tokenStandard: "ERC20",
       chainId: 10,
       contractAddress: "0xd333a2155a212af4c1f154d31b663fbf88c30481",
+      creationBlock: 18629889,
     },
     {
       slug: "daily-champions",
@@ -28,6 +30,7 @@ export default createConfig({
       tokenStandard: "ERC1155",
       chainId: 10,
       contractAddress: "0xc333266f3a93572a1a628f433e4a86c0b2053b0c",
+      creationBlock: 18629889,
     },
   ],
   tokenboundAccounts: {

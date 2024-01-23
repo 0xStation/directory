@@ -11,6 +11,7 @@ export default createConfig({
       tokenStandard: "ERC721",
       chainId: 59144,
       contractAddress: "0xe286d24eafef04ea1eafc7f3de605b684dd6a4bf",
+      creationBlock: 18629889,
     },
   ],
   theme: {
