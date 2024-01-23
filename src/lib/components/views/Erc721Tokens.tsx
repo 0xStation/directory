@@ -242,7 +242,7 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
             ) : (
               nfts.length > 0 && (
                 <div className="grid grid-cols-3 gap-2">
-                  {nfts.map((nft: any, i) => (
+                  {nfts.map((nft: any, i: number) => (
                     <div
                       className="relative group w-full h-full aspect-square rounded-lg border border-highlight"
                       key={`nft-${i}`}
