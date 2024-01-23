@@ -7,9 +7,9 @@ export function TokenStandardPill({
   tokenStandard: TokenStandard;
 }) {
   const standardToColor: Record<TokenStandard, Color> = {
-    "ERC-20": "green",
-    "ERC-721": "blue",
-    "ERC-1155": "orange",
+    ERC20: "green",
+    ERC721: "blue",
+    ERC1155: "orange",
   };
   return <Pill color={standardToColor[tokenStandard]}>{tokenStandard}</Pill>;
 }
