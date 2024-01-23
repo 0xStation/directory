@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A batteries-included open-source repo for creating and managing token ecosystems.",
   "scripts": {
-    "build": "lerna run build --stream"
+    "build": "lerna run build --stream",
+    "start-directory": "lerna run start --scope directory",
+    "start-ponder": "lerna run start --scope ponder"
   },
   "author": "Station",
   "private": true,
