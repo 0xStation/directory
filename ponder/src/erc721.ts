@@ -1,7 +1,4 @@
 import { ponder } from "@/generated";
-import { checksumAddress, zeroAddress } from "viem";
-import groupos from "../../groupos.config";
-import { TokenConfig } from "../../src/lib/types";
 import { computeTbaAddress } from "../../src/lib/erc6551";
 
 ponder.on("ERC721:Transfer", async ({ event, context }) => {

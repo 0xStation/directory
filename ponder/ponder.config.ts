@@ -7,7 +7,7 @@ import { alchemyEndpointCore } from "../src/lib/alchemy/hooks";
 
 const chainIdToName: Record<number, string> = {
   1: "mainnet",
-  // 10: "optimism",
+  10: "optimism",
 };
 
 const contractNetworks: Record<
@@ -24,6 +24,17 @@ const contractNetworks: Record<
   {}
 );
 
+const configContractNetworks = config.tokenContracts.reduce((acc, v) => {
+  const network = chainIdToName[v.chainId] as string;
+  if (!network) return acc;
+
+  const contractNetwork = contractNetworks[network as keyof typeof networks];
+  if (!contractNetwork) return acc;
+
+  acc[network] = contractNetwork;
+  return acc;
+}, {} as typeof contractNetworks);
+
 const networks: Record<string, { chainId: number; transport: Transport }> =
   Object.entries(chainIdToName).reduce((acc, v) => {
     const chainId = parseInt(v[0]);
@@ -35,6 +46,17 @@ const networks: Record<string, { chainId: number; transport: Transport }> =
       },
     };
   }, {});
+
+const configNetworks = config.tokenContracts.reduce((acc, v) => {
+  const network = chainIdToName[v.chainId] as string;
+  if (!network) return acc;
+
+  const networkConfig = networks[network as keyof typeof networks];
+  if (!networkConfig) return acc;
+
+  acc[network] = networkConfig;
+  return acc;
+}, {} as typeof networks);
 
 const contracts = (config.tokenContracts as TokenConfig[]).reduce(
   (acc: any, v) => {
@@ -57,20 +79,20 @@ const contracts = (config.tokenContracts as TokenConfig[]).reduce(
   {
     ERC20: {
       abi: ERC20RailsAbi,
-      network: contractNetworks,
+      network: configContractNetworks,
     },
     ERC721: {
       abi: ERC721RailsAbi,
-      network: contractNetworks,
+      network: configContractNetworks,
     },
     ERC1155: {
       abi: ERC1155RailsAbi,
-      network: contractNetworks,
+      network: configContractNetworks,
     },
   }
 );
 
 export default createConfig({
-  networks,
+  networks: configNetworks,
   contracts,
 });
