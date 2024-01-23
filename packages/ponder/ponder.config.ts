@@ -1,9 +1,9 @@
 import { createConfig } from "@ponder/core";
 import { Transport, http } from "viem";
 import { ERC20RailsAbi, ERC721RailsAbi, ERC1155RailsAbi } from "./abis";
-import config from "../groupos.config";
-import { TokenConfig } from "../src/lib/types";
-import { alchemyEndpointCore } from "../src/lib/alchemy/hooks";
+import config from "../directory/groupos.config";
+import { TokenConfig } from "../directory/src/lib/types";
+import { alchemyEndpointCore } from "../directory/src/lib/alchemy/hooks";
 
 const chainIdToName: Record<number, string> = {
   1: "mainnet",
