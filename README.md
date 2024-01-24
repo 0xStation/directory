@@ -2,6 +2,8 @@
 
 A batteries-included open-source repo for creating and managing token ecosystems.
 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/vJ6TmR?referralCode=MNLZs0)
+
 ## Design Principles
 1. Configurable boilerplate -> easy to start using immediately and make small adjustments
 2. Extendable framework -> inherit opinions, but maintain control to build your own solutions
