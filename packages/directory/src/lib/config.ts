@@ -3,6 +3,7 @@ import { GroupOsConfig } from "./types";
 export const defaultConfig: GroupOsConfig = {
   logo: "",
   name: "Default Group",
+  githubRepo: "",
   theme: {
     colors: {
       // accents

@@ -56,6 +56,8 @@ export type Erc20Owner = {
 
 export type Erc721Token = {
   id: string;
+  chainId: number;
+  contractAddress: `0x${string}`;
   tokenId: string;
   ownerAddress: `0x${string}`;
   mintedAt: Date;
