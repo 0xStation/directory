@@ -3,6 +3,7 @@ import { createConfig } from "../src/lib/config";
 export default createConfig({
   logo: "https://pbs.twimg.com/profile_images/1660360628941324290/GQYSBPow_400x400.jpg",
   name: "Mangrove DAO",
+  githubRepo: "mcgingras/demo-directory",
   tokenContracts: [
     {
       slug: "builders",

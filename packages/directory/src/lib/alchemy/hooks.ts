@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { checksumAddress, erc20Abi, formatUnits, zeroAddress } from "viem";
+import { checksumAddress, erc20Abi, zeroAddress } from "viem";
 import { networkName } from "../utils";
 import { useReadContracts } from "wagmi";
 

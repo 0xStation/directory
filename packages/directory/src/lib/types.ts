@@ -21,6 +21,7 @@ export type TokenConfig = {
 export type GroupOsConfig = {
   logo: string;
   name: string;
+  githubRepo: string;
   tokenContracts: TokenConfig[];
   tokenboundAccounts: {
     registry: `0x${string}`;
