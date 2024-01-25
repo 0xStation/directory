@@ -13,6 +13,9 @@ export default createConfig({
       contractAddress: "0x9c46fe757ea200dfba1a77d1300f77289d8314cd",
       addTokenboundAccounts: true,
       creationBlock: 18629889,
+      traits: [],
+      tokenTraits: [],
+      description: "",
     },
     {
       slug: "guild-tokens",
@@ -22,6 +25,9 @@ export default createConfig({
       chainId: 10,
       contractAddress: "0xa014f6649667c73b108f611413916324e9276eab",
       creationBlock: 18629889,
+      traits: [],
+      tokenTraits: [],
+      description: "",
     },
     {
       slug: "tiers",
@@ -31,6 +37,9 @@ export default createConfig({
       chainId: 10,
       contractAddress: "0xcbd623f16e92023660549b130529b3876f6893b9",
       creationBlock: 18629889,
+      traits: [],
+      tokenTraits: [],
+      description: "",
     },
   ],
   theme: {

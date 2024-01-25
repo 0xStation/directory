@@ -1,8 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {
-  NftMetadata,
-  generateMetadataForErc721Token,
-} from "@/models/erc721/metadata";
+import { NftMetadata, generateMetadataForErc721 } from "@/lib/erc721/metadata";
 import { computeTbaAddress } from "@/lib/erc6551";
 import config from "../../../../groupos.config";
 import {
@@ -36,12 +33,13 @@ export default async function handler(
   }
 
   let metadata: NftMetadata;
-
   if (tokenContract.tokenStandard === ("ERC721" as TokenStandard)) {
     let erc721Tokens = await getErc721Tokens(
       parseInt(chainId),
       contractAddress as `0x${string}`
     );
+
+    console.log(erc721Tokens);
 
     if (erc721Tokens.length === 0) {
       res.status(404).json({ error: "Token not found" });
@@ -84,7 +82,7 @@ export default async function handler(
         ),
       ]);
 
-      metadata = generateMetadataForErc721Token({
+      metadata = generateMetadataForErc721({
         tokenContract: tokenContract as TokenConfig,
         erc721Token: erc721Token,
         erc20Traits: erc20OwnersForTraits,
@@ -93,10 +91,8 @@ export default async function handler(
         includeTokenTraits: true,
       });
     } else {
-      metadata = generateMetadataForErc721Token({
-        tokenContract: tokenContract as TokenConfig,
-        erc721Token,
-      });
+      res.status(500).json({ error: "Could not find this token." });
+      return;
     }
   }
   // else if (tokenContract.tokenStandard === ("ERC1155" as TokenStandard)) {

@@ -8,20 +8,49 @@ export type Color =
   | "red"
   | "yellow";
 
+export enum BASIC_TRAIT_TYPE {
+  CUSTOM_TEXT = "CUSTOM_FIXED",
+  CUSTOM_NUMBER = "CUSTOM_NUMBER",
+  OWNER_ADDRESS = "OWNER_ADDRESS",
+  MINTED_AT = "MINTED_AT",
+}
+
+export enum TOKEN_TRAIT_TYPE {
+  ERC20Balance = "ERC20Balance",
+  ERC721Balance = "ERC721Balance",
+  ERC1155Balance = "ERC1155Balance",
+  ERC20Tier = "ERC20Tier",
+  ERC1155Tier = "ERC1155Tier",
+  ERC721Ownership = "ERC721Ownership",
+  ERC1155Ownership = "ERC1155Ownership",
+  ERC1155Role = "ERC1155Role",
+}
+
 export type TokenConfig = {
   image: string;
   chainId: number;
   contractAddress: `0x${string}`;
   tokenStandard: TokenStandard;
   slug: string;
+  description: string;
   creationBlock: number;
   addTokenboundAccounts?: boolean;
+  traits: Trait[];
   tokenTraits: TokenTrait[];
+  animation_url?: string;
 };
 
 export type TokenTrait = {
   sourceContractAddress: `0x${string}`;
   targetContractAddress: `0x${string}`;
+  name: string;
+  type: TOKEN_TRAIT_TYPE;
+};
+
+export type Trait = {
+  name: string;
+  type: BASIC_TRAIT_TYPE;
+  value: string;
 };
 
 export type GroupOsConfig = {

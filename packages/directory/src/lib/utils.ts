@@ -32,7 +32,7 @@ export function truncateBytes(bytes: string = "0x", visibleChars: number = 4) {
   return bytes;
 }
 
-const formatDate = (timestamp: any, omitTime?: boolean) => {
+export const formatDate = (timestamp: any, omitTime?: boolean) => {
   let date = new Date(timestamp);
 
   let monthNames = [

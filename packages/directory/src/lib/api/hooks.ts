@@ -3,17 +3,21 @@ import { request, gql } from "graphql-request";
 import { Erc20Owner, Erc721Token, Erc1155Owner } from "../types";
 import { checksumAddress } from "viem";
 
+const URL = "http://localhost:3000/api/ponder";
 export const getErc20OwnersForTraits = async (
   chainId: number,
   contractAddresses: `0x${string}`[],
   ownerAddress: `0x${string}`
 ) => {
+  if (contractAddresses.length === 0) {
+    return [];
+  }
   const contractAddressesChecksumed = contractAddresses.map((v) =>
     checksumAddress(v)
   );
   const ownerAddressChecksumed = checksumAddress(ownerAddress);
   const data = (await request(
-    "/api/ponder",
+    URL,
     gql`
         {
           erc20Owners(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\", ownerAddress: \"${ownerAddressChecksumed}\") {
@@ -32,7 +36,7 @@ export const getErc20Owners = async (
   contractAddress: `0x${string}`
 ) => {
   const data = (await request(
-    "/api/ponder",
+    URL,
     gql`
         {
           erc20Owners(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
@@ -65,13 +69,16 @@ export const getErc721TokensForTraits = async (
   contractAddresses: `0x${string}`[],
   ownerAddress: `0x${string}`
 ) => {
+  if (contractAddresses.length === 0) {
+    return [];
+  }
   const contractAddressesChecksumed = contractAddresses.map((v) =>
     checksumAddress(v)
   );
   const ownerAddressChecksumed = checksumAddress(ownerAddress);
 
   const data = (await request(
-    "/api/ponder",
+    URL,
     gql`
         {
           erc721Tokens(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\" ownerAddress: \"${ownerAddressChecksumed}\"}) {
@@ -95,7 +102,7 @@ export const getErc721Tokens = async (
   contractAddress: `0x${string}`
 ) => {
   const data = (await request(
-    "/api/ponder",
+    URL,
     gql`
         {
           erc721Tokens(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
@@ -132,13 +139,16 @@ export const getErc1155OwnersForTraits = async (
   contractAddresses: `0x${string}`[],
   ownerAddress: `0x${string}`
 ) => {
+  if (contractAddresses.length === 0) {
+    return [];
+  }
   const contractAddressesChecksumed = contractAddresses.map((v) =>
     checksumAddress(v)
   );
   const ownerAddressChecksumed = checksumAddress(ownerAddress);
 
   const data = (await request(
-    "/api/ponder",
+    URL,
     gql`
         {
           erc1155Tokens(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\" ownerAddress: \"${ownerAddressChecksumed}\"}) {
