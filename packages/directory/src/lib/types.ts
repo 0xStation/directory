@@ -16,6 +16,12 @@ export type TokenConfig = {
   slug: string;
   creationBlock: number;
   addTokenboundAccounts?: boolean;
+  tokenTraits: TokenTrait[];
+};
+
+export type TokenTrait = {
+  sourceContractAddress: `0x${string}`;
+  targetContractAddress: `0x${string}`;
 };
 
 export type GroupOsConfig = {
@@ -62,6 +68,15 @@ export type Erc721Token = {
   ownerAddress: `0x${string}`;
   mintedAt: Date;
   tbaAddress: `0x${string}`;
+};
+
+export type Erc1155Owner = {
+  id: string;
+  chainId: number;
+  contractAddress: `0x${string}`;
+  tokenId: string;
+  ownerAddress: `0x${string}`;
+  balance: string;
 };
 
 export type NftMetadata = {

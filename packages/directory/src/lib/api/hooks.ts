@@ -1,7 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { request, gql } from "graphql-request";
-import { Erc20Owner, Erc721Token } from "../types";
+import { Erc20Owner, Erc721Token, Erc1155Owner } from "../types";
 import { checksumAddress } from "viem";
+
+export const getErc20OwnersForTraits = async (
+  chainId: number,
+  contractAddresses: `0x${string}`[],
+  ownerAddress: `0x${string}`
+) => {
+  const contractAddressesChecksumed = contractAddresses.map((v) =>
+    checksumAddress(v)
+  );
+  const ownerAddressChecksumed = checksumAddress(ownerAddress);
+  const data = (await request(
+    "/api/ponder",
+    gql`
+        {
+          erc20Owners(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\", ownerAddress: \"${ownerAddressChecksumed}\") {
+            id
+            ownerAddress
+            balance
+          }
+        }
+      `
+  )) as { erc20Owners: any[] };
+  return (data?.erc20Owners ?? []) as Erc20Owner[];
+};
 
 export const getErc20Owners = async (
   chainId: number,
@@ -35,6 +59,36 @@ export function useErc20Owners(
     enabled: Boolean(chainId && contractAddress),
   });
 }
+
+export const getErc721TokensForTraits = async (
+  chainId: number,
+  contractAddresses: `0x${string}`[],
+  ownerAddress: `0x${string}`
+) => {
+  const contractAddressesChecksumed = contractAddresses.map((v) =>
+    checksumAddress(v)
+  );
+  const ownerAddressChecksumed = checksumAddress(ownerAddress);
+
+  const data = (await request(
+    "/api/ponder",
+    gql`
+        {
+          erc721Tokens(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\" ownerAddress: \"${ownerAddressChecksumed}\"}) {
+            id
+            tokenId
+            ownerAddress
+            mintedAt
+            tbaAddress
+          }
+        }
+      `
+  )) as { erc721Tokens: any[] };
+  return (data?.erc721Tokens ?? []).map((v) => ({
+    ...v,
+    mintedAt: new Date(parseInt(v.mintedAt) * 1000),
+  })) as Erc721Token[];
+};
 
 export const getErc721Tokens = async (
   chainId: number,
@@ -72,3 +126,33 @@ export function useErc721Tokens(
     enabled: Boolean(chainId && contractAddress),
   });
 }
+
+export const getErc1155OwnersForTraits = async (
+  chainId: number,
+  contractAddresses: `0x${string}`[],
+  ownerAddress: `0x${string}`
+) => {
+  const contractAddressesChecksumed = contractAddresses.map((v) =>
+    checksumAddress(v)
+  );
+  const ownerAddressChecksumed = checksumAddress(ownerAddress);
+
+  const data = (await request(
+    "/api/ponder",
+    gql`
+        {
+          erc1155Tokens(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\" ownerAddress: \"${ownerAddressChecksumed}\"}) {
+            id
+            tokenId
+            ownerAddress
+            mintedAt
+            balance
+          }
+        }
+      `
+  )) as { erc1155Tokens: any[] };
+  return (data?.erc1155Tokens ?? []).map((v) => ({
+    ...v,
+    mintedAt: new Date(parseInt(v.mintedAt) * 1000),
+  })) as Erc1155Owner[];
+};
