@@ -15,15 +15,15 @@ const TokenDirectoryPage = () => {
       <div className="z-20 border-b border-b-highlight px-6">
         <TabsList>
           <TabsTrigger value="directory">Directory</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
+          {/* <TabsTrigger value="settings">Settings</TabsTrigger> */}
         </TabsList>
       </div>
       <TabsContent value="directory">
         <TokenDirectory />
       </TabsContent>
-      <TabsContent value="settings">
+      {/* <TabsContent value="settings">
         <TokenSettings />
-      </TabsContent>
+      </TabsContent> */}
     </Tabs>
   );
 };

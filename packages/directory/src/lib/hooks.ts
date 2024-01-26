@@ -52,13 +52,18 @@ export function useNftMetadata(tokenContract?: TokenConfig, tokenId?: string) {
         tokenContract?.tokenStandard === "ERC1155",
     },
   });
-  const uri = uriResult.data as string;
+
+  const uri =
+    process.env.NODE_ENV === "development"
+      ? `/api/nft/metadata?chainId=${tokenContract?.chainId}&contractAddress=${tokenContract?.contractAddress}&tokenId=${tokenId}`
+      : (uriResult.data as string);
 
   const metadata = useQuery({
     queryKey: [tokenContract?.chainId, tokenContract?.contractAddress, tokenId],
     queryFn: async () => {
       const res = await fetch(uri);
       const data = await res.json();
+      console.log(data);
       return data as NftMetadata;
     },
     staleTime: 10 * 60 * 1000,

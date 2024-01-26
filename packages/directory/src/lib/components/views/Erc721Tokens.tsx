@@ -121,6 +121,9 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
     address: token?.tbaAddress,
   });
 
+  console.log(error);
+  console.log(metadata);
+
   if (!token) return null;
   return (
     <div className="space-y-6">
