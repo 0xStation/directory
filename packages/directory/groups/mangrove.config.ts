@@ -29,6 +29,7 @@ export default createConfig({
           sourceContractAddress: "0x5f120453dfd0c55f55370d1f718089ae0fcf6387",
           name: "Activity Score",
           type: TOKEN_TRAIT_TYPE.ERC20Balance,
+          data: {},
         },
       ],
       description: "",

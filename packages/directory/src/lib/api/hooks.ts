@@ -32,7 +32,7 @@ export function useErc20Owners(
   return useQuery({
     queryKey: ["erc20Owners"],
     queryFn: async () => {
-      await getErc20Owners(chainId!, contractAddress!);
+      return await getErc20Owners(chainId!, contractAddress!);
     },
     enabled: Boolean(chainId && contractAddress),
   });
