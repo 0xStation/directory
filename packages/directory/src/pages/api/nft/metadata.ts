@@ -2,12 +2,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { NftMetadata, generateMetadataForErc721 } from "@/lib/erc721/metadata";
 import { computeTbaAddress } from "@/lib/erc6551";
 import config from "../../../../groupos.config";
-import {
-  getErc721Tokens,
-  getErc721TokensForTraits,
-  getErc1155OwnersForTraits,
-  getErc20OwnersForTraits,
-} from "@/lib/api/hooks";
+import { getErc721Tokens } from "@/lib/api/hooks";
+import { getErc20OwnersForTraits } from "@/lib/api/getErc20OwnersForTraits";
+import { getErc721TokensForTraits } from "@/lib/api/getErc721TokensForTraits";
+import { getErc1155OwnersForTraits } from "@/lib/api/getErc1155OwnersForTraits";
 import { TokenStandard, TokenConfig } from "@/lib/types";
 
 export default async function handler(
@@ -39,10 +37,8 @@ export default async function handler(
       contractAddress as `0x${string}`
     );
 
-    console.log(erc721Tokens);
-
     if (erc721Tokens.length === 0) {
-      res.status(404).json({ error: "Token not found" });
+      res.status(404).json({ error: "No tokens found" });
       return;
     }
 
@@ -65,18 +61,18 @@ export default async function handler(
         erc1155OwnersForTraits,
       ] = await Promise.all([
         getErc20OwnersForTraits(
-          erc721Token.chainId,
+          parseInt(chainId),
           tokenContract.tokenTraits.map((trait) => trait.sourceContractAddress),
           tbaAddress
         ),
         getErc721TokensForTraits(
-          erc721Token.chainId,
+          parseInt(chainId),
           tokenContract.tokenTraits.map((trait) => trait.sourceContractAddress),
           tbaAddress
         ),
         // include token?
         getErc1155OwnersForTraits(
-          erc721Token.chainId,
+          parseInt(chainId),
           tokenContract.tokenTraits.map((trait) => trait.sourceContractAddress),
           tbaAddress
         ),

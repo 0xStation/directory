@@ -42,9 +42,9 @@ export type TokenConfig = {
 
 export type TokenTrait = {
   sourceContractAddress: `0x${string}`;
-  targetContractAddress: `0x${string}`;
   name: string;
   type: TOKEN_TRAIT_TYPE;
+  data: any;
 };
 
 export type Trait = {

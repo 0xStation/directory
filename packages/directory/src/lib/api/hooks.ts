@@ -4,32 +4,6 @@ import { Erc20Owner, Erc721Token, Erc1155Owner } from "../types";
 import { checksumAddress } from "viem";
 
 const URL = "http://localhost:3000/api/ponder";
-export const getErc20OwnersForTraits = async (
-  chainId: number,
-  contractAddresses: `0x${string}`[],
-  ownerAddress: `0x${string}`
-) => {
-  if (contractAddresses.length === 0) {
-    return [];
-  }
-  const contractAddressesChecksumed = contractAddresses.map((v) =>
-    checksumAddress(v)
-  );
-  const ownerAddressChecksumed = checksumAddress(ownerAddress);
-  const data = (await request(
-    URL,
-    gql`
-        {
-          erc20Owners(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\", ownerAddress: \"${ownerAddressChecksumed}\") {
-            id
-            ownerAddress
-            balance
-          }
-        }
-      `
-  )) as { erc20Owners: any[] };
-  return (data?.erc20Owners ?? []) as Erc20Owner[];
-};
 
 export const getErc20Owners = async (
   chainId: number,
@@ -81,7 +55,9 @@ export const getErc721TokensForTraits = async (
     URL,
     gql`
         {
-          erc721Tokens(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\" ownerAddress: \"${ownerAddressChecksumed}\"}) {
+          erc721Tokens(where: {chainId: ${chainId}, contractAddress_in: [\"${contractAddressesChecksumed.join(
+      ","
+    )}\"] ownerAddress: \"${ownerAddressChecksumed}\"}) {
             id
             tokenId
             ownerAddress
@@ -151,7 +127,9 @@ export const getErc1155OwnersForTraits = async (
     URL,
     gql`
         {
-          erc1155Tokens(where: {chainId: ${chainId}, contractAddress_in: \"${contractAddressesChecksumed}\" ownerAddress: \"${ownerAddressChecksumed}\"}) {
+          erc1155Tokens(where: {chainId: ${chainId}, contractAddress_in: [\"${contractAddressesChecksumed.join(
+      ","
+    )}\"] ownerAddress: \"${ownerAddressChecksumed}\"}) {
             id
             tokenId
             ownerAddress

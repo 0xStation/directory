@@ -1,4 +1,5 @@
 import { createConfig } from "../src/lib/config";
+import { TOKEN_TRAIT_TYPE } from "../src/lib/types";
 
 export default createConfig({
   logo: "https://pbs.twimg.com/profile_images/1660360628941324290/GQYSBPow_400x400.jpg",
@@ -15,7 +16,21 @@ export default createConfig({
       creationBlock: 18629642,
       addTokenboundAccounts: true,
       traits: [],
-      tokenTraits: [],
+      tokenTraits: [
+        {
+          sourceContractAddress: "0xd1502a7659eaad60278ae3ef27edea849504f4da",
+          name: "Active",
+          type: TOKEN_TRAIT_TYPE.ERC1155Ownership,
+          data: {
+            tokenIdSpecifier: "ANY",
+          },
+        },
+        {
+          sourceContractAddress: "0x5f120453dfd0c55f55370d1f718089ae0fcf6387",
+          name: "Activity Score",
+          type: TOKEN_TRAIT_TYPE.ERC20Balance,
+        },
+      ],
       description: "",
     },
     {
