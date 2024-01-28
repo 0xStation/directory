@@ -20,8 +20,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/ponder/:path*",
+        // source: "/api/ponder/:path*",
         destination: "http://localhost:42069/:path*", // Proxy to Backend
+        // destination: "ponder.railway.internal/:path",
         // destination: "https://ponder-production-3dc7.up.railway.app/:path*", // Proxy to Backend
       },
     ];

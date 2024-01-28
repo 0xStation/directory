@@ -85,7 +85,7 @@ const getContractsForPonder = () => {
   const configContractNetworks = getConfigContractNetworksForPonder();
   const contracts = (config.tokenContracts as TokenConfig[]).reduce(
     (acc: any, v) => {
-      acc[v.tokenStandard].network[chainIdToName[v.chainId]!]?.address.push(
+      acc[v.tokenStandard].network[chainIdToName[v.chainId]!]?.address?.push(
         v.contractAddress
       );
       if (
