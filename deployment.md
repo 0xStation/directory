@@ -4,13 +4,12 @@
 
 1. Click the button above to start deploying to Railway. You will need to sign in with a Github account.
 
-2. There are two packages you will need to deploy. One is the frontend UI, and the other is the Ponder indexing service. Click configure to start configuring the frontend package. Under repository details, enter the name you want to use for your project. Railway will automatically clone the repo to your Github account with this name. You will also need to provide an environment variable `NEXT_PUBLIC_PONDER_PUBLIC_URL`, but for now we can ignore it since we do not yet know the public url (we need to deploy the ponder service first.) Click `save config`.
+2. There are two packages you will need to deploy. One is the frontend UI, and the other is the Ponder indexing service. Click configure to start configuring the frontend package. Under repository details, enter the name you want to use for your project. Railway will automatically clone the repo to your Github account with this name. Here we need to set the `NEXT_PUBLIC_ALCHEMY_API_KEY` environment variable. You can get an alchemy API key by going to [Alchemy](https://www.alchemy.com/) and signing up for their service. You will also need to provide an environment variable `NEXT_PUBLIC_PONDER_PUBLIC_URL`, but for now we can ignore it since we do not yet know the public url (we need to deploy the ponder service first.) Click `save config`.
 
 <img width="632" alt="Screenshot 2024-01-29 at 8 05 48 AM" src="https://github.com/0xStation/directory/assets/12549482/9c15fa23-409e-470f-abf9-f9f0ebfaafbb">
 <img width="581" alt="Screenshot 2024-01-29 at 8 06 51 AM" src="https://github.com/0xStation/directory/assets/12549482/fcb78aa9-875b-4776-bfca-51732eb98244">
 
-
-3. Configure the ponder package. Here we need to set the `NEXT_PUBLIC_ALCHEMY_API_KEY` environment variable. You can get an alchemy API key by going to [Alchemy](https://www.alchemy.com/) and signing up for their service. Click `save config`.
+3. Configure the ponder package. Here we also need to set the `NEXT_PUBLIC_ALCHEMY_API_KEY` environment variable. You can use the same alchemy API key as before. Click `save config`.
 
 <img width="578" alt="Screenshot 2024-01-29 at 8 07 06 AM" src="https://github.com/0xStation/directory/assets/12549482/604f2d31-2958-46ce-a5e2-f37a4053d417">
 
@@ -18,7 +17,6 @@
 
 <img width="709" alt="Screenshot 2024-01-29 at 8 28 37 AM" src="https://github.com/0xStation/directory/assets/12549482/3065338d-a33b-4263-82a4-2d0c137f24f3">
 <img width="995" alt="Screenshot 2024-01-29 at 8 16 34 AM" src="https://github.com/0xStation/directory/assets/12549482/a2d8abc9-25ec-43dd-b41e-db0c006d74bd">
-
 
 5. Click on frontend, then variables. Find `NEXT_PUBLIC_PONDER_PUBLIC_URL` and click on the three dots to the right to edit it. Enter the ponder URL you copied in the last step. We will need to prepend `https://` to the start of the URL, so it looks like `https://ponder-production-f009.up.railway.app`. Now click the check to save.
 
