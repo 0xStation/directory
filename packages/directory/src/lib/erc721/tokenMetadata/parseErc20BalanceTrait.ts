@@ -1,5 +1,5 @@
 import { TokenTrait } from "@/lib/types";
-import { formatUnits } from "viem";
+import { checksumAddress, formatUnits } from "viem";
 
 export const parseErc20BalanceTrait = (
   trait: TokenTrait,
@@ -8,8 +8,10 @@ export const parseErc20BalanceTrait = (
 ): { trait_type: string; value: string } => {
   const erc20Owner = erc20OwnersForTraits.find(
     (erc20Owner: any) =>
-      erc20Owner.tokenContractAddress === trait.sourceContractAddress &&
-      erc20Owner.ownerAddress === token.primaryTbaAddress
+      checksumAddress(erc20Owner.contractAddress) ===
+        checksumAddress(trait.sourceContractAddress) &&
+      checksumAddress(erc20Owner.ownerAddress) ===
+        checksumAddress(token.tbaAddress)
   );
 
   return {

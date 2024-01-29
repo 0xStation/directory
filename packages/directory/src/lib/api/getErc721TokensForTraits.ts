@@ -1,8 +1,9 @@
 import { gql, request } from "graphql-request";
 import { checksumAddress } from "viem";
 import { Erc721Token } from "../types";
+import { getPonderUrl } from "../utils";
 
-const URL = process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL!;
+const URL = getPonderUrl();
 
 const query = gql`
   query getErc721TokensForTraits(
@@ -18,6 +19,8 @@ const query = gql`
       }
     ) {
       id
+      chainId
+      contractAddress
       tokenId
       tbaAddress
     }
@@ -42,9 +45,8 @@ export const getErc721TokensForTraits = async (
     contractAddresses: contractAddressesChecksumed,
     ownerAddress: ownerAddressChecksumed,
   };
-
   const data = (await request(URL, query, variables)) as {
-    getErc721TokensForTraits: any[];
+    erc721Tokens: any[];
   };
-  return (data?.getErc721TokensForTraits ?? []) as Erc721Token[];
+  return (data?.erc721Tokens ?? []) as Erc721Token[];
 };

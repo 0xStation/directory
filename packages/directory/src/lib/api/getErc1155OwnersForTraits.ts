@@ -1,8 +1,9 @@
 import { gql, request } from "graphql-request";
 import { checksumAddress } from "viem";
 import { Erc1155Owner } from "../types";
+import { getPonderUrl } from "../utils";
 
-const URL = process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL!;
+const URL = getPonderUrl();
 
 const query = gql`
   query getErc1155OwnersForTraits(
@@ -18,6 +19,8 @@ const query = gql`
       }
     ) {
       id
+      chainId
+      contractAddress
       ownerAddress
       balance
     }
@@ -42,9 +45,8 @@ export const getErc1155OwnersForTraits = async (
     contractAddresses: contractAddressesChecksumed,
     ownerAddress: ownerAddressChecksumed,
   };
-
   const data = (await request(URL, query, variables)) as {
-    getErc1155OwnersForTraits: any[];
+    erc1155Owners: any[];
   };
-  return (data?.getErc1155OwnersForTraits ?? []) as Erc1155Owner[];
+  return (data?.erc1155Owners ?? []) as Erc1155Owner[];
 };

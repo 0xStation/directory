@@ -1,4 +1,5 @@
 import { TokenTrait } from "@/lib/types";
+import { checksumAddress } from "viem";
 
 export const parseErc1155TierTrait = (
   trait: TokenTrait,
@@ -10,8 +11,10 @@ export const parseErc1155TierTrait = (
 
   const erc1155Owners = erc1155OwnersForTraits.filter(
     (erc1155Owner: any) =>
-      erc1155Owner.tokenContractAddress === trait.sourceContractAddress &&
-      erc1155Owner.ownerAddress === token.primaryTbaAddress &&
+      checksumAddress(erc1155Owner.contractAddress) ===
+        checksumAddress(trait.sourceContractAddress) &&
+      checksumAddress(erc1155Owner.ownerAddress) ===
+        checksumAddress(token.tbaAddress) &&
       validTraitTokenIds.includes(erc1155Owner.tokenId)
   );
 

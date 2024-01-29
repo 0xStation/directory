@@ -1,4 +1,5 @@
 import { TokenTrait } from "@/lib/types";
+import { checksumAddress } from "viem";
 
 export const parseErc721OwnershipTrait = (
   trait: TokenTrait,
@@ -10,16 +11,20 @@ export const parseErc721OwnershipTrait = (
   if (trait.data.tokenIdSpecifier === "ANY") {
     erc721Tokens = erc721TokensForTraits.filter(
       (erc721Token: any) =>
-        erc721Token.tokenContractAddress === trait.sourceContractAddress &&
-        erc721Token.ownerAddress === token.primaryTbaAddress
+        checksumAddress(erc721Token.contractAddress) ===
+          checksumAddress(trait.sourceContractAddress) &&
+        checksumAddress(erc721Token.ownerAddress) ===
+          checksumAddress(token.tbaAddress)
     );
   } else {
     // @ts-ignore
     const validTokenIds = trait.data?.tokenId?.split(",");
     erc721Tokens = erc721TokensForTraits.filter(
       (erc721Token: any) =>
-        erc721Token.tokenContractAddress === trait.sourceContractAddress &&
-        erc721Token.ownerAddress === token.primaryTbaAddress &&
+        checksumAddress(erc721Token.contractAddress) ===
+          checksumAddress(trait.sourceContractAddress) &&
+        checksumAddress(erc721Token.ownerAddress) ===
+          checksumAddress(token.tbaAddress) &&
         validTokenIds.includes(erc721Token.tokenId)
     );
   }
@@ -27,7 +32,9 @@ export const parseErc721OwnershipTrait = (
   return {
     trait_type: trait.name,
     value: erc721Tokens.some(
-      (erc721Token: any) => erc721Token.ownerAddress === token.primaryTbaAddress
+      (erc721Token: any) =>
+        checksumAddress(erc721Token.ownerAddress) ===
+        checksumAddress(token.tbaAddress)
     )
       ? "True"
       : "False",

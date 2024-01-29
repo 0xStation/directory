@@ -1,4 +1,5 @@
 import { TokenTrait } from "@/lib/types";
+import { checksumAddress } from "viem";
 
 // todo: need to account for decimals
 export const parseErc20TierTrait = (
@@ -8,12 +9,13 @@ export const parseErc20TierTrait = (
 ): { trait_type: string; value: string } | null => {
   const erc20Owner = erc20OwnersForTraits.find(
     (erc20Owner: any) =>
-      erc20Owner.tokenContractAddress === trait.sourceContractAddress &&
-      erc20Owner.ownerAddress === token.primaryTbaAddress
+      checksumAddress(erc20Owner.contractAddress) ===
+        checksumAddress(trait.sourceContractAddress) &&
+      checksumAddress(erc20Owner.ownerAddress) ===
+        checksumAddress(token.tbaAddress)
   );
 
   const balance = erc20Owner ? erc20Owner.balance.toString() : 0;
-  console.log("balance", balance);
 
   // @ts-ignore
   const tiers = trait.data.tiers as {

@@ -1,4 +1,5 @@
 import { TokenTrait } from "@/lib/types";
+import { checksumAddress } from "viem";
 
 export const parseErc1155BalanceTrait = (
   trait: TokenTrait,
@@ -10,16 +11,20 @@ export const parseErc1155BalanceTrait = (
   if (trait.data.tokenIdSpecifier === "ALL") {
     erc1155Tokens = erc1155OwnersForTraits.filter(
       (erc1155Token: any) =>
-        erc1155Token.tokenContractAddress === trait.sourceContractAddress &&
-        erc1155Token.ownerAddress === token.primaryTbaAddress
+        checksumAddress(erc1155Token.contractAddress) ===
+          checksumAddress(trait.sourceContractAddress) &&
+        checksumAddress(erc1155Token.ownerAddress) ===
+          checksumAddress(token.tbaAddress)
     );
   } else {
     // @ts-ignore
     const validTokenIds = trait.data?.tokenId?.split(",");
     erc1155Tokens = erc1155OwnersForTraits.filter(
       (erc1155Token: any) =>
-        erc1155Token.tokenContractAddress === trait.sourceContractAddress &&
-        erc1155Token.ownerAddress === token.primaryTbaAddress &&
+        checksumAddress(erc1155Token.contractAddress) ===
+          checksumAddress(trait.sourceContractAddress) &&
+        checksumAddress(erc1155Token.ownerAddress) ===
+          checksumAddress(token.tbaAddress) &&
         validTokenIds.includes(erc1155Token.tokenId)
     );
   }

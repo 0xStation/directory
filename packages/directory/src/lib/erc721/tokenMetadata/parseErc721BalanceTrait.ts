@@ -1,4 +1,5 @@
 import { TokenTrait } from "@/lib/types";
+import { checksumAddress } from "viem";
 
 export const parseErc721BalanceTrait = (
   trait: TokenTrait,
@@ -7,7 +8,10 @@ export const parseErc721BalanceTrait = (
 ): { trait_type: string; value: string } => {
   const sum = erc721TokensForTraits.reduce(
     (acc: number, erc721Token: any) =>
-      erc721Token.ownerAddress === token.primaryTbaAddress ? acc + 1 : acc,
+      checksumAddress(erc721Token.ownerAddress) ===
+      checksumAddress(token.tbaAddress)
+        ? acc + 1
+        : acc,
     0
   );
   return {

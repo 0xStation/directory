@@ -112,3 +112,7 @@ export const getContractUrl = (chainId?: number, address?: string) => {
       : "https://etherscan.io"
   }/address/${address}`;
 };
+
+export function getPonderUrl() {
+  return process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL ?? "http://localhost:42069";
+}

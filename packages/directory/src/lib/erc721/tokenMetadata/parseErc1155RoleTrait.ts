@@ -1,4 +1,5 @@
 import { TokenTrait, TokenConfig } from "@/lib/types";
+import { checksumAddress } from "viem";
 
 export const parseErc1155RoleTrait = (
   trait: TokenTrait,
@@ -8,8 +9,10 @@ export const parseErc1155RoleTrait = (
 ): { trait_type: string; value: string } => {
   const erc1155Owners = erc1155OwnersForTraits.filter(
     (erc1155Owner: any) =>
-      erc1155Owner.tokenContractAddress === trait.sourceContractAddress &&
-      erc1155Owner.ownerAddress === token.primaryTbaAddress
+      checksumAddress(erc1155Owner.contractAddress) ===
+        checksumAddress(trait.sourceContractAddress) &&
+      checksumAddress(erc1155Owner.ownerAddress) ===
+        checksumAddress(token.tbaAddress)
   );
 
   // maybe want to read the metadata on-chain to get the name -- especially if we aren't indexing data ourselves

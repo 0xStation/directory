@@ -3,7 +3,7 @@ import { request, gql } from "graphql-request";
 import { Erc20Owner, Erc721Token } from "../types";
 import { checksumAddress } from "viem";
 
-const URL = process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL!;
+const URL = "/api/ponder";
 
 export const getErc20Owners = async (
   chainId: number,
