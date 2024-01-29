@@ -38,6 +38,7 @@ export type TokenConfig = {
   traits: Trait[];
   tokenTraits: TokenTrait[];
   animation_url?: string;
+  showOnDashboard?: boolean;
 };
 
 export type TokenTrait = {

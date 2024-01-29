@@ -19,16 +19,22 @@ export default function App() {
       </nav>
       <div className="px-4 py-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:flex xl:flex-wrap w-full xl:justify-items-center gap-4 xl:gap-x-2">
-          {tokenContracts.map((tokenContract, i) => (
-            <TokenContractCard
-              key={`tokenContract-${i}`}
-              href={pages.tokenDirectory(tokenContract)}
-              image={tokenContract.image}
-              chainId={tokenContract.chainId}
-              contractAddress={tokenContract.contractAddress}
-              tokenStandard={tokenContract.tokenStandard}
-            />
-          ))}
+          {tokenContracts
+            .filter(
+              (tokenContract) =>
+                tokenContract.showOnDashboard === undefined ||
+                tokenContract.showOnDashboard === true
+            )
+            .map((tokenContract, i) => (
+              <TokenContractCard
+                key={`tokenContract-${i}`}
+                href={pages.tokenDirectory(tokenContract)}
+                image={tokenContract.image}
+                chainId={tokenContract.chainId}
+                contractAddress={tokenContract.contractAddress}
+                tokenStandard={tokenContract.tokenStandard}
+              />
+            ))}
         </div>
       </div>
     </>

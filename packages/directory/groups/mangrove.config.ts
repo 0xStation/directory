@@ -117,6 +117,7 @@ export default createConfig({
       traits: [],
       tokenTraits: [],
       description: "",
+      showOnDashboard: false,
     },
     {
       slug: "pod-score",
@@ -129,6 +130,7 @@ export default createConfig({
       traits: [],
       tokenTraits: [],
       description: "",
+      showOnDashboard: false,
     },
     {
       slug: "active-builders",
@@ -141,6 +143,7 @@ export default createConfig({
       traits: [],
       tokenTraits: [],
       description: "",
+      showOnDashboard: false,
     },
     {
       slug: "active-pods",
@@ -153,6 +156,7 @@ export default createConfig({
       traits: [],
       tokenTraits: [],
       description: "",
+      showOnDashboard: false,
     },
     {
       slug: "active-protocol-council",
@@ -165,6 +169,7 @@ export default createConfig({
       traits: [],
       tokenTraits: [],
       description: "",
+      showOnDashboard: false,
     },
     {
       slug: "active-ecosystem-council",
@@ -177,6 +182,7 @@ export default createConfig({
       traits: [],
       tokenTraits: [],
       description: "",
+      showOnDashboard: false,
     },
   ],
   theme: {

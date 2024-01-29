@@ -36,7 +36,7 @@ function TokenDirectory() {
     case "ERC721":
       return <Erc721Tokens tokenContract={tokenContract} />;
     default:
-      return <div>token</div>;
+      return <div className="p-4">Coming soon...</div>;
   }
 }
 

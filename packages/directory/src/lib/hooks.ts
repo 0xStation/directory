@@ -67,7 +67,7 @@ export function useNftMetadata(tokenContract?: TokenConfig, tokenId?: string) {
     },
     staleTime: 10 * 60 * 1000,
     refetchOnWindowFocus: false,
-    enabled: Boolean(tokenContract && tokenId),
+    enabled: Boolean(tokenContract && tokenId && uri),
   });
 
   return metadata;
