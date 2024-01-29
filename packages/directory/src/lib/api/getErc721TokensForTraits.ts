@@ -2,7 +2,7 @@ import { gql, request } from "graphql-request";
 import { checksumAddress } from "viem";
 import { Erc721Token } from "../types";
 
-const URL = `${process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL}/api/ponder`;
+const URL = process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL!;
 
 const query = gql`
   query getErc721TokensForTraits(

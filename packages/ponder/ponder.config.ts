@@ -24,17 +24,6 @@ const contractNetworks: Record<
   {}
 );
 
-const configContractNetworks = config.tokenContracts.reduce((acc, v) => {
-  const network = chainIdToName[v.chainId] as string;
-  if (!network) return acc;
-
-  const contractNetwork = contractNetworks[network as keyof typeof networks];
-  if (!contractNetwork) return acc;
-
-  acc[network] = contractNetwork;
-  return acc;
-}, {} as typeof contractNetworks);
-
 const networks: Record<string, { chainId: number; transport: Transport }> =
   Object.entries(chainIdToName).reduce((acc, v) => {
     const chainId = parseInt(v[0]);
@@ -47,16 +36,6 @@ const networks: Record<string, { chainId: number; transport: Transport }> =
     };
   }, {});
 
-const getConfigContractNetworksForPonder = () => {
-  if (Object.keys(configNetworks).length === 0) {
-    return {
-      mainnet: contractNetworks.mainnet,
-    };
-  } else {
-    return configNetworks;
-  }
-};
-
 const configNetworks = config.tokenContracts.reduce((acc, v) => {
   const network = chainIdToName[v.chainId] as string;
   if (!network) return acc;
@@ -67,6 +46,27 @@ const configNetworks = config.tokenContracts.reduce((acc, v) => {
   acc[network] = networkConfig;
   return acc;
 }, {} as typeof networks);
+
+const configContractNetworks = config.tokenContracts.reduce((acc, v) => {
+  const network = chainIdToName[v.chainId] as string;
+  if (!network) return acc;
+
+  const contractNetwork = contractNetworks[network as keyof typeof networks];
+  if (!contractNetwork) return acc;
+
+  acc[network] = contractNetwork;
+  return acc;
+}, {} as typeof contractNetworks);
+
+const getConfigContractNetworksForPonder = () => {
+  if (Object.keys(configNetworks).length === 0) {
+    return {
+      mainnet: contractNetworks.mainnet,
+    };
+  } else {
+    return configContractNetworks;
+  }
+};
 
 const getConfigNetworksForPonder = () => {
   if (Object.keys(configNetworks).length === 0) {
@@ -124,3 +124,26 @@ export default createConfig({
   networks: getConfigNetworksForPonder(),
   contracts: getContractsForPonder(),
 });
+
+// export default createConfig({
+//   networks: {
+//     mainnet: {
+//       chainId: 1,
+//       transport: http(alchemyEndpointCore(1)),
+//     },
+//   },
+//   contracts: {
+//     ERC20: {
+//       abi: ERC20RailsAbi,
+//       network: configContractNetworks,
+//     },
+//     ERC721: {
+//       abi: ERC721RailsAbi,
+//       network: configContractNetworks,
+//     },
+//     ERC1155: {
+//       abi: ERC1155RailsAbi,
+//       network: configContractNetworks,
+//     },
+//   },
+// });
