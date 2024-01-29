@@ -195,12 +195,12 @@ export default createConfig({
       orange: "#FF9956",
       yellow: "#CEDC4B",
       purple: "#AD72FF",
-      // light mode
-      primary: "#010101",
+      // green dark mode
+      primary: "#FFFFFF",
       secondary: "#858585",
-      highlight: "#E4E4E4",
-      highlightFaint: "#EEEEEE",
-      background: "#FAFAFA",
+      highlight: "#1D5353",
+      highlightFaint: "#103030",
+      background: "#0B2121",
     },
   },
 });
