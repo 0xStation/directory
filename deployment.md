@@ -4,7 +4,7 @@
 
 1. Click the button above to start deploying to Railway. You will need to sign in with a Github account.
 
-2. There are two packages you will need to deploy. One is the frontend UI, and the other is the Ponder indexing service. Click configure to start configuring the frontend package. Under repository details, enter the name you want to use for your project. Railway will automatically clone the repo to your Github account with this name. Here we need to set the `NEXT_PUBLIC_ALCHEMY_API_KEY` environment variable. You can get an alchemy API key by going to [Alchemy](https://www.alchemy.com/) and signing up for their service. You will also need to provide an environment variable `NEXT_PUBLIC_PONDER_PUBLIC_URL`, but for now we can ignore it since we do not yet know the public url (we need to deploy the ponder service first.) Click `save config`.
+2. There are two packages you will need to deploy. One is the frontend UI, and the other is the Ponder indexing service. Click configure to start configuring the frontend package. Under repository details, enter the name you want to use for your project. Railway will automatically clone the repo to your Github account with this name. Here we need to set the `NEXT_PUBLIC_ALCHEMY_API_KEY` environment variable. You can get an alchemy API key by going to [Alchemy](https://www.alchemy.com/) and signing up for their service. You will also need to provide an environment variable `NEXT_PUBLIC_PONDER_PUBLIC_URL`, and `NEXT_PUBLIC_BASE_URL`, but for now we can ignore these since we do not yet know the public urls (we need to deploy the services first.) Click `save config`.
 
 <img width="632" alt="Screenshot 2024-01-29 at 8 05 48 AM" src="https://github.com/0xStation/directory/assets/12549482/9c15fa23-409e-470f-abf9-f9f0ebfaafbb">
 <img width="581" alt="Screenshot 2024-01-29 at 8 06 51 AM" src="https://github.com/0xStation/directory/assets/12549482/fcb78aa9-875b-4776-bfca-51732eb98244">
@@ -26,7 +26,9 @@
 
 <img width="466" alt="Screenshot 2024-01-29 at 8 19 10 AM" src="https://github.com/0xStation/directory/assets/12549482/b177fac6-d632-4976-b252-1706fe76dea8">
 
-7. To view your app, click on frontend, then deployments. Click the URL in the most recent deployment.
+7. Now do the same for `NEXT_PUBLIC_BASE_URL`. First go to the frontend service, and click deployments. Copy the URL in the most recent deployment. Next go to variables, and find `NEXT_PUBLIC_BASE_URL`. Click the 3 dots to edit the variable, and paste in the deployment URL. Make sure to add `https://` to the start. Next follow the same step 6 to propogate these changes.
+
+7. To view your app, click on frontend, then deployments. Click the URL in the most recent deployment. You will need to make sure the build is finished before clicking.
 
 <img width="995" alt="Screenshot 2024-01-29 at 8 30 20 AM" src="https://github.com/0xStation/directory/assets/12549482/ae73dcc3-6c6a-4cbf-87e1-002a65012d6b">
 
