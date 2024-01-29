@@ -108,7 +108,9 @@ export const generateMetadataForErc721 = ({
       ? tokenContract.slug + " #" + erc721Token?.tokenId
       : tokenContract.slug,
     description: tokenContract.description,
-    image: overrideImage ? overrideImage : tokenContract.image,
+    image: getImageFromPath(
+      overrideImage ? overrideImage : tokenContract.image
+    ),
     // TODO -- add external directory now that we are self-hosted
     // external_url:
     //   individualMetadata?.external_url ??
@@ -121,6 +123,13 @@ export const generateMetadataForErc721 = ({
     }),
     attributes: attributes,
   };
+};
+
+const getImageFromPath = (path: string) => {
+  if (path[0] === "/") {
+    return `${process.env.NEXT_PUBLIC_BASE_URL}/_next/image?url=${path}&w=256&q=75`;
+  }
+  return path;
 };
 
 type GenerateTokenTraitArgs = {
