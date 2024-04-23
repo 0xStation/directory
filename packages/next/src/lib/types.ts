@@ -1,3 +1,5 @@
+import { Address } from "viem";
+
 export type TokenStandard = "ERC20" | "ERC721" | "ERC1155";
 export type Color =
   | "gray"
@@ -39,6 +41,10 @@ export type TokenConfig = {
   tokenTraits: TokenTrait[];
   animation_url?: string;
   showOnDashboard?: boolean;
+  mintPage?: {
+    controller: Address;
+    background?: string;
+  };
 };
 
 export type TokenTrait = {

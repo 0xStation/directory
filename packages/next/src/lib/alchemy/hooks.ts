@@ -6,11 +6,18 @@ import { useReadContracts } from "wagmi";
 export const alchemyChainIdToChainName: Record<number, string | undefined> = {
   1: "eth-mainnet",
   5: "eth-goerli",
+  11155111: "eth-sepolia",
   10: "opt-mainnet",
   137: "polygon-mainnet",
+  8453: "base-mainnet",
+  42161: "arb-mainnet",
 };
 
 export const alchemyEndpointCore = (chainId: number) => {
+  const name = alchemyChainIdToChainName[chainId];
+  if (!name) {
+    throw Error(`No alchemy rpc found for chain ${chainId}`);
+  }
   return `https://${alchemyChainIdToChainName[chainId]}.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`;
 };
 

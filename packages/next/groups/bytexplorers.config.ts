@@ -16,6 +16,11 @@ export default createConfig({
       traits: [],
       tokenTraits: [],
       description: "",
+      mintPage: {
+        controller: "0x",
+        background:
+          "https://station-images.nyc3.digitaloceanspaces.com/9b4b21b0-2e9c-4d5d-842f-25baa66b8a25",
+      },
     },
     {
       slug: "guild-tokens",
@@ -45,7 +50,7 @@ export default createConfig({
   theme: {
     colors: {
       // accents
-      action: "#AD72FF",
+      action: "#ffffff",
       red: "#FF5650",
       green: "#63EBAF",
       blue: "#5F6FFF",
@@ -58,6 +63,12 @@ export default createConfig({
       highlight: "#2E2E2E",
       highlightFaint: "#1A1A1A",
       background: "#000000",
+      // light mode
+      // primary: "#ffffff",
+      // secondary: "#858585",
+      // highlight: "#2E2E2E",
+      // highlightFaint: "#1A1A1A",
+      // background: "#000000",
     },
   },
 });

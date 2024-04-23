@@ -19,9 +19,9 @@ const buttonVariants = cva(
         danger: "border-red bg-red hover:opacity-80 !text-white",
       },
       size: {
-        sm: "px-4 text-base-xxs max-h-7 h-7",
-        md: "px-5 text-base-sm max-h-9 h-9",
-        lg: "px-6 text-base-md max-h-11 h-11",
+        sm: "px-4 text-xs max-h-7 h-7",
+        md: "px-5 text-base max-h-9 h-9",
+        lg: "px-6 text-base max-h-11 h-11",
       },
       fullWidth: {
         true: "w-full",
