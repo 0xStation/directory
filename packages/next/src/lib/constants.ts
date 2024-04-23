@@ -13,3 +13,4 @@ export const PFP_MAP = {
 
 export const emptyImage =
   "https://station-images.nyc3.digitaloceanspaces.com/c3e5a9f4-3ba1-4ec2-a88a-a82f54c2ef42.svg";
+export const defaultWalletConnectProjectId = "bf3a6fd186e454cad2c97a7f150c03b9";

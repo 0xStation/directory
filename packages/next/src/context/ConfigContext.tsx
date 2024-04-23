@@ -1,6 +1,5 @@
 import React, { createContext } from "react";
 import config from "../../groupos.config";
-import { GroupOsConfig } from "@/lib/types";
 import { defaultConfig } from "@/lib/config";
 
 const ConfigContext = createContext(defaultConfig);

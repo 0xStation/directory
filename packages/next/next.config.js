@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // connectkit/walletconnect requirement
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, net: false, tls: false };
+    return config;
+  },
   reactStrictMode: true,
   images: {
     // support images from all domains, needed because user pfps can come from all URLs

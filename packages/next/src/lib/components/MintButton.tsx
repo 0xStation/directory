@@ -9,6 +9,7 @@ import { injected } from "wagmi/connectors";
 import { TokenConfig } from "../types";
 import { Button } from "./ui/Button";
 import { useMintErc721GasCoin } from "../hooks/mint/useMintErc721GasCoin";
+import { useModal } from "connectkit";
 
 const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
   const { call, fees, message, disabled } = useMintErc721GasCoin({
@@ -18,6 +19,7 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
   const { sendTransactionAsync } = useSendTransaction();
   const { switchChainAsync } = useSwitchChain();
   const { connect } = useConnect();
+  const { setOpen } = useModal();
 
   const [loading, setLoading] = useState<boolean>();
 
@@ -27,11 +29,7 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
         {fees.map((fee) => fee.amount + " " + fee.currency).join(" + ")}
       </span>
       {!account.address ? (
-        <Button
-          size="lg"
-          fullWidth
-          onClick={() => connect({ connector: injected() })}
-        >
+        <Button size="lg" fullWidth onClick={() => setOpen(true)}>
           Connect
         </Button>
       ) : (
@@ -55,7 +53,7 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
           disabled={disabled}
           loading={loading}
         >
-          Claim
+          Mint
         </Button>
       )}
       {message}
