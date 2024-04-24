@@ -16,6 +16,8 @@ export const NetworkIcon = ({
       return <Ethereum className={className} />;
     case 5:
       return <Goerli className={className} />;
+    case 11155111:
+      return <Goerli className={className} />;
     case 10:
       return <Optimism className={className} />;
     case 137:

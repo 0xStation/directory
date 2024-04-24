@@ -101,18 +101,31 @@ export const getNftUrl = (
 };
 
 export const getContractUrl = (chainId?: number, address?: string) => {
-  const cleanedChainId = parseInt(chainId?.toString() ?? "1");
-  return `${
-    cleanedChainId === 5
-      ? "https://goerli.etherscan.io"
-      : cleanedChainId === 137
-      ? "https://polygonscan.com"
-      : cleanedChainId === 10
-      ? "https://optimistic.etherscan.io"
-      : "https://etherscan.io"
-  }/address/${address}`;
+  return `${getExplorerUrl(chainId)}/address/${address}`;
 };
+
+export const getTransactionUrl = (chainId?: number, hash?: string) => {
+  return `${getExplorerUrl(chainId)}/tx/${hash}`;
+};
+
+function getExplorerUrl(chainId?: number) {
+  const cleanedChainId = parseInt(chainId?.toString() ?? "1");
+  return cleanedChainId === 11155111
+    ? "https://sepolia.etherscan.io"
+    : cleanedChainId === 137
+    ? "https://polygonscan.com"
+    : cleanedChainId === 10
+    ? "https://optimistic.etherscan.io"
+    : cleanedChainId === 8453
+    ? "https://basescan.org"
+    : "https://etherscan.io";
+}
 
 export function getPonderUrl() {
   return process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL ?? "http://localhost:42069";
+}
+
+export function toSentenceCase(str?: string) {
+  if (!str) return str; // Return the original string if it's empty or undefined
+  return str[0].toUpperCase() + str.slice(1).toLowerCase();
 }

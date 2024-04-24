@@ -10,6 +10,7 @@ import { TokenConfig } from "@/lib/types";
 import { useContext } from "react";
 import ConfigContext from "@/context/ConfigContext";
 import { NotFound } from "./404";
+import { ContractLink } from "../ContractLink";
 
 export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
   const name = useTokenContractName(
@@ -57,20 +58,7 @@ export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
               <section className="py-4 px-5 bg-highlightFaint text-sm rounded-lg h-fit w-full max-w-[500px] sm:w-[425px] sm:justify-self-end">
                 <h2 className="mb-2 text-2xl">{name}</h2>
                 <div className="flex flex-row space-x-2 items-center mb-8">
-                  <Link
-                    className="px-2 py-1 rounded border border-secondary flex flex-row items-center space-x-2"
-                    href={getContractUrl(
-                      tokenContract?.chainId,
-                      tokenContract?.contractAddress
-                    )}
-                    target="_blank"
-                  >
-                    <NetworkIcon
-                      className="h-5 w-5"
-                      chainId={tokenContract?.chainId}
-                    />
-                    <span>{truncateBytes(tokenContract?.contractAddress)}</span>
-                  </Link>
+                  <ContractLink contract={tokenContract} />
                 </div>
                 <div className="flex justify-center">
                   <MintButton tokenContract={tokenContract} />

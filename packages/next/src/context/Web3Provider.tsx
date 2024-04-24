@@ -1,7 +1,7 @@
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
-import { optimism } from "viem/chains";
+import { base, optimism, sepolia } from "viem/chains";
 import { alchemyEndpointCore } from "@/lib/alchemy/hooks";
 import { defaultWalletConnectProjectId } from "@/lib/constants";
 import { useContext } from "react";
@@ -11,9 +11,11 @@ const queryClient = new QueryClient();
 
 const config = createConfig(
   getDefaultConfig({
-    chains: [optimism],
+    chains: [optimism, sepolia, base],
     transports: {
       [optimism.id]: http(alchemyEndpointCore(optimism.id)),
+      [sepolia.id]: http(alchemyEndpointCore(sepolia.id)),
+      [base.id]: http(alchemyEndpointCore(base.id)),
     },
     walletConnectProjectId:
       process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ??

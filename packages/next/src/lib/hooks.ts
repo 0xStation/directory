@@ -24,6 +24,19 @@ export function useTokenContractName(
   return (nameResult.data as string) ?? "";
 }
 
+export function useTokenContractSymbol(
+  chainId?: number,
+  address?: `0x${string}`
+) {
+  const nameResult = useReadContract({
+    chainId,
+    address,
+    functionName: "symbol",
+    abi: TokenAbi,
+  });
+  return (nameResult.data as string) ?? "";
+}
+
 export function useTokenContractRoute() {
   const router = useRouter();
 
