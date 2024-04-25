@@ -10,9 +10,17 @@ import { TokenConfig } from "../types";
 import { Button } from "./ui/Button";
 import { useMintErc721GasCoin } from "../hooks/mint/useMintErc721GasCoin";
 import { useModal } from "connectkit";
+import { useOnePerAddress } from "../hooks/mint/useOnePerAddress";
 
 const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
-  const { call, fees, message, disabled } = useMintErc721GasCoin({
+  const { disabled: onePerAddressDisabled, message: onePerAddressMessage } =
+    useOnePerAddress(tokenContract);
+  const {
+    call,
+    fees,
+    message: mintMessage,
+    disabled: mintDisabled,
+  } = useMintErc721GasCoin({
     tokenContract,
   });
   const account = useAccount();
@@ -50,13 +58,13 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
             } catch (e: any) {}
             setLoading(false);
           }}
-          disabled={disabled}
+          disabled={mintDisabled || onePerAddressDisabled}
           loading={loading}
         >
           Mint
         </Button>
       )}
-      {message}
+      {onePerAddressMessage ?? mintMessage}
     </div>
   );
 };

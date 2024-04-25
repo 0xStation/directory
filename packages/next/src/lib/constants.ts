@@ -29,3 +29,7 @@ export enum Operation {
   TRANSFER_PERMIT = "0xa994951607abf93b",
   METADATA_PERMIT = "0x2af95d8d71827d12",
 }
+
+export enum Modules {
+  ONE_PER_ADDRESS = "0x5f00d3707f1e4183003e75d3e995b814fb8fabe6",
+}
