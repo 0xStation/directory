@@ -33,3 +33,5 @@ export enum Operation {
 export enum Modules {
   ONE_PER_ADDRESS = "0x5f00d3707f1e4183003e75d3e995b814fb8fabe6",
 }
+
+export const maxAddress = "0xffffffffffffffffffffffffffffffffffffffff";

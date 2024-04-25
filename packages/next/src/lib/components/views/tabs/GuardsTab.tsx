@@ -5,6 +5,7 @@ import { ContractLink } from "../../ContractLink";
 import { useReadContract } from "wagmi";
 import { GuardsAbi } from "@/lib/abi/Guards";
 import { zeroAddress } from "viem";
+import { EditGuard } from "./Guards";
 
 export function GuardsTab({ tokenContract }: { tokenContract?: TokenConfig }) {
   return (
@@ -38,13 +39,11 @@ function GuardSetting({
     args: [operation],
   });
 
-  console.log("guard", guard);
-
   return (
     <div className="space-y-4">
       <div className="flex flex-row justify-between items-center">
         <div className="text-lg font-bold">{name}</div>
-        {/* <button>Edit</button> */}
+        <EditGuard tokenContract={tokenContract} operation={operation} />
       </div>
       <div className="w-fit">
         {guard === undefined || guard === zeroAddress ? (
