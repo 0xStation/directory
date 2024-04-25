@@ -1,11 +1,11 @@
 import { Abi, AbiFunction, AbiParameter, Address, getAbiItem } from "viem";
-import { Input } from "./ui/Input";
-import { Button } from "./ui/Button";
+import { Input } from "../../ui/Input";
+import { Button } from "../../ui/Button";
 import { useReadContract, useWriteContract } from "wagmi";
-import { TokenConfig } from "../types";
+import { TokenConfig } from "../../../types";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { ContractLink } from "./ContractLink";
+import { ContractLink } from "../../ContractLink";
 
 export function ExtensionContract({
   chainId,
@@ -44,7 +44,7 @@ export function WriteExtensionFunction({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm();
 
   async function onSubmit(data: any) {
@@ -94,6 +94,7 @@ export function WriteExtensionFunction({
           variant="unemphasized"
           size="sm"
           loading={loading}
+          disabled={!isValid}
         >
           Submit
         </Button>

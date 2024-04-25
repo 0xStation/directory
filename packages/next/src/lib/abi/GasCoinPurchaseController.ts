@@ -1,115 +1,207 @@
 export const GasCoinPurchaseControllerAbi = [
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "newFee",
-        type: "uint256",
-      },
+      { internalType: "address", name: "_newOwner", type: "address" },
+      { internalType: "address", name: "_feeManager", type: "address" },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
   },
   {
     inputs: [
-      {
-        internalType: "bytes",
-        name: "data",
-        type: "bytes",
-      },
-    ],
-    name: "GrantCallFailed",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "GrantCallUnprotected",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint48",
-        name: "expiration",
-        type: "uint48",
-      },
-      {
-        internalType: "uint48",
-        name: "current",
-        type: "uint48",
-      },
-    ],
-    name: "GrantExpired",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "argument",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "GrantSenderMismatch",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "expected",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "received",
-        type: "uint256",
-      },
+      { internalType: "uint256", name: "expected", type: "uint256" },
+      { internalType: "uint256", name: "received", type: "uint256" },
     ],
     name: "InvalidFee",
     type: "error",
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "signer",
-        type: "address",
-      },
+      { internalType: "address", name: "account", type: "address" },
+      { internalType: "uint256", name: "nonce", type: "uint256" },
     ],
-    name: "InvalidGrantSigner",
+    name: "NonceAlreadyUsed",
     type: "error",
   },
   {
-    inputs: [],
-    name: "Reentrancy",
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
+    name: "OwnerInvalidOwner",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    name: "OwnerUnauthorizedAccount",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "bytes", name: "data", type: "bytes" }],
+    name: "PermitCallFailed",
+    type: "error",
+  },
+  { inputs: [], name: "PermitCallUnprotected", type: "error" },
+  {
+    inputs: [
+      { internalType: "uint48", name: "expiration", type: "uint48" },
+      { internalType: "uint48", name: "current", type: "uint48" },
+    ],
+    name: "PermitExpired",
     type: "error",
   },
   {
     inputs: [
+      { internalType: "address", name: "signer", type: "address" },
+      { internalType: "bytes32", name: "permitHash", type: "bytes32" },
+      { internalType: "bytes", name: "signature", type: "bytes" },
+    ],
+    name: "PermitInvalidSignature",
+    type: "error",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "expected", type: "address" },
+      { internalType: "address", name: "sender", type: "address" },
+    ],
+    name: "PermitSenderMismatch",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "signer", type: "address" }],
+    name: "PermitSignerInvalid",
+    type: "error",
+  },
+  { inputs: [], name: "Reentrancy", type: "error" },
+  {
+    inputs: [
+      { internalType: "address", name: "collection", type: "address" },
+      { internalType: "address", name: "account", type: "address" },
+    ],
+    name: "SetUpUnauthorized",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
       {
+        indexed: true,
+        internalType: "address",
+        name: "oldFeeManager",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newFeeManager",
+        type: "address",
+      },
+    ],
+    name: "FeeManagerUpdated",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
         internalType: "address",
         name: "collection",
         type: "address",
       },
       {
+        indexed: true,
+        internalType: "address",
+        name: "buyer",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "paymentToken",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "unitPrice",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "quantity",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "totalFee",
+        type: "uint256",
+      },
+    ],
+    name: "FeePaid",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "recipient",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "FeeWithdrawn",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
         internalType: "address",
         name: "account",
         type: "address",
       },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "nonce",
+        type: "uint256",
+      },
     ],
-    name: "SetUpUnauthorized",
-    type: "error",
+    name: "NonceUsed",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferStarted",
+    type: "event",
   },
   {
     anonymous: false,
@@ -140,37 +232,6 @@ export const GasCoinPurchaseControllerAbi = [
         type: "address",
       },
       {
-        indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "fee",
-        type: "uint256",
-      },
-    ],
-    name: "Purchase",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "collection",
-        type: "address",
-      },
-      {
         indexed: false,
         internalType: "uint256",
         name: "price",
@@ -179,7 +240,7 @@ export const GasCoinPurchaseControllerAbi = [
       {
         indexed: true,
         internalType: "bool",
-        name: "enforceGrants",
+        name: "enablePermits",
         type: "bool",
       },
     ],
@@ -187,276 +248,129 @@ export const GasCoinPurchaseControllerAbi = [
     type: "event",
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "fee",
-        type: "uint256",
-      },
-    ],
-    name: "UpdateFee",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "nonce",
-        type: "uint256",
-      },
-    ],
-    name: "UseNonce",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "WithdrawFee",
-    type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        internalType: "uint48",
-        name: "expiration",
-        type: "uint48",
-      },
-      {
-        internalType: "uint256",
-        name: "nonce",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes",
-        name: "data",
-        type: "bytes",
-      },
-      {
-        internalType: "bytes",
-        name: "signature",
-        type: "bytes",
-      },
-    ],
-    name: "callWithGrant",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
     inputs: [],
-    name: "fee",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "feeBalance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "collection",
-        type: "address",
-      },
-    ],
-    name: "grantsEnforced",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "nonce",
-        type: "uint256",
-      },
-    ],
-    name: "isNonceUsed",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "collection",
-        type: "address",
-      },
-    ],
-    name: "mint",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "collection",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-    ],
-    name: "mintTo",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "owner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "collection",
-        type: "address",
-      },
-    ],
-    name: "priceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "prices",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "renounceOwnership",
+    name: "acceptOwnership",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [
+      { internalType: "address", name: "collection", type: "address" },
+      { internalType: "uint256", name: "quantity", type: "uint256" },
+    ],
+    name: "batchMint",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "collection", type: "address" },
+      { internalType: "address", name: "recipient", type: "address" },
+      { internalType: "uint256", name: "quantity", type: "uint256" },
+    ],
+    name: "batchMintTo",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
       {
-        internalType: "address",
-        name: "collection",
-        type: "address",
+        components: [
+          { internalType: "address", name: "signer", type: "address" },
+          { internalType: "address", name: "sender", type: "address" },
+          { internalType: "uint48", name: "expiration", type: "uint48" },
+          { internalType: "uint256", name: "nonce", type: "uint256" },
+          { internalType: "bytes", name: "data", type: "bytes" },
+          { internalType: "bytes", name: "signature", type: "bytes" },
+        ],
+        internalType: "struct PermitController.Permit",
+        name: "permit",
+        type: "tuple",
       },
-      {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "enforceGrants",
-        type: "bool",
-      },
+    ],
+    name: "callWithPermit",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "account", type: "address" },
+      { internalType: "uint256", name: "nonce", type: "uint256" },
+    ],
+    name: "isNonceUsed",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "collection", type: "address" }],
+    name: "mint",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "collection", type: "address" },
+      { internalType: "address", name: "recipient", type: "address" },
+    ],
+    name: "mintTo",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "pendingOwner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "collection", type: "address" }],
+    name: "priceOf",
+    outputs: [{ internalType: "uint256", name: "price", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "prices",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "bytes", name: "context", type: "bytes" }],
+    name: "requirePermits",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "newFeeManager", type: "address" },
+    ],
+    name: "setNewFeeManager",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "price", type: "uint256" },
+      { internalType: "bool", name: "enablePermits", type: "bool" },
     ],
     name: "setUp",
     outputs: [],
@@ -465,12 +379,27 @@ export const GasCoinPurchaseControllerAbi = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
+      { internalType: "address", name: "collection", type: "address" },
+      { internalType: "uint256", name: "price", type: "uint256" },
+      { internalType: "bool", name: "enablePermits", type: "bool" },
     ],
+    name: "setUp",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "signer", type: "address" },
+      { internalType: "bytes", name: "context", type: "bytes" },
+    ],
+    name: "signerCanPermit",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
     outputs: [],
     stateMutability: "nonpayable",
@@ -478,49 +407,9 @@ export const GasCoinPurchaseControllerAbi = [
   },
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "newFee",
-        type: "uint256",
-      },
+      { internalType: "address[]", name: "paymentTokens", type: "address[]" },
     ],
-    name: "updateFee",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bool",
-        name: "grantInProgress",
-        type: "bool",
-      },
-      {
-        internalType: "address",
-        name: "signer",
-        type: "address",
-      },
-      {
-        internalType: "bytes",
-        name: "callContext",
-        type: "bytes",
-      },
-    ],
-    name: "validateGrantSigner",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "withdrawFee",
+    name: "withdrawFees",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

@@ -10,7 +10,7 @@ import {
   ExtensionContract,
   ReadExtensionFunction,
   WriteExtensionFunction,
-} from "../../Extensions";
+} from "./Extensions";
 
 export function ExtensionsTab({
   tokenContract,

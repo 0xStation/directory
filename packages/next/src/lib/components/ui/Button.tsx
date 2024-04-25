@@ -12,7 +12,7 @@ const buttonVariants = cva(
         secondary:
           "border-action bg-transparent hover:bg-highlight !text-action",
         unemphasized:
-          "border-primary bg-transparent hover:bg-highlight !text-primary",
+          "border-primary bg-transparent hover:bg-highlight !text-primary disabled:border-secondary disabled:text-secondary",
         input:
           "border-highlightFaint bg-highlightFaint hover:opacity-80 !text-white",
         error: "border-red bg-transparent hover:bg-highlight !text-red",
