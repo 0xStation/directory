@@ -44,6 +44,12 @@ export type TokenConfig = {
   mintPage?: {
     controller: Address;
     background?: string;
+    cta?: string;
+    successMessage?: string;
+    successAction?: {
+      cta: string;
+      url: string;
+    };
   };
 };
 

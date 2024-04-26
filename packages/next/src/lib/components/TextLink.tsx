@@ -12,7 +12,7 @@ const TextLink = ({
 }) => {
   return (
     <Link
-      className={cn("text-violet", className)}
+      className={cn("text-action hover:underline", className)}
       href={href}
       target="_blank"
       rel="noreferrer"

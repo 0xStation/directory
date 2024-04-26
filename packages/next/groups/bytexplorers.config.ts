@@ -36,6 +36,13 @@ export default createConfig({
       description: "",
       mintPage: {
         controller: "0xb336c2c5568b310ec5774cb6c577280c14c4dac2",
+        cta: "Test",
+        successMessage:
+          "Thanks for testing! Please check out this link before you go :).",
+        successAction: {
+          cta: "Join Telegram",
+          url: "https://guild.xyz/bytexplorers",
+        },
       },
     },
     {
