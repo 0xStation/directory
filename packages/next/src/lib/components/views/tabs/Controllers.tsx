@@ -34,6 +34,8 @@ import {
   FormLabel,
   FormMessage,
 } from "../../ui/Form";
+import { useTransactionWrapper } from "@/lib/hooks/useTransactionWrapper";
+import { TransactionLink } from "../../TransactionLink";
 
 export function GasCoinPurchaseController({
   tokenContract,
@@ -101,8 +103,6 @@ export function GasCoinPurchaseController({
 }
 
 export function SetUpForm({ tokenContract }: { tokenContract?: TokenConfig }) {
-  const [loading, setLoading] = useState<boolean>();
-
   const formSchema = z.object({
     price: z.string(),
     auth: z.enum(["public", "offchain"]),
@@ -116,23 +116,25 @@ export function SetUpForm({ tokenContract }: { tokenContract?: TokenConfig }) {
   });
 
   const { writeContractAsync } = useWriteContract();
+  const { ctaOverride, hash, pending, initiate } = useTransactionWrapper({
+    chainId: tokenContract?.chainId,
+  });
 
   async function onSubmit(data: any) {
-    setLoading(true);
-    try {
-      await writeContractAsync({
-        chainId: tokenContract?.chainId,
-        address: tokenContract?.mintPage?.controller!,
-        abi: GasCoinPurchaseControllerAbi,
-        functionName: "setUp",
-        args: [
-          tokenContract?.contractAddress!,
-          parseUnits(data.price, 18),
-          data.auth === "offchain",
-        ],
-      });
-    } catch {}
-    setLoading(false);
+    initiate(
+      async () =>
+        await writeContractAsync({
+          chainId: tokenContract?.chainId,
+          address: tokenContract?.mintPage?.controller!,
+          abi: GasCoinPurchaseControllerAbi,
+          functionName: "setUp",
+          args: [
+            tokenContract?.contractAddress!,
+            parseUnits(data.price, 18),
+            data.auth === "offchain",
+          ],
+        })
+    );
   }
 
   return (
@@ -172,14 +174,19 @@ export function SetUpForm({ tokenContract }: { tokenContract?: TokenConfig }) {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          variant="unemphasized"
-          disabled={!form.formState.isValid}
-          loading={loading}
-        >
-          Save
-        </Button>
+        <div className="flex flex-row space-x-4 items-center">
+          <Button
+            type="submit"
+            variant="unemphasized"
+            disabled={!form.formState.isValid}
+            loading={pending}
+          >
+            {ctaOverride ?? "Save"}
+          </Button>
+          {hash && (
+            <TransactionLink chainId={tokenContract?.chainId} hash={hash} />
+          )}
+        </div>
       </form>
     </Form>
   );

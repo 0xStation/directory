@@ -1,11 +1,8 @@
 import Image from "next/image";
 import Head from "next/head";
-import Link from "next/link";
 import { useTokenContractName } from "@/lib/hooks";
 import { emptyImage } from "@/lib/constants";
-import { getContractUrl, truncateBytes } from "@/lib/utils";
-import { NetworkIcon } from "@/lib/components/icons/chains/NetworkIcon";
-import MintButton from "@/lib/components/MintButton";
+import MintButton from "../MintButton";
 import { TokenConfig } from "@/lib/types";
 import { useContext } from "react";
 import ConfigContext from "@/context/ConfigContext";

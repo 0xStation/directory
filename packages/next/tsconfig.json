@@ -15,8 +15,6 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@ui/*": ["src/lib/components/ui/*"],
-      "@components/*": ["src/lib/components/*"],
       "lib": ["./src/lib/*"],
       "db": ["./prisma"],
       "api/*": ["./src/pages/api/*"]

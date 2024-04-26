@@ -347,12 +347,18 @@ export const PermissionTab = ({
           );
         })}
 
-        <Button fullWidth variant="input" onClick={() => appendToAdd("")}>
+        <Button
+          fullWidth
+          type="button"
+          variant="input"
+          onClick={() => appendToAdd("")}
+        >
           + New admin
         </Button>
 
         <div className="mt-8 flex flex-row-reverse">
           <Button
+            type="submit"
             variant="secondary"
             disabled={
               !writeContractAsync || !isValid || !isDirty || merged.length === 0

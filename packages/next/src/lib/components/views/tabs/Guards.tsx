@@ -34,6 +34,8 @@ import {
 import { Address, zeroAddress } from "viem";
 import { Input } from "../../ui/Input";
 import { cn, toSentenceCase } from "@/lib/utils";
+import { useTransactionWrapper } from "@/lib/hooks/useTransactionWrapper";
+import { TransactionLink } from "../../TransactionLink";
 
 export function EditGuard({
   tokenContract,
@@ -71,8 +73,6 @@ function EditGuardForm({
   tokenContract?: TokenConfig;
   operation: Operation;
 }) {
-  const [loading, setLoading] = useState<boolean>();
-
   const formSchema = z.object({
     type: z.enum(["none", "blocked", "custom"]),
     custom: z.optional(z.string().regex(/^(0x)?[0-9a-fA-F]{40}$/)),
@@ -84,17 +84,17 @@ function EditGuardForm({
       //   custom: "",
     },
   });
-
   const type = form.watch("type");
 
   const { writeContractAsync } = useWriteContract();
+  const { ctaOverride, hash, pending, initiate } = useTransactionWrapper({
+    chainId: tokenContract?.chainId,
+  });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
-    setLoading(true);
-    try {
+    initiate(async () => {
       if (data.type === "none") {
-        await writeContractAsync({
+        return await writeContractAsync({
           chainId: tokenContract?.chainId,
           address: tokenContract?.contractAddress!,
           abi: GuardsAbi,
@@ -102,7 +102,7 @@ function EditGuardForm({
           args: [operation],
         });
       } else {
-        await writeContractAsync({
+        return await writeContractAsync({
           chainId: tokenContract?.chainId,
           address: tokenContract?.contractAddress!,
           abi: GuardsAbi,
@@ -113,10 +113,7 @@ function EditGuardForm({
           ],
         });
       }
-    } catch (e) {
-      console.error(e);
-    }
-    setLoading(false);
+    });
   }
 
   const name = toSentenceCase(
@@ -164,14 +161,19 @@ function EditGuardForm({
             )}
           />
         </div>
-        <Button
-          type="submit"
-          variant="unemphasized"
-          disabled={!form.formState.isValid}
-          loading={loading}
-        >
-          Save
-        </Button>
+        <div className="flex flex-row space-x-4 items-center">
+          <Button
+            type="submit"
+            variant="unemphasized"
+            disabled={!form.formState.isValid}
+            loading={pending}
+          >
+            {ctaOverride ?? "Save"}
+          </Button>
+          {hash && (
+            <TransactionLink chainId={tokenContract?.chainId} hash={hash} />
+          )}
+        </div>
       </form>
     </Form>
   );
