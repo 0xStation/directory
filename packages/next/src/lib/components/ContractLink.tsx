@@ -6,7 +6,7 @@ import { NetworkIcon } from "./icons/chains/NetworkIcon";
 export function ContractLink({
   contract,
 }: {
-  contract?: { chainId: number; contractAddress: Address };
+  contract?: { chainId?: number; contractAddress?: Address };
 }) {
   return (
     <Link

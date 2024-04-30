@@ -1,6 +1,6 @@
 import { Hex } from "viem";
 import TextLink from "./TextLink";
-import { getTransactionUrl } from "../utils";
+import { cn, getTransactionUrl } from "../utils";
 
 export function TransactionLink({
   chainId,
@@ -10,5 +10,9 @@ export function TransactionLink({
   hash?: Hex;
 }) {
   const url = getTransactionUrl(chainId, hash);
-  return <TextLink href={url}>View Transaction</TextLink>;
+  return (
+    <TextLink href={url} className={cn(!hash && "hidden")}>
+      View Transaction
+    </TextLink>
+  );
 }
