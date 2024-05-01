@@ -1,144 +1,64 @@
-import {
-  useWriteContract,
-  useReadContract,
-  useWaitForTransactionReceipt,
-} from "wagmi";
-import { Operation } from "@/lib/constants";
-import { useState, useEffect } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useForm, useFieldArray } from "react-hook-form";
+import { PermissionsAbi } from "@/lib/abi/Permissions";
+import { TokenConfig } from "@/lib/types";
+import { useReadContract, useWriteContract } from "wagmi";
 import { AvatarAddress } from "../../ui/AvatarAddress";
 import { Button } from "../../ui/Button";
-import { Address, encodeFunctionData } from "viem";
-import { TokenConfig } from "@/lib/types";
-import LoadingSpinner from "../../ui/LoadingSpinner";
-import TextLink from "../../TextLink";
-import { getTransactionUrl } from "@/lib/utils";
-import { PermissionsAbi } from "@/lib/abi/Permissions";
-import { MulticallAbi } from "@/lib/abi/Multicall";
+import { Operation } from "@/lib/constants";
+import { toSentenceCase } from "@/lib/utils";
+import { useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Address, Hex, encodeFunctionData, isAddressEqual } from "viem";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../../ui/Form";
 import { Input } from "../../ui/Input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../ui/Select";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../../ui/Dialog";
+import { useTransactionWrapper } from "@/lib/hooks/useTransactionWrapper";
+import { TransactionLink } from "../../TransactionLink";
+import { MulticallAbi } from "@/lib/abi/Multicall";
+import { useEffect, useState } from "react";
 
-type Admin = {
-  account: string;
-  operation: string;
-  pending?: {
-    isAdd: boolean;
-    transactionHash: string;
-  };
+const formSchema = z.object({
+  permissions: z
+    .object({
+      account: z.string(),
+      operation: z.string(),
+    })
+    .array(),
+});
+
+type Permission = {
+  account: Address;
+  operation: Operation;
 };
 
-const PermissionItem = ({
-  admin,
-  admins,
-  setAdmins,
-  tokenContract,
-  toRemove,
-  removeToRemove,
-  appendToRemove,
-}: {
-  admin: Admin;
-  admins: Admin[];
-  setAdmins: (admins: Admin[]) => void;
-  tokenContract?: TokenConfig;
-  toRemove: string[];
-  removeToRemove: (index: number) => void;
-  appendToRemove: (address: string) => void;
-}) => {
-  //   const { setToastState } = useContext(ToastContext);
-  const [pendingTransactionHash, setPendingTransactionHash] = useState<
-    string | undefined
-  >(admin.pending?.transactionHash);
-
-  useWaitForTransactionReceipt({
-    hash: pendingTransactionHash as `0x${string}`,
-    query: {
-      enabled: !!pendingTransactionHash,
-    },
-    // onSuccess: () => {
-    //   //   setToastState({
-    //   //     isToastShowing: true,
-    //   //     type: ToastType.SUCCESS,
-    //   //     message: "Admins updated.",
-    //   //   });
-    //   setPendingTransactionHash(undefined);
-    //   setAdmins(
-    //     admins
-    //       .filter(
-    //         (a) =>
-    //           a.account !== admin.account ||
-    //           !(!!admin.pending && !admin.pending.isAdd)
-    //       )
-    //       .map((a) => {
-    //         if (a.account === admin.account) {
-    //           return {
-    //             ...a,
-    //             pending: undefined,
-    //           };
-    //         }
-    //         return a;
-    //       })
-    //   );
-    // },
-  });
-
-  return (
-    <div
-      className="flex flex-row items-center justify-between"
-      key={admin.account}
-    >
-      <AvatarAddress address={admin.account} />
-
-      {admin.pending?.transactionHash ? (
-        <div className="flex flex-row gap-x-2 items-center">
-          <LoadingSpinner />
-          <span className="text-xs text-gray-50">
-            {admin.pending.isAdd ? "Adding" : "Removing"} admin
-          </span>
-          <TextLink
-            className="text-xs"
-            href={getTransactionUrl(
-              tokenContract?.chainId,
-              admin.pending.transactionHash
-            )}
-          >
-            View on Explorer
-          </TextLink>
-        </div>
-      ) : (
-        <>
-          {admins.length === 1 ? (
-            <Button disabled={true} size="md" variant="error">
-              Remove
-            </Button>
-          ) : (
-            <Button
-              disabled={!!admin.pending}
-              variant={toRemove.includes(admin.account) ? "secondary" : "error"}
-              onClick={() => {
-                if (toRemove.includes(admin.account)) {
-                  removeToRemove(toRemove.indexOf(admin.account));
-                } else {
-                  appendToRemove(admin.account);
-                }
-              }}
-            >
-              {toRemove.includes(admin.account) ? "Undo" : "Remove"}
-            </Button>
-          )}
-        </>
-      )}
-    </div>
-  );
-};
-
-export const PermissionTab = ({
+export function PermissionsTab({
   tokenContract,
 }: {
   tokenContract?: TokenConfig;
-}) => {
-  //   const { setToastState } = useContext(ToastContext);
-  const [admins, setAdmins] = useState<Admin[]>([]);
-
+}) {
   const { data: permissionsData, refetch: refetchPermissions } =
     useReadContract({
       chainId: tokenContract?.chainId,
@@ -147,228 +67,260 @@ export const PermissionTab = ({
       functionName: "getAllPermissions",
     });
 
-  useEffect(() => {
-    if (permissionsData) {
-      setAdmins(
-        (permissionsData as any[])
-          .map((permission: any) => ({
-            account: permission.account,
-            operation: permission.operation,
-          }))
-          .filter((permission) => permission.operation === Operation.ADMIN)
-      );
-    }
-  }, [permissionsData]);
+  return (
+    <div className="pt-8 px-6 space-y-6 max-w-[750px]">
+      <div className="text-2xl">Permissions</div>
+      <div className="grid grid-cols-3 gap-4">
+        <div className="flex flex-col justify-center text-secondary">
+          Address
+        </div>
+        <div className="flex flex-col justify-center text-secondary">
+          Operation
+        </div>
+        <div>
+          <EditPermissions tokenContract={tokenContract} />
+        </div>
+        {permissionsData?.map((permission) => (
+          <>
+            <div className="col-span-1">
+              <AvatarAddress address={permission.account} />
+            </div>
+            <div className="col-span-2 flex flex-col justify-center">
+              {toSentenceCase(
+                Object.entries(Operation).find(
+                  ([key, value]) => value === permission.operation
+                )?.[0]
+              )}
+            </div>
+          </>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState,
-    control,
-    reset: resetForm,
-  } = useForm({
-    mode: "onChange",
+function EditPermissions({ tokenContract }: { tokenContract?: TokenConfig }) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="unemphasized">Edit</Button>
+      </DialogTrigger>
+      <DialogContent className="w-[750px]">
+        <DialogHeader>
+          <DialogTitle>Edit Permissions</DialogTitle>
+          <DialogDescription>
+            Requires a transaction to update.
+          </DialogDescription>
+        </DialogHeader>
+        <EditPermissionsForm tokenContract={tokenContract} />
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function diffPermissions(current: Permission[], updated: Permission[]) {
+  const toAdd = updated.filter(
+    (v) =>
+      !current?.some(
+        (permission) =>
+          !!permission.account &&
+          !!v.account &&
+          isAddressEqual(permission.account, v.account as Address) &&
+          permission.operation === v.operation
+      )
+  );
+  const toRemove = current.filter(
+    (v) =>
+      !updated.some(
+        (permission) =>
+          !!permission.account &&
+          !!v.account &&
+          isAddressEqual(permission.account as Address, v.account) &&
+          permission.operation === v.operation
+      )
+  );
+  const noDiff = toAdd.length + toRemove.length === 0;
+  const isValid =
+    !noDiff &&
+    updated.every(
+      (permission) => !!permission.account && !!permission.operation
+    );
+
+  return { toAdd, toRemove, noDiff, isValid };
+}
+
+function EditPermissionsForm({
+  tokenContract,
+}: {
+  tokenContract?: TokenConfig;
+}) {
+  const { data: permissionsData } = useReadContract({
+    chainId: tokenContract?.chainId,
+    address: tokenContract?.contractAddress as `0x${string}`,
+    abi: PermissionsAbi,
+    functionName: "getAllPermissions",
+  });
+  const { writeContractAsync } = useWriteContract();
+  const { pending, hash, initiate } = useTransactionWrapper({
+    chainId: tokenContract?.chainId,
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      toAdd: [] as string[],
-      toRemove: [] as string[],
+      permissions: permissionsData as unknown as Permission[],
     },
   });
 
-  const { errors, isValid, isDirty } = formState;
-
   const {
-    fields: fieldsToAdd,
-    append: appendToAdd,
-    remove: removeToAdd,
+    fields: permissionFields,
+    append: appendPermission,
+    remove: removePermission,
   } = useFieldArray({
-    control,
-    // @ts-ignore not sure why this is throwing an error
-    name: "toAdd",
+    control: form.control,
+    name: "permissions",
+    rules: {
+      validate: (permissions) => {
+        console.log("validate");
+        const isValid = permissions.every(
+          (permission) => !!permission.account && !!permission.operation
+        );
+        console.log("validate", permissions, isValid);
+        return isValid;
+      },
+    },
   });
 
-  const { append: appendToRemove, remove: removeToRemove } = useFieldArray({
-    control,
-    // @ts-ignore not sure why this is throwing an error
-    name: "toRemove",
-  });
+  const permissions = form.watch("permissions");
 
-  const toAdd = watch("toAdd");
-  const toRemove = watch("toRemove");
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
 
-  // was breaking when trying to do all of this in one line within the prepare hook, so segmenting out for sanity and it fixed it :O
-  const filteredAdd = toAdd.filter((address) =>
-    address.match(/^0x[a-fA-F0-9]{40}$/)
-  );
-  const filteredRemove = toRemove.filter((address) =>
-    address.match(/^0x[a-fA-F0-9]{40}$/)
-  );
-  const mappedAdd = filteredAdd.map((address) =>
-    encodeFunctionData({
-      abi: PermissionsAbi,
-      functionName: "addPermission",
-      args: [Operation.ADMIN, address as Address],
-    })
-  );
-  const mappedRemove = filteredRemove.map((address) =>
-    encodeFunctionData({
-      abi: PermissionsAbi,
-      functionName: "removePermission",
-      args: [Operation.ADMIN, address as Address],
-    })
-  );
-  const merged = [...mappedAdd, ...mappedRemove];
+    const { toAdd, toRemove, noDiff } = diffPermissions(
+      (permissionsData ?? []) as unknown as Permission[],
+      values.permissions as Permission[]
+    );
 
-  const {
-    data: batchAdminsTxHash,
-    writeContractAsync,
-    isPending: isBatchLoading,
-  } = useWriteContract();
+    if (noDiff) return;
 
-  const onSubmit = async (_data: any) => {
-    let txData: any;
-    try {
-      txData = await writeContractAsync({
-        chainId: tokenContract?.chainId,
-        address: tokenContract?.contractAddress!,
-        abi: MulticallAbi,
-        functionName: "multicall",
-        args: [merged as `0x${string}`[]],
-      });
-    } catch (e: any) {
-      console.error(e);
-      //   setToastState({
-      //     isToastShowing: true,
-      //     type: ToastType.ERROR,
-      //     message: e.message || "Something went wrong. Please try again.",
-      //   });
-      return;
-    }
-
-    // if the on-chain write fails, we should not proceed with the off-chain write
-    if (!txData) {
-      //   setToastState({
-      //     isToastShowing: true,
-      //     type: ToastType.ERROR,
-      //     message: "Something went wrong. Please try again.",
-      //   });
-      return;
-    }
-
-    // optimistically set front-end state
-    setAdmins([
-      ...admins.filter((admin) => !toRemove.includes(admin.account)),
-      ...admins
-        .filter((admin) => toRemove.includes(admin.account))
-        .map((admin) => {
-          return {
-            ...admin,
-            pending: {
-              isAdd: false,
-              transactionHash: txData!.hash,
-            },
-          };
-        }),
-      ...toAdd
-        .filter((address) => address.match(/^0x[a-fA-F0-9]{40}$/))
-        .map((address) => {
-          return {
-            account: address,
-            operation: Operation.ADMIN,
-            pending: {
-              isAdd: true,
-              transactionHash: txData!.hash,
-            },
-          };
-        }),
-    ]);
-
-    resetForm();
-  };
-
-  useWaitForTransactionReceipt({
-    hash: batchAdminsTxHash,
-    // onSuccess: () => {
-    //   //   setToastState({
-    //   //     isToastShowing: true,
-    //   //     type: ToastType.SUCCESS,
-    //   //     message: "Admins updated.",
-    //   //   });
-    //   refetchPermissions();
-    // },
-  });
+    initiate(
+      async () =>
+        await writeContractAsync({
+          chainId: tokenContract?.chainId,
+          address: tokenContract?.contractAddress!,
+          abi: MulticallAbi,
+          functionName: "multicall",
+          args: [
+            [
+              ...toAdd.map((permission) =>
+                encodeFunctionData({
+                  abi: PermissionsAbi,
+                  functionName: "addPermission",
+                  args: [
+                    permission.operation as Hex,
+                    permission.account as Address,
+                  ],
+                })
+              ),
+              ...toRemove.map((permission) =>
+                encodeFunctionData({
+                  abi: PermissionsAbi,
+                  functionName: "removePermission",
+                  args: [
+                    permission.operation as Hex,
+                    permission.account as Address,
+                  ],
+                })
+              ),
+            ],
+          ],
+        })
+    );
+  }
 
   return (
-    <div className="max-w-[600px]">
-      {/* <p className="mb-8">
-        Admins can add or remove admins and manage Token permissions.
-      </p> */}
-
-      <div className="mt-8 space-y-4 mb-4">
-        {admins?.map((admin, i) => {
-          return (
-            <PermissionItem
-              key={`${admin.account}-${i}`}
-              admin={admin}
-              admins={admins}
-              setAdmins={setAdmins}
-              tokenContract={tokenContract}
-              toRemove={toRemove}
-              removeToRemove={removeToRemove}
-              appendToRemove={appendToRemove}
+    <Form {...form}>
+      <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
+        {permissionFields.map((permission, i) => (
+          <div
+            className="flex flex-row gap-2 items-center w-full"
+            key={permission.id}
+          >
+            <FormField
+              control={form.control}
+              name={`permissions.${i}.account`}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input placeholder="Input wallet address" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
             />
-          );
-        })}
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {fieldsToAdd.map((field: any, index: number) => {
-          return (
-            <div
-              className="bg-highlightFaint p-4 rounded mb-2"
-              key={`new-admin-${field.id}`}
-            >
-              <div className="flex flex-row justify-between items-center mb-4">
-                <span className="text-sm text-secondary">
-                  Admin {(admins?.length || 0) + (index + 1)}
-                </span>
-                <XMarkIcon
-                  className="h-6 w-6 text-secondary cursor-pointer hover:text-primary"
-                  aria-hidden="true"
-                  onClick={() => {
-                    removeToAdd(index);
-                  }}
-                />
-              </div>
-              <div className="space-y-2">
-                <label>Wallet address</label>
-                <Input name={`toAdd.${index}`} placeholder="0x" />
-              </div>
+            <FormField
+              control={form.control}
+              name={`permissions.${i}.operation`}
+              render={({ field }) => (
+                <FormItem className="w-1/3">
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="">
+                        <SelectValue placeholder="Operation" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value={Operation.ADMIN}>Admin</SelectItem>
+                      <SelectItem value={Operation.MINT}>Mint</SelectItem>
+                      <SelectItem value={Operation.BURN}>Burn</SelectItem>
+                      <SelectItem value={Operation.TRANSFER}>
+                        Transfer
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="pl-4 pr-2">
+              <button
+                onClick={() => {
+                  console.log("i", i);
+                  removePermission(i);
+                }}
+              >
+                <TrashIcon className="h-5 w-5 text-secondary hover:text-primary" />
+              </button>
             </div>
-          );
-        })}
-
+          </div>
+        ))}
         <Button
           fullWidth
-          type="button"
           variant="input"
-          onClick={() => appendToAdd("")}
+          type="button"
+          onClick={() => appendPermission({ account: "", operation: "" })}
         >
-          + New admin
+          + Add permission
         </Button>
-
-        <div className="mt-8 flex flex-row-reverse">
+        <div className="pt-6 flex flex-row gap-4 items-center">
           <Button
+            variant="unemphasized"
             type="submit"
-            variant="secondary"
+            loading={pending}
             disabled={
-              !writeContractAsync || !isValid || !isDirty || merged.length === 0
+              !diffPermissions(
+                (permissionsData ?? []) as unknown as Permission[],
+                permissions as Permission[]
+              ).isValid
             }
-            loading={isBatchLoading}
           >
             Save
           </Button>
+          <TransactionLink chainId={tokenContract?.chainId} hash={hash} />
         </div>
       </form>
-    </div>
+    </Form>
   );
-};
+}

@@ -9,13 +9,22 @@ import { EditGuard } from "./Guards";
 
 export function GuardsTab({ tokenContract }: { tokenContract?: TokenConfig }) {
   return (
-    <div className="space-y-8">
-      <GuardSetting tokenContract={tokenContract} operation={Operation.MINT} />
-      <GuardSetting
-        tokenContract={tokenContract}
-        operation={Operation.TRANSFER}
-      />
-      <GuardSetting tokenContract={tokenContract} operation={Operation.BURN} />
+    <div className="pt-8 px-6 space-y-6 max-w-[600px]">
+      <div className="text-2xl">Guards</div>
+      <div className="space-y-8">
+        <GuardSetting
+          tokenContract={tokenContract}
+          operation={Operation.MINT}
+        />
+        <GuardSetting
+          tokenContract={tokenContract}
+          operation={Operation.TRANSFER}
+        />
+        <GuardSetting
+          tokenContract={tokenContract}
+          operation={Operation.BURN}
+        />
+      </div>
     </div>
   );
 }

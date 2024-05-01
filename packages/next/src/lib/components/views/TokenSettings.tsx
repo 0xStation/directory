@@ -5,7 +5,7 @@ import {
   TabsContent,
 } from "@/lib/components/ui/TabsVertical";
 import { TokenConfig } from "@/lib/types";
-import { PermissionTab } from "./tabs/PermissionsTab";
+import { PermissionsTab } from "./tabs/PermissionsTab";
 import { ExtensionsTab } from "./tabs/ExtensionsTab";
 import { GuardsTab } from "./tabs/GuardsTab";
 import { GeneralTab } from "./tabs/GeneralTab";
@@ -30,22 +30,13 @@ export function TokenSettings({
       </div>
       <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5 overflow-auto">
         <TabsContent value="general">
-          <div className="pt-8 px-6 space-y-6 max-w-[600px]">
-            <div className="text-2xl">General</div>
-            <GeneralTab tokenContract={tokenContract} />
-          </div>
+          <GeneralTab tokenContract={tokenContract} />
         </TabsContent>
         <TabsContent value="permissions">
-          <div className="pt-8 px-6 space-y-6 max-w-[600px]">
-            <div className="text-2xl">Permissions</div>
-            <PermissionTab tokenContract={tokenContract} />
-          </div>
+          <PermissionsTab tokenContract={tokenContract} />
         </TabsContent>
         <TabsContent value="guard">
-          <div className="pt-8 px-6 space-y-6 max-w-[600px]">
-            <div className="text-2xl">Guards</div>
-            <GuardsTab tokenContract={tokenContract} />
-          </div>
+          <GuardsTab tokenContract={tokenContract} />
         </TabsContent>
         <TabsContent value="extensions">
           <ExtensionsTab tokenContract={tokenContract} />
