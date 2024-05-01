@@ -72,7 +72,7 @@ export function Erc20Owners({
     </div>
   ) : (
     <div className="px-6 py-8 h-[calc(100vh-110px)]">
-      <div className="flex flex-col rounded-xl h-full bg-highlight items-center justify-center">
+      <div className="flex flex-col rounded-xl h-full bg-highlightFaint items-center justify-center">
         <h1 className="text-xl font-bold">No owners</h1>
         <p className="text-sm text-secondary">
           Owners of this token will be displayed here.

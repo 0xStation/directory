@@ -1,21 +1,33 @@
-import { NetworkIcon } from "@/lib/components/icons/chains/NetworkIcon";
-import { TokenSettings } from "@/lib/components/views/TokenSettings";
-import { emptyImage } from "@/lib/constants";
 import {
-  useTokenContractName,
-  useTokenContractRoute,
-  useTokenContractSymbol,
-} from "@/lib/hooks";
-import { TokenConfig } from "@/lib/types";
-import { truncateBytes } from "@/lib/utils";
-import Image from "next/image";
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/lib/components/ui/TabsHorizontal";
+import { TokenSettings } from "@/lib/components/views/TokenSettings";
+import { useTokenContractRoute } from "@/lib/hooks";
+import { pages } from "@/lib/utils";
+import Link from "next/link";
 
 const TokenContractSettingsPage = () => {
   const tokenContract = useTokenContractRoute();
 
-  console.log("tokenContract", tokenContract);
-
-  return <TokenSettings tokenContract={tokenContract} />;
+  return (
+    <Tabs defaultValue="settings">
+      <div className="z-20 border-b border-b-highlight px-6">
+        <TabsList>
+          <Link href={pages.tokenDirectory(tokenContract)}>
+            <TabsTrigger value="directory">Directory</TabsTrigger>
+          </Link>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+      </div>
+      <TabsContent value="directory"></TabsContent>
+      <TabsContent value="settings">
+        <TokenSettings tokenContract={tokenContract} />
+      </TabsContent>
+    </Tabs>
+  );
 };
 
 export default TokenContractSettingsPage;

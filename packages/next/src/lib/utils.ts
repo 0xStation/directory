@@ -7,8 +7,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const pages = {
-  tokenDirectory: (token: TokenConfig) => `/${token.slug}/directory`,
-  settings: (token: TokenConfig) => `/${token.slug}/settings`,
+  tokenDirectory: (token?: TokenConfig) => `/${token?.slug}/directory`,
+  settings: (token?: TokenConfig) => `/${token?.slug}/settings`,
 };
 
 export const networkName: Record<number, string> = {

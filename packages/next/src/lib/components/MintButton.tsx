@@ -58,7 +58,7 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
           <TransactionLink chainId={tokenContract?.chainId} hash={hash} />
         )}
       </div>
-      <DialogContent>
+      <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Successfully minted!</DialogTitle>
         </DialogHeader>

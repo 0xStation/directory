@@ -17,7 +17,7 @@ export function TokenSettings({
 }) {
   return (
     <Tabs
-      className="border-t border-highlight grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 h-[calc(100vh-70px)]"
+      className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 h-[calc(100vh-70px)]"
       defaultValue="general"
     >
       <div className="col-span-1 border-r border-highlight pt-8 px-6 min-w-[25%] xl:min-w-[10%]">
