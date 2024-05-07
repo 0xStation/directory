@@ -1,4 +1,4 @@
-import { Address } from "viem";
+import { Address, Hex } from "viem";
 
 export type TokenStandard = "ERC20" | "ERC721" | "ERC1155";
 export type Color =
@@ -9,13 +9,6 @@ export type Color =
   | "purple"
   | "red"
   | "yellow";
-
-export enum BASIC_TRAIT_TYPE {
-  CUSTOM_TEXT = "CUSTOM_FIXED",
-  CUSTOM_NUMBER = "CUSTOM_NUMBER",
-  OWNER_ADDRESS = "OWNER_ADDRESS",
-  MINTED_AT = "MINTED_AT",
-}
 
 export enum TOKEN_TRAIT_TYPE {
   ERC20Balance = "ERC20Balance",
@@ -37,9 +30,18 @@ export type TokenConfig = {
   description: string;
   creationBlock: number;
   addTokenboundAccounts?: boolean;
-  traits: Trait[];
-  tokenTraits: TokenTrait[];
-  animation_url?: string;
+  nftMetadata?: {
+    computedTraits?: ComputedTrait[];
+    tokens?: Record<
+      string,
+      {
+        name?: string;
+        description?: string;
+        image?: string;
+        traits?: Trait[];
+      }
+    >;
+  };
   showOnDashboard?: boolean;
   mintPage?: {
     controller: Address;
@@ -53,8 +55,8 @@ export type TokenConfig = {
   };
 };
 
-export type TokenTrait = {
-  sourceContractAddress: `0x${string}`;
+export type ComputedTrait = {
+  sourceContractAddress: Address;
   name: string;
   type: TOKEN_TRAIT_TYPE;
   data: any;
@@ -62,7 +64,6 @@ export type TokenTrait = {
 
 export type Trait = {
   name: string;
-  type: BASIC_TRAIT_TYPE;
   value: string;
 };
 
@@ -72,9 +73,9 @@ export type GroupOsConfig = {
   githubRepo: string;
   tokenContracts: TokenConfig[];
   tokenboundAccounts: {
-    registry: `0x${string}`;
-    implementation: `0x${string}`;
-    salt: `0x${string}`;
+    registry: Address;
+    implementation: Address;
+    salt: Hex;
   };
   theme: {
     colors: {
@@ -98,26 +99,26 @@ export type GroupOsConfig = {
 
 export type Erc20Owner = {
   id: string;
-  ownerAddress: `0x${string}`;
+  ownerAddress: Address;
   balance: string;
 };
 
 export type Erc721Token = {
   id: string;
   chainId: number;
-  contractAddress: `0x${string}`;
+  contractAddress: Address;
   tokenId: string;
-  ownerAddress: `0x${string}`;
+  ownerAddress: Address;
   mintedAt: Date;
-  tbaAddress: `0x${string}`;
+  tbaAddress: Address;
 };
 
 export type Erc1155Owner = {
   id: string;
   chainId: number;
-  contractAddress: `0x${string}`;
+  contractAddress: Address;
   tokenId: string;
-  ownerAddress: `0x${string}`;
+  ownerAddress: Address;
   balance: string;
 };
 
@@ -125,9 +126,13 @@ export type NftMetadata = {
   name: string;
   description?: string;
   image: string;
+  attributes: NftMetadataAttribute[];
   external_url?: string;
-  attributes?: {
-    trait_type: string;
-    value: string | number;
-  }[];
+  animation_url?: string;
+};
+
+export type NftMetadataAttribute = {
+  trait_type: string;
+  value: string | number;
+  display_type?: string;
 };

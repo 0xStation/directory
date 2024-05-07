@@ -1,9 +1,9 @@
-import { TokenTrait } from "@/lib/types";
+import { ComputedTrait } from "@/lib/types";
 import { checksumAddress } from "viem";
 
 // returns true or false if TBA owns any of the tokens
 export const parseErc1155OwnershipTrait = (
-  trait: TokenTrait,
+  trait: ComputedTrait,
   token: any,
   erc1155OwnersForTraits: any
 ) => {

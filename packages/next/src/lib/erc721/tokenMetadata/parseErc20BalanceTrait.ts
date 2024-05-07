@@ -1,8 +1,8 @@
-import { TokenTrait } from "@/lib/types";
+import { ComputedTrait } from "@/lib/types";
 import { checksumAddress, formatUnits } from "viem";
 
 export const parseErc20BalanceTrait = (
-  trait: TokenTrait,
+  trait: ComputedTrait,
   token: any,
   erc20OwnersForTraits: any
 ): { trait_type: string; value: string } => {

@@ -13,7 +13,7 @@ export default createConfig({
       contractAddress: "0xe286d24eafef04ea1eafc7f3de605b684dd6a4bf",
       creationBlock: 18629889,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
     },
   ],

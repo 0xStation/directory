@@ -14,7 +14,7 @@ export default createConfig({
       addTokenboundAccounts: true,
       creationBlock: 18629889,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
     },
     {
@@ -26,7 +26,7 @@ export default createConfig({
       contractAddress: "0xd333a2155a212af4c1f154d31b663fbf88c30481",
       creationBlock: 18629889,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
     },
     {
@@ -38,7 +38,7 @@ export default createConfig({
       contractAddress: "0xc333266f3a93572a1a628f433e4a86c0b2053b0c",
       creationBlock: 18629889,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
     },
   ],

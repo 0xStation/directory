@@ -16,7 +16,7 @@ export default createConfig({
       creationBlock: 18629642,
       addTokenboundAccounts: true,
       traits: [],
-      tokenTraits: [
+      computedTraits: [
         {
           sourceContractAddress: "0xd1502a7659eaad60278ae3ef27edea849504f4da",
           name: "Active",
@@ -44,7 +44,7 @@ export default createConfig({
       creationBlock: 18629889,
       addTokenboundAccounts: true,
       traits: [],
-      tokenTraits: [
+      computedTraits: [
         {
           sourceContractAddress: "0xa2956d29d879ab7b9a1d16723e376d9e2be5c911",
           name: "Active",
@@ -72,7 +72,7 @@ export default createConfig({
       creationBlock: 18630656,
       addTokenboundAccounts: true,
       traits: [],
-      tokenTraits: [
+      computedTraits: [
         {
           sourceContractAddress: "0xcb42f61a0e42eacd0091b9ffc6a182cdcec7bd4a",
           name: "Active",
@@ -94,7 +94,7 @@ export default createConfig({
       creationBlock: 18630638,
       addTokenboundAccounts: true,
       traits: [],
-      tokenTraits: [
+      computedTraits: [
         {
           sourceContractAddress: "0x7c49ef1e6565af0e112f3727005f85208f81ba91",
           name: "Active",
@@ -115,7 +115,7 @@ export default createConfig({
       contractAddress: "0x5f120453dfd0c55f55370d1f718089ae0fcf6387",
       creationBlock: 18627720,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -128,7 +128,7 @@ export default createConfig({
       contractAddress: "0xd0805e6b373223322e341018cb8c024c3baa98b0",
       creationBlock: 18642123,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -141,7 +141,7 @@ export default createConfig({
       contractAddress: "0xd1502a7659eaad60278ae3ef27edea849504f4da",
       creationBlock: 18627698,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -154,7 +154,7 @@ export default createConfig({
       contractAddress: "0xa2956d29d879ab7b9a1d16723e376d9e2be5c911",
       creationBlock: 18658230,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -167,7 +167,7 @@ export default createConfig({
       contractAddress: "0xcb42f61a0e42eacd0091b9ffc6a182cdcec7bd4a",
       creationBlock: 18658220,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -180,7 +180,7 @@ export default createConfig({
       contractAddress: "0x7c49ef1e6565af0e112f3727005f85208f81ba91",
       creationBlock: 18642109,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },

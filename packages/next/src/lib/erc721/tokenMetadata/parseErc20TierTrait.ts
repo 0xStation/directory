@@ -1,9 +1,9 @@
-import { TokenTrait } from "@/lib/types";
+import { ComputedTrait } from "@/lib/types";
 import { checksumAddress } from "viem";
 
 // todo: need to account for decimals
 export const parseErc20TierTrait = (
-  trait: TokenTrait,
+  trait: ComputedTrait,
   token: any,
   erc20OwnersForTraits: any
 ): { trait_type: string; value: string } | null => {

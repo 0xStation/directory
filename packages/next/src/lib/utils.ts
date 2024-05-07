@@ -129,3 +129,24 @@ export function toSentenceCase(str?: string) {
   if (!str) return str; // Return the original string if it's empty or undefined
   return str[0].toUpperCase() + str.slice(1).toLowerCase();
 }
+
+export function requireMethods(
+  requiredMethods: string[],
+  inputMethod?: string
+) {
+  if (!requiredMethods.includes(inputMethod ?? "")) {
+    throw Error("Method not allowed. Please use " + requiredMethods.join(", "));
+  }
+}
+
+export const requireFields = (obj: Record<string, any>) => {
+  let missingFields: string[] = [];
+  Object.entries(obj).forEach(([name, value]) => {
+    if (value === null || value === undefined) {
+      missingFields.push(name);
+    }
+  });
+  if (missingFields.length > 0) {
+    throw Error(`Missing required fields: ${missingFields.join(", ")}`);
+  }
+};

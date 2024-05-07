@@ -14,7 +14,7 @@ export default createConfig({
       addTokenboundAccounts: true,
       creationBlock: 18629889,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
       mintPage: {
         controller: "0xb336c2c5568b310ec5774cb6c577280c14c4dac2",
@@ -32,7 +32,7 @@ export default createConfig({
       addTokenboundAccounts: false,
       creationBlock: 18629889,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
       mintPage: {
         controller: "0xb336c2c5568b310ec5774cb6c577280c14c4dac2",
@@ -54,7 +54,7 @@ export default createConfig({
       contractAddress: "0xa014f6649667c73b108f611413916324e9276eab",
       creationBlock: 18629889,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
     },
     {
@@ -66,7 +66,7 @@ export default createConfig({
       contractAddress: "0xcbd623f16e92023660549b130529b3876f6893b9",
       creationBlock: 18629889,
       traits: [],
-      tokenTraits: [],
+      computedTraits: [],
       description: "",
     },
   ],
