@@ -70,7 +70,7 @@ export async function getNftMetadata(
     const tbaAddress = computeTbaAddress({
       tokenChainId: parsedChainId,
       tokenContractAddress: contractAddress,
-      tokenId: tokenId,
+      tokenId: BigInt(tokenId),
     });
     const sourceContractAddresses =
       tokenContract.nftMetadata!.computedTraits!.map(

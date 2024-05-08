@@ -11,19 +11,16 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@ponder/core": "^0.1.2",
+    "@ponder/core": "^0.4.21",
     "viem": "^1.19.3"
   },
   "devDependencies": {
     "@types/node": "^20.9.0",
     "eslint": "^8.53.0",
-    "eslint-config-ponder": "^0.1.2",
+    "eslint-config-ponder": "^0.4.21",
     "typescript": "^5.2.2"
   },
-  "trustedDependencies": [
-    "better-sqlite3"
-  ],
   "engines": {
-    "node": ">=18"
+    "node": ">=18.14"
   }
 }

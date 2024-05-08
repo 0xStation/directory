@@ -13,7 +13,7 @@ export default createConfig({
       chainId: 11155111,
       contractAddress: "0xbbceba4fed5acb04ce285f351e5f92f38c49016f",
       addTokenboundAccounts: true,
-      creationBlock: 18629889,
+      creationBlock: 5823204,
       description: "",
       mintPage: {
         controller: "0xb336c2c5568b310ec5774cb6c577280c14c4dac2",
@@ -44,7 +44,7 @@ export default createConfig({
       tokenStandard: "ERC1155",
       chainId: 11155111,
       contractAddress: "0x9f8148627d6f56dc4e501a6aca3a367c390f1476",
-      creationBlock: 18629889,
+      creationBlock: 5823204,
       description: "",
     },
     {
@@ -54,7 +54,7 @@ export default createConfig({
       tokenStandard: "ERC20",
       chainId: 11155111,
       contractAddress: "0x39e44726c3bc93a361b4ccfbd6bb9077a84a940f",
-      creationBlock: 18629889,
+      creationBlock: 5823204,
       description: "",
     },
   ],

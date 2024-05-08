@@ -79,7 +79,7 @@ export function Erc721Tokens({
 
   return table.getRowModel().rows?.length ? (
     <div className="grid grid-cols-3 h-[calc(100vh-110px)]">
-      <div className="h-[calc(100vh-110px)] overflow-y-scroll col-span-2 border-r border-highlight px-6">
+      <div className="h-[calc(100vh-110px)] overflow-y-scroll col-span-2 border-r border-highlight px-6 pt-4">
         <DataTable table={table} />
       </div>
       <div className="col-span-1 pt-8 px-6">
@@ -199,7 +199,9 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
                 className="space-y-4 w-full"
               >
                 <AccordionItem value="description">
-                  <AccordionTrigger>Description</AccordionTrigger>
+                  <AccordionTrigger className="text-secondary">
+                    Description
+                  </AccordionTrigger>
                   <AccordionContent>
                     {metadata?.description ? (
                       <p>{metadata?.description}</p>
@@ -211,7 +213,9 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="traits">
-                  <AccordionTrigger>Traits</AccordionTrigger>
+                  <AccordionTrigger className="text-secondary">
+                    Traits
+                  </AccordionTrigger>
                   <AccordionContent>
                     {metadata?.attributes && metadata?.attributes.length > 0 ? (
                       <div className="grid grid-cols-2 gap-4">

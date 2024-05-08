@@ -3,7 +3,8 @@ import { request, gql } from "graphql-request";
 import { Erc20Owner, Erc721Token } from "../types";
 import { checksumAddress } from "viem";
 
-const URL = "/api/ponder";
+// const URL = "/api/ponder";
+const URL = "http://localhost:42069";
 
 export const getErc20Owners = async (
   chainId: number,
@@ -16,14 +17,16 @@ export const getErc20Owners = async (
           erc20Owners(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
       contractAddress ?? "0x"
     )}\", balance_not: \"0\"}) {
-            id
-            ownerAddress
-            balance
+            items {
+              id
+              ownerAddress
+              balance
+            }
           }
         }
       `
-  )) as { erc20Owners: any[] };
-  return (data?.erc20Owners ?? []) as Erc20Owner[];
+  )) as { erc20Owners: { items: any[] } };
+  return (data?.erc20Owners?.items ?? []) as Erc20Owner[];
 };
 export function useErc20Owners(
   chainId?: number,
@@ -49,16 +52,18 @@ export const getErc721Tokens = async (
           erc721Tokens(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
       contractAddress ?? "0x"
     )}\"}) {
-            id
-            tokenId
-            ownerAddress
-            mintedAt
-            tbaAddress
+            items {
+              id
+              tokenId
+              ownerAddress
+              mintedAt
+              tbaAddress
+            }
           }
         }
       `
-  )) as { erc721Tokens: any[] };
-  return (data?.erc721Tokens ?? []).map((v) => ({
+  )) as { erc721Tokens: { items: any[] } };
+  return (data?.erc721Tokens?.items ?? []).map((v) => ({
     ...v,
     mintedAt: new Date(parseInt(v.mintedAt) * 1000),
   })) as Erc721Token[];

@@ -82,6 +82,7 @@ export const getNftUrl = (
   const chainIdToOpenseaNetwork: Record<number, string> = {
     1: "ethereum",
     5: "goerli",
+    11155111: "sepolia",
     10: "optimism",
     137: "matic",
     59144: "linea", // not actually on Opesea, uses Alienswap instead!
@@ -91,7 +92,7 @@ export const getNftUrl = (
   const networkName = chainIdToOpenseaNetwork[chainId];
   if (!networkName) return "";
   let baseUrl = `https://opensea.io/assets/${networkName}`;
-  if (chainId === 5) {
+  if (chainId === 5 || chainId === 11155111) {
     baseUrl = `https://testnets.opensea.io/assets/${networkName}`;
   } else if (chainId === 59144) {
     baseUrl = "https://alienswap.xyz/assets/linea";

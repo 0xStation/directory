@@ -61,7 +61,7 @@ export function Erc20Owners({
 
   return table.getRowModel().rows?.length ? (
     <div className="grid grid-cols-3 h-[calc(100vh-110px)]">
-      <div className="h-[calc(100vh-110px)] overflow-y-scroll col-span-2 border-r border-highlight px-6">
+      <div className="h-[calc(100vh-110px)] overflow-y-scroll col-span-2 border-r border-highlight px-6 pt-4">
         <DataTable table={table} />
       </div>
       <div className="col-span-1 pt-8 px-6">

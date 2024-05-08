@@ -37,7 +37,7 @@ ponder.on("ERC1155:TransferBatch", async ({ event, context }) => {
       Erc1155Owner.update({
         id: `${context.network.chainId}:${event.log.address}:${tokenId}:${event.args.from}`,
         data: ({ current }) => ({
-          balance: current.balance - event.args.values[i],
+          balance: current.balance - event.args.values[i]!,
         }),
       })
     );
@@ -50,12 +50,12 @@ ponder.on("ERC1155:TransferBatch", async ({ event, context }) => {
         create: {
           chainId: context.network.chainId,
           contractAddress: event.log.address,
-          tokenId: event.args.id,
+          tokenId: tokenId,
           ownerAddress: event.args.to,
-          balance: event.args.values[i],
+          balance: event.args.values[i]!,
         },
         update: ({ current }) => ({
-          balance: current.balance + event.args.values[i],
+          balance: current.balance + event.args.values[i]!,
         }),
       })
     );

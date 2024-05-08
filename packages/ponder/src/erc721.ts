@@ -1,5 +1,5 @@
 import { ponder } from "@/generated";
-import { computeTbaAddress } from "../../directory/src/lib/erc6551";
+import { computeTbaAddress } from "../../next/src/lib/erc6551";
 
 ponder.on("ERC721:Transfer", async ({ event, context }) => {
   const { Erc721Token } = context.db;

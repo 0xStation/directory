@@ -1,4 +1,6 @@
 import {
+  Address,
+  Hex,
   concat,
   encodeAbiParameters,
   getAddress,
@@ -12,8 +14,8 @@ export function computeTbaAddress({
   tokenId,
 }: {
   tokenChainId: number;
-  tokenContractAddress: `0x${string}`;
-  tokenId: string;
+  tokenContractAddress: Address;
+  tokenId: bigint;
 }) {
   const registryAddress = groupos.tokenboundAccounts?.registry;
   const implementationAddress = groupos.tokenboundAccounts?.implementation;
@@ -36,11 +38,11 @@ export function computeTbaAddress({
 }
 
 function getCreationCode(
-  implementation: `0x${string}`,
+  implementation: Address,
   chainId: number,
-  tokenContractAddress: string,
-  tokenId: string,
-  salt: string
+  tokenContractAddress: Address,
+  tokenId: bigint,
+  salt: Hex
 ): Uint8Array {
   const types = [
     { type: "bytes32" },
@@ -48,7 +50,7 @@ function getCreationCode(
     { type: "address" },
     { type: "uint256" },
   ];
-  const values: (string | bigint)[] = [
+  const values: (Hex | bigint)[] = [
     salt,
     BigInt(chainId),
     tokenContractAddress,
@@ -69,7 +71,7 @@ function getCreationCode(
   return creationCode;
 }
 
-function addressToUint8Array(address: `0x${string}`): Uint8Array {
+function addressToUint8Array(address: Address): Uint8Array {
   // Remove '0x' prefix
   const cleanAddress = address.slice(2);
 
