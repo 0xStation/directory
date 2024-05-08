@@ -1,0 +1,20 @@
+meta {
+  name: mint
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/erc20/mint
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "chainId": 11155111,
+    "contractAddress": "0x39e44726c3bc93a361b4ccfbd6bb9077a84a940f",
+    "recipientAddress": "0x7ff6363cd3A4E7f9ece98d78Dd3c862bacE2163d",
+    "amount": 10
+  }
+}

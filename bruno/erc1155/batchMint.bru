@@ -1,0 +1,21 @@
+meta {
+  name: batchMint
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/erc1155/mint
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "chainId": 11155111,
+    "contractAddress": "0x9f8148627d6f56DC4E501a6ACa3A367c390F1476",
+    "recipientAddress": "0x7ff6363cd3A4E7f9ece98d78Dd3c862bacE2163d",
+    "tokenId": 1,
+    "amount": 1
+  }
+}
