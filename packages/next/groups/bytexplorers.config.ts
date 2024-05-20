@@ -14,7 +14,8 @@ export default createConfig({
       contractAddress: "0x9c46fe757ea200dfba1a77d1300f77289d8314cd",
       addTokenboundAccounts: true,
       creationBlock: 18629889,
-      description: "",
+      description:
+        "Learn onchain analytics while building onchain reputation - with friends!",
       nftMetadata: {
         image: "https://svg.cryptodatabytes.com/token_svg/{tokenId}", // replaces {tokenId}
         computedTraits: [

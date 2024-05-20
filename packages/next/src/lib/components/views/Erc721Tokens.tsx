@@ -76,16 +76,26 @@ export function Erc721Tokens({
     },
     getRowId: (row) => row.id,
   });
+  console.log("rowSelection", Object.keys(rowSelection));
 
   return table.getRowModel().rows?.length ? (
     <div className="grid grid-cols-3 h-[calc(100vh-110px)]">
-      <div className="h-[calc(100vh-110px)] overflow-y-scroll col-span-2 border-r border-highlight px-6 pt-4">
+      <div className="h-[calc(100vh-110px)] overflow-y-scroll col-span-2 border-r border-highlight px-6">
         <DataTable table={table} />
       </div>
       <div className="col-span-1 pt-8 px-6">
-        <SelectedRowDetails
-          token={data?.find((v) => v.id === Object.keys(rowSelection)[0])}
-        />
+        {!Object.keys(rowSelection).length ? (
+          <div className="h-[calc(100vh-160px)]">
+            <div className="flex flex-col rounded-xl h-full bg-highlightFaint items-center justify-center">
+              <h1 className="text-xl">Select a row to view details</h1>
+            </div>
+          </div>
+        ) : (
+          // <div className="">Select a row to view its details.</div>
+          <SelectedRowDetails
+            token={data?.find((v) => v.id === Object.keys(rowSelection)[0])}
+          />
+        )}
       </div>
     </div>
   ) : (

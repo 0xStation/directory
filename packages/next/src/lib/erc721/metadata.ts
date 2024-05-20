@@ -15,7 +15,10 @@ import { Address } from "viem";
 
 export function getImage(tokenContract: TokenConfig, tokenId: string) {
   if (tokenContract.nftMetadata?.image) {
-    return tokenContract.nftMetadata?.image.replace("{tokenId}", tokenId);
+    return tokenContract.nftMetadata?.image
+      .replace("{chainId}", tokenContract.chainId.toString())
+      .replace("{contractAddress}", tokenContract.contractAddress)
+      .replace("{tokenId}", tokenId);
   } else {
     const tokenMetadata = tokenContract.nftMetadata?.tokens?.[tokenId];
     return getImageFromPath(tokenMetadata?.image ?? tokenContract.image);
