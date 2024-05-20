@@ -5,6 +5,7 @@ import { Address, erc20Abi, isAddressEqual } from "viem";
 import { requireFields, requireMethods } from "@/lib/utils";
 import { readContract } from "viem/actions";
 import { getClient } from "@/lib/viem/client";
+import { getImageFromPath } from "@/lib/erc721/metadata";
 
 export async function getContractMetadata(
   req: NextApiRequest,
@@ -36,7 +37,7 @@ export async function getContractMetadata(
   const metadata = {
     name: tokenContractName,
     description: tokenContract.description,
-    image: tokenContract.image,
+    image: getImageFromPath(tokenContract.image),
     // banner_image: "",
     // featured_image: "",
     // external_link: "",

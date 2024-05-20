@@ -114,7 +114,7 @@ export function MetadataTab({
               />
               <div className="text-nowrap">
                 {tokenUri?.substring(0, tokenUri.length - 1)}
-                <span className="text-secondary">{"{tokenUri}"}</span>
+                <span className="text-secondary">{"{tokenId}"}</span>
               </div>
             </div>
           )}

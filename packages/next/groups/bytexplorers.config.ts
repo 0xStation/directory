@@ -2,13 +2,12 @@ import { ComputedTraitType } from "../src/lib/types";
 import { createConfig } from "../src/lib/config";
 
 export default createConfig({
-  logo: "https://station-images.nyc3.digitaloceanspaces.com/121828d1-8c4a-448c-be52-4f7f57d29422",
+  logo: "/images/bytexplorer/logo.webp",
   name: "Bytexplorers",
   tokenContracts: [
     {
       slug: "passport",
-      image:
-        "https://station-images.nyc3.digitaloceanspaces.com/image_2024-01-05_13-57-09.png",
+      image: "/images/bytexplorer/nft-image.png",
       tokenStandard: "ERC721",
       chainId: 10,
       contractAddress: "0x9c46fe757ea200dfba1a77d1300f77289d8314cd",
@@ -52,8 +51,7 @@ export default createConfig({
       },
       mintPage: {
         controller: "0xb336c2c5568b310ec5774cb6c577280c14c4dac2",
-        background:
-          "https://station-images.nyc3.digitaloceanspaces.com/9b4b21b0-2e9c-4d5d-842f-25baa66b8a25",
+        background: "/images/bytexplorer/mint-bg.png",
       },
     },
     {

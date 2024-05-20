@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { getContractUrl, truncateBytes } from "../utils";
 import { Address } from "viem";
 import { NetworkIcon } from "./icons/chains/NetworkIcon";
+import { BoxLink } from "./BoxLink";
 
 export function ContractLink({
   contract,
@@ -9,13 +9,11 @@ export function ContractLink({
   contract?: { chainId?: number; contractAddress?: Address };
 }) {
   return (
-    <Link
-      className="px-2 py-1 rounded border border-highlight hover:bg-white/10 flex flex-row items-center space-x-2"
+    <BoxLink
       href={getContractUrl(contract?.chainId, contract?.contractAddress)}
-      target="_blank"
     >
       <NetworkIcon className="h-5 w-5" chainId={contract?.chainId} />
       <span>{truncateBytes(contract?.contractAddress)}</span>
-    </Link>
+    </BoxLink>
   );
 }

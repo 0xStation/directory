@@ -3,6 +3,7 @@ import { ContractLink } from "../../ContractLink";
 import { GasCoinPurchaseController } from "./Controllers";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { BoxLink } from "../../BoxLink";
 
 export function MintPageTab({
   tokenContract,
@@ -17,13 +18,10 @@ export function MintPageTab({
           <div>Off</div>
         ) : (
           <div className="space-y-8">
-            <Link
-              href={`/${tokenContract.slug}/mint`}
-              className="px-2 py-1 rounded border border-highlight hover:bg-white/10 flex flex-row items-center space-x-2 w-fit"
-              target="_blank"
-            >
-              <ExternalLink className="h-4 w-4" /> <p>View Mint Page</p>
-            </Link>
+            <BoxLink href={`/${tokenContract.slug}/mint`}>
+              <ExternalLink className="h-4 w-4" />
+              <p>View Mint Page</p>
+            </BoxLink>
             <div className="space-y-4">
               <div className="text-lg">Background Image</div>
               <div

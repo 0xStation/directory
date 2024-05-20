@@ -35,6 +35,7 @@ import { formatUnits, zeroAddress } from "viem";
 import { Pill } from "../ui/Pill";
 import { Etherscan } from "../icons/Etherscan";
 import { emptyImage } from "@/lib/constants";
+import { BoxLink } from "../BoxLink";
 
 const columns: ColumnDef<Erc721Token>[] = [
   {
@@ -76,7 +77,6 @@ export function Erc721Tokens({
     },
     getRowId: (row) => row.id,
   });
-  console.log("rowSelection", Object.keys(rowSelection));
 
   return table.getRowModel().rows?.length ? (
     <div className="grid grid-cols-3 h-[calc(100vh-110px)]">
@@ -91,7 +91,6 @@ export function Erc721Tokens({
             </div>
           </div>
         ) : (
-          // <div className="">Select a row to view its details.</div>
           <SelectedRowDetails
             token={data?.find((v) => v.id === Object.keys(rowSelection)[0])}
           />
@@ -156,18 +155,12 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
           </p>
           <div className="flex flex-row space-x-2">
             {tokenContract?.addTokenboundAccounts && (
-              <span
-                className="px-3 py-1 rounded border border-highlight flex flex-row items-center space-x-2 cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigator.clipboard.writeText(token.tbaAddress).then(() => {
-                    console.log("Contract address copied to clipboard");
-                  });
-                }}
+              <BoxLink
+                href={getContractUrl(tokenContract?.chainId, token.tbaAddress)}
               >
                 <Wallet className="h-4 w-4" />
                 <span>{truncateBytes(token.tbaAddress)}</span>
-              </span>
+              </BoxLink>
             )}
             <NftLink
               chainId={tokenContract?.chainId}

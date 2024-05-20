@@ -27,7 +27,10 @@ export function getImage(tokenContract: TokenConfig, tokenId: string) {
 
 export const getImageFromPath = (path: string) => {
   if (path[0] === "/") {
-    return `${process.env.NEXT_PUBLIC_BASE_URL}/_next/image?url=${path}&w=256&q=75`;
+    return (
+      (process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000") + path
+      // `_next/image?url=${path}&w=256&q=75`;
+    );
   }
   return path;
 };
