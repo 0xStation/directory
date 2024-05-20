@@ -58,7 +58,7 @@ export default createConfig({
     {
       slug: "tiers",
       image:
-        "https://station-images.nyc3.digitaloceanspaces.com/0eca5972-795a-48d7-a9e4-b88e059cf91e",
+        "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/trainee.png",
       tokenStandard: "ERC1155",
       chainId: 10,
       contractAddress: "0xcbd623f16e92023660549b130529b3876f6893b9",
@@ -70,13 +70,13 @@ export default createConfig({
             name: "trainee",
             image:
               "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/trainee.png",
+            description: "earned at least 1 guild token",
             traits: [
               {
                 name: "tier",
                 value: "trainee",
               },
             ],
-            description: "earned at least 1 guild token",
           },
           "2": {
             name: "scout",
@@ -121,32 +121,86 @@ export default createConfig({
     {
       slug: "guild-tokens",
       image:
-        "https://station-images.nyc3.digitaloceanspaces.com/7d556928-9f74-46ad-82bc-d87e6b5c47b2",
+        "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/guild.png",
       tokenStandard: "ERC1155",
       chainId: 10,
       contractAddress: "0xa014f6649667c73b108f611413916324e9276eab",
       creationBlock: 18629889,
       description: "",
+      nftMetadata: {
+        tokens: {
+          "1": {
+            name: "multichain maxi",
+            image:
+              "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/guild.png",
+            description: "guild token for participating in weekly quests",
+          },
+          "2": {
+            name: "Optimism",
+            image:
+              "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/op_sunny.jpg",
+            description: "Optimism Numba Nerds guild token",
+            traits: [
+              {
+                name: "tier",
+                value: "Optimism",
+              },
+            ],
+          },
+        },
+      },
     },
     {
       slug: "byteinsight",
       image:
-        "https://station-images.nyc3.digitaloceanspaces.com/d1451266-df23-4753-b0bb-4a4657ade9e0",
+        "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/bytesight.PNG",
       tokenStandard: "ERC1155",
       chainId: 10,
       contractAddress: "0x022c7a578dc7c9731d5264661f8486e807dc2a6b",
       creationBlock: 116293558,
       description: "",
+      nftMetadata: {
+        tokens: {
+          "1": {
+            name: "basic",
+            image:
+              "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/bytesight.PNG",
+            description: "for answering basic ByteSight questions",
+            traits: [
+              {
+                name: "tier",
+                value: "basic",
+              },
+            ],
+          },
+        },
+      },
     },
     {
       slug: "bytelight",
       image:
-        "https://station-images.nyc3.digitaloceanspaces.com/aa125701-68ae-4cfc-b1d5-6d1a9162c556",
+        "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/bytelight.PNG",
       tokenStandard: "ERC1155",
       chainId: 8453,
       contractAddress: "0x4fc7be21c4437f6d56df01b1ba38f8b361aee9e4",
       creationBlock: 11272516,
       description: "",
+      nftMetadata: {
+        tokens: {
+          "1": {
+            name: "basic",
+            image:
+              "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/bytelight.PNG",
+            description: "for asking basic ByteLight questions",
+            traits: [
+              {
+                name: "tier",
+                value: "basic",
+              },
+            ],
+          },
+        },
+      },
     },
   ],
   theme: {
