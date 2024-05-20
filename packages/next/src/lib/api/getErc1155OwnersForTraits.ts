@@ -18,11 +18,14 @@ const query = gql`
         ownerAddress: $ownerAddress
       }
     ) {
-      id
-      chainId
-      contractAddress
-      ownerAddress
-      balance
+      items {
+        id
+        chainId
+        contractAddress
+        ownerAddress
+        tokenId
+        balance
+      }
     }
   }
 `;
@@ -35,10 +38,10 @@ export const getErc1155OwnersForTraits = async (
   if (contractAddresses.length === 0) {
     return [];
   }
-  const contractAddressesChecksumed = contractAddresses.map((v) =>
-    checksumAddress(v)
-  );
-  const ownerAddressChecksumed = checksumAddress(ownerAddress);
+  const contractAddressesChecksumed = contractAddresses.map((v) => {
+    return v.toLowerCase();
+  });
+  const ownerAddressChecksumed = ownerAddress.toLowerCase();
 
   const variables = {
     chainId,
@@ -46,7 +49,7 @@ export const getErc1155OwnersForTraits = async (
     ownerAddress: ownerAddressChecksumed,
   };
   const data = (await request(URL, query, variables)) as {
-    erc1155Owners: any[];
+    erc1155Owners: { items: any[] };
   };
-  return (data?.erc1155Owners ?? []) as Erc1155Owner[];
+  return (data?.erc1155Owners?.items ?? []) as Erc1155Owner[];
 };

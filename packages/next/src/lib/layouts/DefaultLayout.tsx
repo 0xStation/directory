@@ -16,8 +16,7 @@ const DefaultLayout = ({ children }: { children: any }) => {
   );
 
   const router = useRouter();
-  const path = router.pathname.split("/");
-  const excludeLayoutPaths = ["mint"];
+  const excludePathnames = ["/[tokenContract]/mint"];
 
   return (
     <main
@@ -27,7 +26,9 @@ const DefaultLayout = ({ children }: { children: any }) => {
         color: theme.colors.primary,
       }}
     >
-      {!excludeLayoutPaths.includes(path[path.length - 1]) && (
+      {!excludePathnames.some((exclude) =>
+        router.pathname.includes(exclude)
+      ) && (
         <header className="px-6 py-4">
           <div className="flex flex-row space-x-4 items-center">
             <Link href="/">

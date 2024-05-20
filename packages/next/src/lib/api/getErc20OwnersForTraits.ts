@@ -18,11 +18,13 @@ const query = gql`
         ownerAddress: $ownerAddress
       }
     ) {
-      id
-      chainId
-      contractAddress
-      ownerAddress
-      balance
+      items {
+        id
+        chainId
+        contractAddress
+        ownerAddress
+        balance
+      }
     }
   }
 `;
@@ -46,7 +48,7 @@ export const getErc20OwnersForTraits = async (
     ownerAddress: ownerAddressChecksumed,
   };
   const data = (await request(URL, query, variables)) as {
-    erc20Owners: any[];
+    erc20Owners: { items: any[] };
   };
-  return (data?.erc20Owners ?? []) as Erc20Owner[];
+  return (data?.erc20Owners?.items ?? []) as Erc20Owner[];
 };

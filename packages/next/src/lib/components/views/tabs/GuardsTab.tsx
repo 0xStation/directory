@@ -51,7 +51,7 @@ function GuardSetting({
   return (
     <div className="space-y-4">
       <div className="flex flex-row justify-between items-center">
-        <div className="text-lg font-bold">{name}</div>
+        <div className="text-lg">{name}</div>
         <EditGuard tokenContract={tokenContract} operation={operation} />
       </div>
       <div className="w-fit">

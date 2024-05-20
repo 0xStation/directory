@@ -61,7 +61,7 @@ export default createConfig({
   theme: {
     colors: {
       // accents
-      action: "#0B45ED",
+      action: "#fff",
       red: "#FF5650",
       green: "#63EBAF",
       blue: "#5F6FFF",
@@ -69,17 +69,17 @@ export default createConfig({
       yellow: "#CEDC4B",
       purple: "#AD72FF",
       // dark mode
-      //   primary: "#ffffff",
-      //   secondary: "#858585",
-      //   highlight: "#2E2E2E",
-      //   highlightFaint: "#1A1A1A",
-      //   background: "#000000",
-      // light mode
-      primary: "#000000",
+      primary: "#ffffff",
       secondary: "#858585",
-      highlight: "#DFDFDF",
-      highlightFaint: "#ECECEC",
-      background: "#ffffff",
+      highlight: "#2E2E2E",
+      highlightFaint: "#1A1A1A",
+      background: "#000000",
+      // light mode
+      // primary: "#000000",
+      // secondary: "#858585",
+      // highlight: "#DFDFDF",
+      // highlightFaint: "#ECECEC",
+      // background: "#ffffff",
     },
   },
 });

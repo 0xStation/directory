@@ -32,6 +32,7 @@ export enum Operation {
 
 export enum Modules {
   ONE_PER_ADDRESS = "0x5f00d3707f1e4183003e75d3e995b814fb8fabe6",
+  METADATA_ROUTER = "0xd875345db38a113f3dd8f766f57cbbd2c4c2ab99",
 }
 
 export const maxAddress = "0xffffffffffffffffffffffffffffffffffffffff";

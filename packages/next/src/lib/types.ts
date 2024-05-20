@@ -10,7 +10,7 @@ export type Color =
   | "red"
   | "yellow";
 
-export enum TOKEN_TRAIT_TYPE {
+export enum ComputedTraitType {
   ERC20Balance = "ERC20Balance",
   ERC721Balance = "ERC721Balance",
   ERC1155Balance = "ERC1155Balance",
@@ -31,6 +31,7 @@ export type TokenConfig = {
   creationBlock: number;
   addTokenboundAccounts?: boolean;
   nftMetadata?: {
+    image?: string; // replace keywords {chainId}, {contractAddress}, {tokenId}
     computedTraits?: ComputedTrait[];
     tokens?: Record<
       string,
@@ -58,7 +59,7 @@ export type TokenConfig = {
 export type ComputedTrait = {
   sourceContractAddress: Address;
   name: string;
-  type: TOKEN_TRAIT_TYPE;
+  type: ComputedTraitType;
   data: any;
 };
 
@@ -135,4 +136,14 @@ export type NftMetadataAttribute = {
   trait_type: string;
   value: string | number;
   display_type?: string;
+};
+
+export type ContractMetadata = {
+  name: string;
+  description: string;
+  image: string;
+  banner_image?: string;
+  features_image?: string;
+  external_link?: string;
+  collaborators?: Address[];
 };

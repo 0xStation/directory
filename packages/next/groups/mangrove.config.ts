@@ -1,5 +1,5 @@
 import { createConfig } from "../src/lib/config";
-import { TOKEN_TRAIT_TYPE } from "../src/lib/types";
+import { ComputedTraitType } from "../src/lib/types";
 
 export default createConfig({
   logo: "https://pbs.twimg.com/profile_images/1660360628941324290/GQYSBPow_400x400.jpg",
@@ -15,23 +15,24 @@ export default createConfig({
       contractAddress: "0x33dbde2e093b7cf8446d9ac0de79220d42423501",
       creationBlock: 18629642,
       addTokenboundAccounts: true,
-      traits: [],
-      computedTraits: [
-        {
-          sourceContractAddress: "0xd1502a7659eaad60278ae3ef27edea849504f4da",
-          name: "Active",
-          type: TOKEN_TRAIT_TYPE.ERC1155Ownership,
-          data: {
-            tokenIdSpecifier: "ANY",
+      nftMetadata: {
+        computedTraits: [
+          {
+            sourceContractAddress: "0xd1502a7659eaad60278ae3ef27edea849504f4da",
+            name: "Active",
+            type: ComputedTraitType.ERC1155Ownership,
+            data: {
+              tokenIdSpecifier: "ANY",
+            },
           },
-        },
-        {
-          sourceContractAddress: "0x5f120453dfd0c55f55370d1f718089ae0fcf6387",
-          name: "Activity Score",
-          type: TOKEN_TRAIT_TYPE.ERC20Balance,
-          data: {},
-        },
-      ],
+          {
+            sourceContractAddress: "0x5f120453dfd0c55f55370d1f718089ae0fcf6387",
+            name: "Activity Score",
+            type: ComputedTraitType.ERC20Balance,
+            data: {},
+          },
+        ],
+      },
       description: "",
     },
     {
@@ -43,23 +44,24 @@ export default createConfig({
       contractAddress: "0x9763a9d2b17756b6531ecbf6c7097f7225e22da7",
       creationBlock: 18629889,
       addTokenboundAccounts: true,
-      traits: [],
-      computedTraits: [
-        {
-          sourceContractAddress: "0xa2956d29d879ab7b9a1d16723e376d9e2be5c911",
-          name: "Active",
-          type: TOKEN_TRAIT_TYPE.ERC1155Ownership,
-          data: {
-            tokenIdSpecifier: "ANY",
+      nftMetadata: {
+        computedTraits: [
+          {
+            sourceContractAddress: "0xa2956d29d879ab7b9a1d16723e376d9e2be5c911",
+            name: "Active",
+            type: ComputedTraitType.ERC1155Ownership,
+            data: {
+              tokenIdSpecifier: "ANY",
+            },
           },
-        },
-        {
-          sourceContractAddress: "0xd0805e6b373223322e341018cb8c024c3baa98b0",
-          name: "Activity Score",
-          type: TOKEN_TRAIT_TYPE.ERC20Balance,
-          data: {},
-        },
-      ],
+          {
+            sourceContractAddress: "0xd0805e6b373223322e341018cb8c024c3baa98b0",
+            name: "Activity Score",
+            type: ComputedTraitType.ERC20Balance,
+            data: {},
+          },
+        ],
+      },
       description: "",
     },
     {
@@ -71,17 +73,18 @@ export default createConfig({
       contractAddress: "0x760559c824db794a307f3c98e03a87d1b10c12db",
       creationBlock: 18630656,
       addTokenboundAccounts: true,
-      traits: [],
-      computedTraits: [
-        {
-          sourceContractAddress: "0xcb42f61a0e42eacd0091b9ffc6a182cdcec7bd4a",
-          name: "Active",
-          type: TOKEN_TRAIT_TYPE.ERC1155Ownership,
-          data: {
-            tokenIdSpecifier: "ANY",
+      nftMetadata: {
+        computedTraits: [
+          {
+            sourceContractAddress: "0xcb42f61a0e42eacd0091b9ffc6a182cdcec7bd4a",
+            name: "Active",
+            type: ComputedTraitType.ERC1155Ownership,
+            data: {
+              tokenIdSpecifier: "ANY",
+            },
           },
-        },
-      ],
+        ],
+      },
       description: "",
     },
     {
@@ -93,17 +96,18 @@ export default createConfig({
       contractAddress: "0x93cf0a3b67962d475d9514d9955fe6621a26d42c",
       creationBlock: 18630638,
       addTokenboundAccounts: true,
-      traits: [],
-      computedTraits: [
-        {
-          sourceContractAddress: "0x7c49ef1e6565af0e112f3727005f85208f81ba91",
-          name: "Active",
-          type: TOKEN_TRAIT_TYPE.ERC1155Ownership,
-          data: {
-            tokenIdSpecifier: "ANY",
+      nftMetadata: {
+        computedTraits: [
+          {
+            sourceContractAddress: "0x7c49ef1e6565af0e112f3727005f85208f81ba91",
+            name: "Active",
+            type: ComputedTraitType.ERC1155Ownership,
+            data: {
+              tokenIdSpecifier: "ANY",
+            },
           },
-        },
-      ],
+        ],
+      },
       description: "",
     },
     {
@@ -114,8 +118,6 @@ export default createConfig({
       chainId: 1,
       contractAddress: "0x5f120453dfd0c55f55370d1f718089ae0fcf6387",
       creationBlock: 18627720,
-      traits: [],
-      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -127,8 +129,6 @@ export default createConfig({
       chainId: 1,
       contractAddress: "0xd0805e6b373223322e341018cb8c024c3baa98b0",
       creationBlock: 18642123,
-      traits: [],
-      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -140,8 +140,6 @@ export default createConfig({
       chainId: 1,
       contractAddress: "0xd1502a7659eaad60278ae3ef27edea849504f4da",
       creationBlock: 18627698,
-      traits: [],
-      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -153,8 +151,6 @@ export default createConfig({
       chainId: 1,
       contractAddress: "0xa2956d29d879ab7b9a1d16723e376d9e2be5c911",
       creationBlock: 18658230,
-      traits: [],
-      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -166,8 +162,6 @@ export default createConfig({
       chainId: 1,
       contractAddress: "0xcb42f61a0e42eacd0091b9ffc6a182cdcec7bd4a",
       creationBlock: 18658220,
-      traits: [],
-      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },
@@ -179,8 +173,6 @@ export default createConfig({
       chainId: 1,
       contractAddress: "0x7c49ef1e6565af0e112f3727005f85208f81ba91",
       creationBlock: 18642109,
-      traits: [],
-      computedTraits: [],
       description: "",
       showOnDashboard: false,
     },

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import {
   generateComputedTraits,
+  getImage,
   getImageFromPath,
 } from "@/lib/erc721/metadata";
 import { computeTbaAddress } from "@/lib/erc6551";
@@ -55,7 +56,7 @@ export async function getNftMetadata(
   let metadata: NftMetadata = {
     name: tokenMetadata?.name ?? `${tokenContractName} #${tokenId}`,
     description: tokenMetadata?.description ?? tokenContract.description,
-    image: getImageFromPath(tokenMetadata?.image ?? tokenContract.image),
+    image: getImage(tokenContract, tokenId),
     attributes:
       tokenMetadata?.traits?.map(({ name, value }) => ({
         trait_type: name,
@@ -83,17 +84,17 @@ export async function getNftMetadata(
       erc1155OwnersForTraits,
     ] = await Promise.all([
       getErc20OwnersForTraits(
-        parseInt(chainId),
+        parsedChainId,
         sourceContractAddresses,
         tbaAddress
       ),
       getErc721TokensForTraits(
-        parseInt(chainId),
+        parsedChainId,
         sourceContractAddresses,
         tbaAddress
       ),
       getErc1155OwnersForTraits(
-        parseInt(chainId),
+        parsedChainId,
         sourceContractAddresses,
         tbaAddress
       ),

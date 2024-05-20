@@ -18,11 +18,13 @@ const query = gql`
         ownerAddress: $ownerAddress
       }
     ) {
-      id
-      chainId
-      contractAddress
-      tokenId
-      tbaAddress
+      items {
+        id
+        chainId
+        contractAddress
+        tokenId
+        tbaAddress
+      }
     }
   }
 `;
@@ -46,7 +48,7 @@ export const getErc721TokensForTraits = async (
     ownerAddress: ownerAddressChecksumed,
   };
   const data = (await request(URL, query, variables)) as {
-    erc721Tokens: any[];
+    erc721Tokens: { items: any[] };
   };
-  return (data?.erc721Tokens ?? []) as Erc721Token[];
+  return (data?.erc721Tokens?.items ?? []) as Erc721Token[];
 };

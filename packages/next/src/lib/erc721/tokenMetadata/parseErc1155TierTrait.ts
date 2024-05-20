@@ -1,20 +1,23 @@
 import { ComputedTrait } from "@/lib/types";
-import { checksumAddress } from "viem";
+import { isAddressEqual } from "viem";
+import config from "../../../../groupos.config";
 
 export const parseErc1155TierTrait = (
   trait: ComputedTrait,
   token: any,
   erc1155OwnersForTraits: any
 ): { trait_type: string; value: string } => {
-  // @ts-ignore
-  const validTraitTokenIds = trait.data.tiers.map((tier: any) => tier.tokenId);
+  const validTraitTokenIds: string[] = trait.data.tiers.map(
+    (tier: { tokenId: string }) => tier.tokenId
+  );
 
   const erc1155Owners = erc1155OwnersForTraits.filter(
     (erc1155Owner: any) =>
-      checksumAddress(erc1155Owner.contractAddress) ===
-        checksumAddress(trait.sourceContractAddress) &&
-      checksumAddress(erc1155Owner.ownerAddress) ===
-        checksumAddress(token.tbaAddress) &&
+      isAddressEqual(
+        erc1155Owner.contractAddress,
+        trait.sourceContractAddress
+      ) &&
+      isAddressEqual(erc1155Owner.ownerAddress, token.tbaAddress) &&
       validTraitTokenIds.includes(erc1155Owner.tokenId)
   );
 
@@ -35,10 +38,15 @@ export const parseErc1155TierTrait = (
     return erc1155Owner.tokenId === highestTierTokenIdOwned;
   });
 
+  const tokenContract = config.tokenContracts.find((v) =>
+    isAddressEqual(v.contractAddress, highestTierOwner.contractAddress)
+  );
+  const tokenMetadata = Object.entries(
+    tokenContract?.nftMetadata?.tokens ?? {}
+  ).find(([k, v]) => k === highestTierTokenIdOwned)?.[1];
+
   return {
     trait_type: trait.name,
-    value:
-      highestTierOwner.token.data.individualMetadata.name ||
-      `#${highestTierOwner.tokenId}`,
+    value: tokenMetadata?.name || `#${highestTierTokenIdOwned}`,
   };
 };

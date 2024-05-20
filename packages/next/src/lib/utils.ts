@@ -16,6 +16,7 @@ export const networkName: Record<number, string> = {
   5: "Ethereum Goerli",
   11155111: "Ethereum Sepolia",
   10: "Optimism",
+  8453: "Base",
   137: "Polygon",
   59144: "Linea",
 };
@@ -123,7 +124,7 @@ function getExplorerUrl(chainId?: number) {
 }
 
 export function getPonderUrl() {
-  return process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL ?? "http://localhost:42069";
+  return process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL ?? "http://127.0.0.1:42069";
 }
 
 export function toSentenceCase(str?: string) {

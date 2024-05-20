@@ -3,6 +3,7 @@ import { Goerli } from "./Goerli";
 import { Optimism } from "./Optimism";
 import { Polygon } from "./Polygon";
 import { Linea } from "./Linea";
+import Base from "./Base";
 
 export const NetworkIcon = ({
   chainId,
@@ -20,6 +21,8 @@ export const NetworkIcon = ({
       return <Goerli className={className} />;
     case 10:
       return <Optimism className={className} />;
+    case 8453:
+      return <Base className={className} />;
     case 137:
       return <Polygon className={className} />;
     case 59144:

@@ -8,10 +8,19 @@ import { parseErc721BalanceTrait } from "./tokenMetadata/parseErc721BalanceTrait
 import { parseErc721OwnershipTrait } from "./tokenMetadata/parseErc721OwnershipTrait";
 import {
   TokenConfig,
-  TOKEN_TRAIT_TYPE,
+  ComputedTraitType,
   NftMetadataAttribute,
 } from "@/lib/types";
 import { Address } from "viem";
+
+export function getImage(tokenContract: TokenConfig, tokenId: string) {
+  if (tokenContract.nftMetadata?.image) {
+    return tokenContract.nftMetadata?.image.replace("{tokenId}", tokenId);
+  } else {
+    const tokenMetadata = tokenContract.nftMetadata?.tokens?.[tokenId];
+    return getImageFromPath(tokenMetadata?.image ?? tokenContract.image);
+  }
+}
 
 export const getImageFromPath = (path: string) => {
   if (path[0] === "/") {
@@ -39,26 +48,26 @@ export const generateComputedTraits = ({
   return tokenContract.nftMetadata?.computedTraits
     .map((trait) => {
       switch (trait.type) {
-        case TOKEN_TRAIT_TYPE.ERC20Balance:
+        case ComputedTraitType.ERC20Balance:
           return parseErc20BalanceTrait(trait, token, erc20OwnersForTraits);
-        case TOKEN_TRAIT_TYPE.ERC20Tier:
+        case ComputedTraitType.ERC20Tier:
           return parseErc20TierTrait(trait, token, erc20OwnersForTraits);
-        case TOKEN_TRAIT_TYPE.ERC721Balance:
+        case ComputedTraitType.ERC721Balance:
           return parseErc721BalanceTrait(trait, token, erc721TokensForTraits);
-        case TOKEN_TRAIT_TYPE.ERC721Ownership:
+        case ComputedTraitType.ERC721Ownership:
           return parseErc721OwnershipTrait(trait, token, erc721TokensForTraits);
-        case TOKEN_TRAIT_TYPE.ERC1155Balance:
+        case ComputedTraitType.ERC1155Balance:
           return parseErc1155BalanceTrait(trait, token, erc1155OwnersForTraits);
-        case TOKEN_TRAIT_TYPE.ERC1155Role:
+        case ComputedTraitType.ERC1155Role:
           return parseErc1155RoleTrait(
             trait,
             token,
             erc1155OwnersForTraits,
             tokenContract
           );
-        case TOKEN_TRAIT_TYPE.ERC1155Tier:
+        case ComputedTraitType.ERC1155Tier:
           return parseErc1155TierTrait(trait, token, erc1155OwnersForTraits);
-        case TOKEN_TRAIT_TYPE.ERC1155Ownership:
+        case ComputedTraitType.ERC1155Ownership:
           return parseErc1155OwnershipTrait(
             trait,
             token,
