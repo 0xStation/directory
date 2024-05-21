@@ -2,10 +2,11 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { Address } from "./Address";
 import { Avatar } from "./Avatar";
+import { Address as TAddress } from "viem";
 
 interface AvatarAddressProps {
   size?: "xs" | "sm" | "base" | "lg" | "xl";
-  address: string;
+  address: TAddress;
   interactive?: boolean;
 }
 

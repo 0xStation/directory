@@ -1,7 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { request, gql } from "graphql-request";
 import { Erc1155Owner, Erc20Owner, Erc721Token } from "../types";
-import { checksumAddress } from "viem";
+import {
+  Address,
+  checksumAddress,
+  erc20Abi,
+  isAddress,
+  isAddressEqual,
+} from "viem";
+import config from "../../../groupos.config";
+import { readContract } from "viem/actions";
+import { getClient } from "../viem/client";
+import { getImage } from "../erc721/metadata";
 
 // const URL = "/api/ponder";
 const URL = "http://localhost:42069";
@@ -28,6 +38,7 @@ export const getErc20Owners = async (
   )) as { erc20Owners: { items: any[] } };
   return (data?.erc20Owners?.items ?? []) as Erc20Owner[];
 };
+
 export function useErc20Owners(
   chainId?: number,
   contractAddress?: `0x${string}`
@@ -103,6 +114,7 @@ export const getErc1155Owners = async (
   )) as { erc1155Owners: { items: any[] } };
   return (data?.erc1155Owners?.items ?? []) as Erc1155Owner[];
 };
+
 export function useErc1155Owners(
   chainId?: number,
   contractAddress?: `0x${string}`
@@ -113,5 +125,59 @@ export function useErc1155Owners(
       return await getErc1155Owners(chainId!, contractAddress!);
     },
     enabled: Boolean(chainId && contractAddress),
+  });
+}
+
+export const getErc721Tba = async (tbaAddress: Address) => {
+  const data = (await request(
+    URL,
+    gql`
+        {
+          erc721Tokens(where: {tbaAddress: \"${checksumAddress(
+            tbaAddress ?? "0x"
+          )}\"}) {
+            items {
+              id
+              chainId
+              contractAddress
+              tokenId
+            }
+          }
+        }
+      `
+  )) as { erc721Tokens: { items: any[] } };
+  return (data?.erc721Tokens?.items ?? []) as Erc721Token[];
+};
+
+export function useTbaMetadata(tbaAddress?: Address) {
+  return useQuery({
+    queryKey: ["tbaMetadata", tbaAddress],
+    queryFn: async () => {
+      const erc721Tokens = await getErc721Tba(tbaAddress!);
+      if (erc721Tokens.length === 0) {
+        throw Error("no tba found");
+      } else {
+        const { chainId, contractAddress, tokenId } = erc721Tokens[0];
+        const tokenContractName = await readContract(getClient(chainId), {
+          abi: erc20Abi,
+          address: contractAddress,
+          functionName: "name",
+        });
+        const tokenContract = config.tokenContracts.find(
+          (v) =>
+            v.chainId === chainId &&
+            isAddressEqual(v.contractAddress, contractAddress)
+        );
+        if (!tokenContract) {
+          throw Error("no token contract found");
+        }
+        const tokenMetadata = tokenContract?.nftMetadata?.tokens?.[tokenId];
+        return {
+          name: tokenMetadata?.name ?? `${tokenContractName} #${tokenId}`,
+          image: getImage(tokenContract, tokenId),
+        };
+      }
+    },
+    enabled: Boolean(tbaAddress),
   });
 }

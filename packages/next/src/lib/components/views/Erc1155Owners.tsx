@@ -9,7 +9,7 @@ import {
 
 import { Erc1155Owner, Erc20Owner, TokenConfig } from "@/lib/types";
 import { AvatarAddress } from "../ui/AvatarAddress";
-import { formatUnits } from "viem";
+import { Address } from "viem";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/TabsHorizontal";
 import { TabsContent } from "@radix-ui/react-tabs";
@@ -22,8 +22,8 @@ const columns: ColumnDef<Erc20Owner>[] = [
     header: "Account",
     minSize: 150,
     cell: ({ row }) => {
-      const ownerAddress = row.getValue("ownerAddress");
-      return <AvatarAddress address={ownerAddress as string} />;
+      const ownerAddress: Address = row.getValue("ownerAddress");
+      return <AvatarAddress address={ownerAddress} />;
     },
   },
   {

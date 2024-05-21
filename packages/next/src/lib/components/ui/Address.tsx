@@ -1,10 +1,12 @@
+import { useTbaMetadata } from "@/lib/api/hooks";
 import { truncateBytes } from "@/lib/utils";
+import { Address as TAddress } from "viem";
 // import { useAccountMetadata } from "@/pages/api/v1/account/metadata";
 import { useEnsName } from "wagmi";
 
 interface AddressProps {
   size?: "xs" | "sm" | "base" | "lg" | "xl";
-  address: string;
+  address?: TAddress;
   interactive?: boolean;
   showRichName?: boolean;
 }
@@ -26,8 +28,7 @@ export const Address = ({
     chainId: 1,
     address: address as `0x${string}`,
   });
-  //   const { metadata } = useAccountMetadata(address as `0x${string}`);
-  const metadata = null;
+  const { data: metadata } = useTbaMetadata(address as TAddress);
 
   const userInfo =
     !showRichName || (!ensName && !metadata) ? (
@@ -64,7 +65,7 @@ export const Address = ({
       onClick={(e) => {
         e.stopPropagation();
         e.preventDefault();
-        navigator.clipboard.writeText(address);
+        navigator.clipboard.writeText(address!);
       }}
     >
       {userInfo}

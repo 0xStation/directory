@@ -1,11 +1,12 @@
+import { useTbaMetadata } from "@/lib/api/hooks";
 import { PFP_MAP } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-// import { useAccountMetadata } from "@/pages/api/v1/account/metadata"
 import Image from "next/image";
+import { Address } from "viem";
 import { useEnsName, useEnsAvatar } from "wagmi";
 interface AvatarProps {
   size?: "xs" | "sm" | "base" | "lg" | "xl";
-  address: string | undefined;
+  address?: Address;
   className?: string;
 }
 
@@ -28,14 +29,13 @@ const sizeRadiusMap: { [key: string]: string } = {
 export const Avatar = ({ size = "base", address, className }: AvatarProps) => {
   const { data: ensName } = useEnsName({
     chainId: 1,
-    address: address as `0x${string}` | undefined,
+    address,
   });
   const { data: ensAvatar } = useEnsAvatar({
     chainId: 1,
     name: ensName as string,
   });
-  //   const { metadata } = useAccountMetadata(address as `0x${string}`)
-  const metadata = null;
+  const { data: metadata } = useTbaMetadata(address as Address);
 
   return (
     // wrapped in div with relative to handle non-square images via cropping
