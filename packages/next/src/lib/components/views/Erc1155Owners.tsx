@@ -7,14 +7,14 @@ import {
   RowSelectionState,
 } from "@tanstack/react-table";
 
-import { Erc20Owner, TokenConfig } from "@/lib/types";
+import { Erc1155Owner, Erc20Owner, TokenConfig } from "@/lib/types";
 import { AvatarAddress } from "../ui/AvatarAddress";
 import { formatUnits } from "viem";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/TabsHorizontal";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { DataTable } from "../DataTable";
-import { useErc20Owners } from "@/lib/api/hooks";
+import { useErc1155Owners, useErc20Owners } from "@/lib/api/hooks";
 
 const columns: ColumnDef<Erc20Owner>[] = [
   {
@@ -27,22 +27,23 @@ const columns: ColumnDef<Erc20Owner>[] = [
     },
   },
   {
+    accessorKey: "tokenId",
+    header: "Token ID",
+    cell: ({ row }) => row.getValue("tokenId"),
+  },
+  {
     accessorKey: "balance",
     header: "Balance",
-    cell: ({ row }) => {
-      const balance = row.getValue("balance");
-      const formattedBalance = formatUnits(BigInt(balance as string), 18);
-      return <div>{formattedBalance}</div>;
-    },
+    cell: ({ row }) => row.getValue("balance"),
   },
 ];
 
-export function Erc20Owners({
+export function Erc1155Owners({
   tokenContract,
 }: {
   tokenContract?: TokenConfig;
 }) {
-  const { status, data, error, isFetching } = useErc20Owners(
+  const { status, data, error, isFetching } = useErc1155Owners(
     tokenContract?.chainId,
     tokenContract?.contractAddress
   );
@@ -90,7 +91,7 @@ export function Erc20Owners({
   );
 }
 
-function SelectedRowDetails({ owner }: { owner?: Erc20Owner | null }) {
+function SelectedRowDetails({ owner }: { owner?: Erc1155Owner | null }) {
   if (!owner) return null;
 
   return (
@@ -102,8 +103,12 @@ function SelectedRowDetails({ owner }: { owner?: Erc20Owner | null }) {
         </TabsList>
         <TabsContent value="info">
           <div className="mt-6 flex flex-row justify-between items-center">
+            <p className="text-secondary">Token ID</p>
+            <p>{owner.tokenId}</p>
+          </div>
+          <div className="mt-6 flex flex-row justify-between items-center">
             <p className="text-secondary">Balance</p>
-            <p>{formatUnits(BigInt(owner.balance), 18)}</p>
+            <p>{owner.balance}</p>
           </div>
         </TabsContent>
       </Tabs>

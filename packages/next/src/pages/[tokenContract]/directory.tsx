@@ -4,6 +4,7 @@ import {
   TabsTrigger,
   TabsContent,
 } from "@/lib/components/ui/TabsHorizontal";
+import { Erc1155Owners } from "@/lib/components/views/Erc1155Owners";
 import { Erc20Owners } from "@/lib/components/views/Erc20Owners";
 import { Erc721Tokens } from "@/lib/components/views/Erc721Tokens";
 import { TokenSettings } from "@/lib/components/views/TokenSettings";
@@ -39,15 +40,16 @@ function TokenDirectory() {
     case "ERC721":
       return <Erc721Tokens tokenContract={tokenContract} />;
     default:
-      return (
-        <div className="h-[calc(100vh-110px)] px-6 py-8">
-          <div className="flex flex-col rounded-xl h-full bg-highlightFaint items-center justify-center">
-            <h1 className="text-xl">
-              Message support for assistance. This page is unimplemented.
-            </h1>
-          </div>
-        </div>
-      );
+      return <Erc1155Owners tokenContract={tokenContract} />;
+    // return (
+    //   <div className="h-[calc(100vh-110px)] px-6 py-8">
+    //     <div className="flex flex-col rounded-xl h-full bg-highlightFaint items-center justify-center">
+    //       <h1 className="text-xl">
+    //         Message support for assistance. This page is unimplemented.
+    //       </h1>
+    //     </div>
+    //   </div>
+    // );
   }
 }
 

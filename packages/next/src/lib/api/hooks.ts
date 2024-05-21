@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { request, gql } from "graphql-request";
-import { Erc20Owner, Erc721Token } from "../types";
+import { Erc1155Owner, Erc20Owner, Erc721Token } from "../types";
 import { checksumAddress } from "viem";
 
 // const URL = "/api/ponder";
@@ -33,7 +33,7 @@ export function useErc20Owners(
   contractAddress?: `0x${string}`
 ) {
   return useQuery({
-    queryKey: ["erc20Owners"],
+    queryKey: ["erc20Owners", chainId, contractAddress],
     queryFn: async () => {
       return await getErc20Owners(chainId!, contractAddress!);
     },
@@ -74,8 +74,44 @@ export function useErc721Tokens(
   contractAddress?: `0x${string}`
 ) {
   return useQuery({
-    queryKey: ["erc721Tokens"],
+    queryKey: ["erc721Tokens", chainId, contractAddress],
     queryFn: async () => await getErc721Tokens(chainId!, contractAddress!),
+    enabled: Boolean(chainId && contractAddress),
+  });
+}
+
+export const getErc1155Owners = async (
+  chainId: number,
+  contractAddress: `0x${string}`
+) => {
+  const data = (await request(
+    URL,
+    gql`
+        {
+          erc1155Owners(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
+      contractAddress ?? "0x"
+    )}\", balance_not: \"0\"}) {
+            items {
+              id
+              ownerAddress
+              tokenId
+              balance
+            }
+          }
+        }
+      `
+  )) as { erc1155Owners: { items: any[] } };
+  return (data?.erc1155Owners?.items ?? []) as Erc1155Owner[];
+};
+export function useErc1155Owners(
+  chainId?: number,
+  contractAddress?: `0x${string}`
+) {
+  return useQuery({
+    queryKey: ["erc1155Owners", chainId, contractAddress],
+    queryFn: async () => {
+      return await getErc1155Owners(chainId!, contractAddress!);
+    },
     enabled: Boolean(chainId && contractAddress),
   });
 }
