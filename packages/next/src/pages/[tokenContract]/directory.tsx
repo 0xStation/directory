@@ -39,7 +39,15 @@ function TokenDirectory() {
     case "ERC721":
       return <Erc721Tokens tokenContract={tokenContract} />;
     default:
-      return <div className="p-4">Coming soon...</div>;
+      return (
+        <div className="h-[calc(100vh-110px)] px-6 py-8">
+          <div className="flex flex-col rounded-xl h-full bg-highlightFaint items-center justify-center">
+            <h1 className="text-xl">
+              Message support for assistance. This page is unimplemented.
+            </h1>
+          </div>
+        </div>
+      );
   }
 }
 
