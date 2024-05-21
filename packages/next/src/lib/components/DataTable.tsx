@@ -18,7 +18,7 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
     <Table>
       <TableHeader>
         {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id} header>
+          <TableRow key={headerGroup.id} header={true}>
             {headerGroup.headers.map((header) => {
               return (
                 <TableHead key={header.id} width={header.getSize()}>

@@ -13,8 +13,8 @@ import { readContract } from "viem/actions";
 import { getClient } from "../viem/client";
 import { getImage } from "../erc721/metadata";
 
-// const URL = "/api/ponder";
-const URL = "http://localhost:42069";
+const URL = "/api/ponder";
+// const URL = "http://localhost:42069";
 
 export const getErc20Owners = async (
   chainId: number,

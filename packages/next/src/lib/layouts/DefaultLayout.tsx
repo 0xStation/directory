@@ -64,8 +64,8 @@ const DefaultLayout = ({ children }: { children: any }) => {
                 <Image
                   src={logo}
                   alt="logo"
+                  height={36}
                   width={36}
-                  height={38}
                   className="flex-shrink-0 rounded-md"
                 />
               </Link>

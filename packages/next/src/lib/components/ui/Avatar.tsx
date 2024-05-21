@@ -48,6 +48,7 @@ export const Avatar = ({ size = "base", address, className }: AvatarProps) => {
           src={metadata!.image}
           alt="Account profile picture."
           fill={true}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={cn(
             "border border-highlight object-cover",
             sizeRadiusMap[size],
@@ -59,6 +60,7 @@ export const Avatar = ({ size = "base", address, className }: AvatarProps) => {
           src={ensAvatar}
           alt="Account profile picture."
           fill={true}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={`rounded-full border border-highlight object-cover ${className}`}
         />
       ) : (
@@ -69,6 +71,7 @@ export const Avatar = ({ size = "base", address, className }: AvatarProps) => {
           }
           alt="Account profile picture. If no profile picture is set, there is a picture of a Terminal."
           fill={true}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={`rounded-full border border-highlight object-cover ${className}`}
         />
       )}

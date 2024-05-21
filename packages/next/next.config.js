@@ -28,7 +28,7 @@ const nextConfig = {
         source: "/api/ponder/:path*",
         destination:
           (process.env.NEXT_PUBLIC_PONDER_PUBLIC_URL ??
-            "http://localhost:42069") + "/:path*", // Proxy to Backend
+            "http://127.0.0.1:42069") + "/:path*", // Proxy to Backend
       },
     ];
   },
