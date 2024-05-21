@@ -1,6 +1,6 @@
 # Directory
 
-A batteries-included open-source repo for creating and managing token ecosystems.
+A batteries-included open-source repo for creating and managing token ecosystems on 0xRails.
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/vJ6TmR?referralCode=MNLZs0)
 
@@ -28,13 +28,6 @@ A batteries-included open-source repo for creating and managing token ecosystems
   - powered by ponder
 
 ## Set Up Locally
-
-**Clone this repo**
-
-```bash
-git clone https://github.com/0xStation/groupos.git
-cd groupos
-```
 
 **Install app dependencies**
 
@@ -68,3 +61,5 @@ npm run dev
 
 You can now view your GroupOS app at [localhost:3000](http://localhost:3000/)
 In dev mode, you can view a GraphQL client at [localhost:42069](http://localhost:42069/)
+
+Note that if this does not work, you may need to run the next app and ponder app in separate terminal tabs.
