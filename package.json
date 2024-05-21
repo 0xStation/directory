@@ -6,7 +6,7 @@
     "build": "lerna run build --stream",
     "dev": "lerna run dev",
     "start": "lerna run start",
-    "start-directory": "lerna run start --scope directory",
+    "start-next": "lerna run start --scope next",
     "start-ponder": "lerna run start --scope ponder"
   },
   "author": "Station",
