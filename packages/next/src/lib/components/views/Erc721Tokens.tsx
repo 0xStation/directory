@@ -246,21 +246,20 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
           <div className="flex flex-col gap-6 mt-4">
             {!nfts ? (
               <div>loading</div>
-            ) : (
-              nfts.length > 0 && (
-                <div className="grid grid-cols-3 gap-2">
-                  {nfts.map((nft: any, i: number) => (
-                    <div
-                      className="relative group w-full h-full aspect-square rounded-lg border border-highlight"
-                      key={`nft-${i}`}
-                    >
-                      <Image
-                        src={nft.image ?? emptyImage}
-                        fill
-                        alt=""
-                        className="rounded-lg"
-                      />
-                      {/* {getNft && (
+            ) : nfts.length > 0 ? (
+              <div className="grid grid-cols-3 gap-2">
+                {nfts.map((nft: any, i: number) => (
+                  <div
+                    className="relative group w-full h-full aspect-square rounded-lg border border-highlight"
+                    key={`nft-${i}`}
+                  >
+                    <Image
+                      src={nft.image ?? emptyImage}
+                      fill
+                      alt=""
+                      className="rounded-lg"
+                    />
+                    {/* {getNft && (
                       <a
                         className="absolute bottom-1 right-1 group-hover:block hidden p-2 bg-gray-90 rounded cursor-pointer"
                         target="_blank"
@@ -270,10 +269,17 @@ function SelectedRowDetails({ token }: { token?: Erc721Token | null }) {
                         <Opensea className={cn("h-5 w-5")} />
                       </a>
                     )} */}
-                    </div>
-                  ))}
+                  </div>
+                ))}
+              </div>
+            ) : tokens.length === 0 ? (
+              <div className="h-[calc(100vh-320px)]">
+                <div className="flex flex-col rounded-xl h-full bg-highlightFaint items-center justify-center">
+                  <h1 className="text-lg">No owned tokens</h1>
                 </div>
-              )
+              </div>
+            ) : (
+              <></>
             )}
             <div className="space-y-4">
               {tokens.map((token) => {

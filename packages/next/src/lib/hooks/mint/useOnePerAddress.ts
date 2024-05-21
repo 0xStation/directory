@@ -25,7 +25,7 @@ export function useOnePerAddress(tokenContract?: TokenConfig) {
     disabled: onePerAddressActive && !zeroBalance,
     message:
       onePerAddressActive && !zeroBalance
-        ? "User already owns one token."
+        ? "Cap of one token per address reached."
         : null,
   };
 }

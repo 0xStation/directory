@@ -178,6 +178,7 @@ export function useTbaMetadata(tbaAddress?: Address) {
         };
       }
     },
+    staleTime: 10 * 60 * 1000,
     enabled: Boolean(tbaAddress),
   });
 }
