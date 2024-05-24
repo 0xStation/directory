@@ -1,9 +1,9 @@
 import { createConfig } from "@ponder/core";
 import { Address, Transport, http } from "viem";
 import { ERC20RailsAbi, ERC721RailsAbi, ERC1155RailsAbi } from "./abis";
-import config from "../next/groupos.config";
-import { TokenConfig } from "../next/src/lib/types";
-import { alchemyEndpointCore } from "../next/src/lib/alchemy/hooks";
+import config from "../web/groupos.config";
+import { TokenConfig } from "../web/src/lib/types";
+import { alchemyEndpointCore } from "../web/src/lib/alchemy/hooks";
 
 type PonderNetworks = Record<string, { chainId: number; transport: Transport }>;
 type PonderContracts = {
