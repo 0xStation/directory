@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { checksumAddress, erc20Abi, zeroAddress } from "viem";
-import { networkName } from "../utils";
 import { useReadContracts } from "wagmi";
 
 export const alchemyChainIdToChainName: Record<number, string | undefined> = {
@@ -95,16 +94,6 @@ export function useAlchemyTokenBalances({
 
   const nonZeroBalances =
     tokenBalances?.balances.filter((balance) => balance.value !== "0") || [];
-
-  const gasToken = nonZeroBalances
-    .filter((balance) => balance.contractAddress === zeroAddress)
-    .map((balance) => ({
-      contractAddress: balance.contractAddress,
-      name: networkName[chainId!] + (chainId !== 137 ? " ETH" : " MATIC"),
-      symbol: chainId !== 137 ? "ETH" : "MATIC",
-      balance: balance.value,
-      decimals: 18,
-    }))?.[0];
 
   const contractAddresses = nonZeroBalances
     .filter((address) => address !== zeroAddress)
