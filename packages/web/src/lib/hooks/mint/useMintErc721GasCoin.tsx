@@ -88,7 +88,7 @@ export const useMintErc721GasCoin = ({
 
   useEffect(() => {
     if (!!accountBalance && !!callValue && callValue >= accountBalance.value) {
-      setMessage("Insufficient balance");
+      setMessage("Insufficient balance for mint fee");
       setDisabled(true);
     } else {
       setMessage(undefined);

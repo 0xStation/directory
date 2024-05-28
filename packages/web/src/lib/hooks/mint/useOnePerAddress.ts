@@ -1,15 +1,26 @@
 import { GuardsAbi } from "@/lib/abi/Guards";
 import { Modules, Operation } from "@/lib/constants";
 import { TokenConfig } from "@/lib/types";
-import { useAccount, useBalance, useReadContract } from "wagmi";
+import { erc721Abi } from "viem";
+import { useAccount, useReadContract } from "wagmi";
 
 export function useOnePerAddress(tokenContract?: TokenConfig) {
   const account = useAccount();
-  const { data } = useBalance({
+  const { data: balance } = useReadContract({
     chainId: tokenContract?.chainId,
-    token: tokenContract?.contractAddress,
-    address: account?.address,
+    address: tokenContract?.contractAddress,
+    abi: erc721Abi,
+    functionName: "balanceOf",
+    args: [account?.address!],
+    query: {
+      enabled: Boolean(
+        account?.address &&
+          tokenContract?.chainId &&
+          tokenContract?.contractAddress
+      ),
+    },
   });
+
   const { data: guard } = useReadContract({
     chainId: tokenContract?.chainId,
     address: tokenContract?.contractAddress,
@@ -18,14 +29,16 @@ export function useOnePerAddress(tokenContract?: TokenConfig) {
     args: [Operation.MINT],
   });
 
-  const zeroBalance = data?.value === BigInt(0);
+  const zeroBalance = balance === BigInt(0);
   const onePerAddressActive = guard?.toLowerCase() === Modules.ONE_PER_ADDRESS;
 
-  return {
-    disabled: onePerAddressActive && !zeroBalance,
-    message:
-      onePerAddressActive && !zeroBalance
-        ? "One token per-address limit reached."
-        : null,
-  };
+  return !account?.address
+    ? { disabled: false, message: null }
+    : {
+        disabled: onePerAddressActive && !zeroBalance,
+        message:
+          onePerAddressActive && !zeroBalance
+            ? "One token per-address limit reached."
+            : null,
+      };
 }
