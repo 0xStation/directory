@@ -104,7 +104,7 @@ export default createConfig({
           "4": {
             name: "captain",
             image:
-              "media.cryptodatabytes.com/andrewhong5297-team-bucket/captain.png",
+              "https://media.cryptodatabytes.com/andrewhong5297-team-bucket/captain.png",
             traits: [
               {
                 name: "tier",

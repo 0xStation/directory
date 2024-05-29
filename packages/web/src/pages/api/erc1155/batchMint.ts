@@ -1,5 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getTransactionUrl, requireFields, requireMethods } from "@/lib/utils";
+import {
+  getTransactionUrl,
+  requireFields,
+  requireMethods,
+  requireSelfApiKey,
+} from "@/lib/utils";
 import { Address, encodeFunctionData, isAddressEqual } from "viem";
 import grouposConfig from "../../../../groupos.config";
 import { readContract } from "viem/actions";
@@ -11,6 +16,9 @@ import { MulticallAbi } from "@/lib/abi/Multicall";
 
 async function batchMintTokens(req: NextApiRequest, res: NextApiResponse) {
   console.log("new request /erc1155/batchMint", req.body);
+
+  requireSelfApiKey(req);
+
   const { chainId, contractAddress, mints } = req.body as {
     chainId: number;
     contractAddress: Address;

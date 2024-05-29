@@ -1,5 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getTransactionUrl, requireFields, requireMethods } from "@/lib/utils";
+import {
+  getTransactionUrl,
+  requireFields,
+  requireMethods,
+  requireSelfApiKey,
+} from "@/lib/utils";
 import { Address, isAddressEqual } from "viem";
 import grouposConfig from "../../../../groupos.config";
 import { readContract } from "viem/actions";
@@ -10,6 +15,9 @@ import { ERC1155RailsAbi } from "@/lib/abi/ERC1155Rails";
 
 async function mintTokens(req: NextApiRequest, res: NextApiResponse) {
   console.log("new request /erc1155/mint", req.body);
+
+  requireSelfApiKey(req);
+
   const { chainId, contractAddress, recipientAddress, tokenId, amount } =
     req.body as {
       chainId: number;

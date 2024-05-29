@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { TokenConfig } from "./types";
+import { NextApiRequest } from "next";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -152,3 +153,15 @@ export const requireFields = (obj: Record<string, any>) => {
     throw Error(`Missing required fields: ${missingFields.join(", ")}`);
   }
 };
+
+export function requireSelfApiKey(req: NextApiRequest) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    throw Error("Missing header: 'Authorization: Bearer {key}'");
+  }
+
+  const apiKey = authHeader.substring("Bearer ".length).trim();
+  if (apiKey !== process.env.SELF_API_KEY) {
+    throw Error("API key invalid");
+  }
+}
