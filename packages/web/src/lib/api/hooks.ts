@@ -153,29 +153,33 @@ export function useTbaMetadata(tbaAddress?: Address) {
   return useQuery({
     queryKey: ["tbaMetadata", tbaAddress],
     queryFn: async () => {
-      const erc721Tokens = await getErc721Tba(tbaAddress!);
-      if (erc721Tokens.length === 0) {
-        throw Error("no tba found");
-      } else {
-        const { chainId, contractAddress, tokenId } = erc721Tokens[0];
-        const tokenContractName = await readContract(getClient(chainId), {
-          abi: erc20Abi,
-          address: contractAddress,
-          functionName: "name",
-        });
-        const tokenContract = config.tokenContracts.find(
-          (v) =>
-            v.chainId === chainId &&
-            isAddressEqual(v.contractAddress, contractAddress)
-        );
-        if (!tokenContract) {
-          throw Error("no token contract found");
+      try {
+        const erc721Tokens = await getErc721Tba(tbaAddress!);
+        if (erc721Tokens.length === 0) {
+          throw Error("no tba found");
+        } else {
+          const { chainId, contractAddress, tokenId } = erc721Tokens[0];
+          const tokenContractName = await readContract(getClient(chainId), {
+            abi: erc20Abi,
+            address: contractAddress,
+            functionName: "name",
+          });
+          const tokenContract = config.tokenContracts.find(
+            (v) =>
+              v.chainId === chainId &&
+              isAddressEqual(v.contractAddress, contractAddress)
+          );
+          if (!tokenContract) {
+            throw Error("no token contract found");
+          }
+          const tokenMetadata = tokenContract?.nftMetadata?.tokens?.[tokenId];
+          return {
+            name: tokenMetadata?.name ?? `${tokenContractName} #${tokenId}`,
+            image: getImage(tokenContract, tokenId),
+          };
         }
-        const tokenMetadata = tokenContract?.nftMetadata?.tokens?.[tokenId];
-        return {
-          name: tokenMetadata?.name ?? `${tokenContractName} #${tokenId}`,
-          image: getImage(tokenContract, tokenId),
-        };
+      } catch {
+        return null;
       }
     },
     staleTime: 10 * 60 * 1000,
