@@ -27,6 +27,7 @@ export const defaultConfig: GroupOsConfig = {
     registry: "0x000000006551c19487814612e58fe06813775758",
     implementation: "0xee0b927f5065923d49dda69dce229ef467663310",
     salt: "0x852517b7ffed0f98d714dd1787995aff4d6b1892000000000000000000000000",
+    proxyImplementation: "0x509b531c8e979c85375370c0ba92ac44173c2d12",
   },
 };
 

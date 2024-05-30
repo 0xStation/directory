@@ -28,6 +28,9 @@ export enum Operation {
   BURN_PERMIT = "0x6801400fea7cd7c7",
   TRANSFER_PERMIT = "0xa994951607abf93b",
   METADATA_PERMIT = "0x2af95d8d71827d12",
+  CALL_PERMIT = "0xc8d1733b0840734c",
+  // enables NFTs to denote a valid TBA implementation for the PublicInitializeAccountController
+  TBA_IMPLEMENTATION = "0x1ef41fa7ec9b6704",
 }
 
 export enum Modules {

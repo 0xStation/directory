@@ -77,6 +77,7 @@ export type GroupOsConfig = {
     registry: Address;
     implementation: Address;
     salt: Hex;
+    proxyImplementation: Address;
   };
   theme: {
     colors: {

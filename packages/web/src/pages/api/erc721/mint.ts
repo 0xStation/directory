@@ -23,7 +23,6 @@ async function mintTokens(req: NextApiRequest, res: NextApiResponse) {
     contractAddress: Hex;
     recipientAddress: Hex;
   };
-  console.log("request body", req.body);
   requireFields({ chainId, contractAddress, recipientAddress });
 
   const walletClient = await getApiWalletClient(chainId);

@@ -86,11 +86,13 @@ export function PermissionsTab({
               <AvatarAddress address={permission.account} />
             </div>
             <div className="col-span-2 flex flex-col justify-center">
-              {toSentenceCase(
-                Object.entries(Operation).find(
-                  ([key, value]) => value === permission.operation
-                )?.[0]
-              )}
+              {permission.operation === Operation.TBA_IMPLEMENTATION
+                ? "Valid TBA"
+                : toSentenceCase(
+                    Object.entries(Operation).find(
+                      ([key, value]) => value === permission.operation
+                    )?.[0]
+                  )}
             </div>
           </>
         ))}
@@ -277,6 +279,9 @@ function EditPermissionsForm({
                       <SelectItem value={Operation.BURN}>Burn</SelectItem>
                       <SelectItem value={Operation.TRANSFER}>
                         Transfer
+                      </SelectItem>
+                      <SelectItem value={Operation.TBA_IMPLEMENTATION}>
+                        Valid TBA
                       </SelectItem>
                     </SelectContent>
                   </Select>
