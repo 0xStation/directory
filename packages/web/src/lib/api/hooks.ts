@@ -1,27 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { request, gql } from "graphql-request";
 import { Erc1155Owner, Erc20Owner, Erc721Token } from "../types";
-import {
-  Address,
-  checksumAddress,
-  erc20Abi,
-  isAddress,
-  isAddressEqual,
-} from "viem";
+import { Address, checksumAddress, erc20Abi, isAddressEqual } from "viem";
 import config from "../../../groupos.config";
 import { readContract } from "viem/actions";
 import { getClient } from "../viem/client";
 import { getImage } from "../erc721/metadata";
 
 const URL = "/api/ponder";
-// const URL = "http://localhost:42069";
 
 export const getErc20Owners = async (
   chainId: number,
-  contractAddress: `0x${string}`
+  contractAddress: Address,
+  url = URL
 ) => {
   const data = (await request(
-    URL,
+    url,
     gql`
         {
           erc20Owners(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
@@ -39,10 +33,7 @@ export const getErc20Owners = async (
   return (data?.erc20Owners?.items ?? []) as Erc20Owner[];
 };
 
-export function useErc20Owners(
-  chainId?: number,
-  contractAddress?: `0x${string}`
-) {
+export function useErc20Owners(chainId?: number, contractAddress?: Address) {
   return useQuery({
     queryKey: ["erc20Owners", chainId, contractAddress],
     queryFn: async () => {
@@ -54,15 +45,16 @@ export function useErc20Owners(
 
 export const getErc721Tokens = async (
   chainId: number,
-  contractAddress: `0x${string}`
+  contractAddress: Address,
+  url = URL
 ) => {
   const data = (await request(
-    URL,
+    url,
     gql`
         {
           erc721Tokens(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
       contractAddress ?? "0x"
-    )}\"}) {
+    )}\"}, orderBy: "mintedAt", orderDirection: "desc") {
             items {
               id
               tokenId
@@ -80,10 +72,7 @@ export const getErc721Tokens = async (
   })) as Erc721Token[];
 };
 
-export function useErc721Tokens(
-  chainId?: number,
-  contractAddress?: `0x${string}`
-) {
+export function useErc721Tokens(chainId?: number, contractAddress?: Address) {
   return useQuery({
     queryKey: ["erc721Tokens", chainId, contractAddress],
     queryFn: async () => await getErc721Tokens(chainId!, contractAddress!),
@@ -93,10 +82,11 @@ export function useErc721Tokens(
 
 export const getErc1155Owners = async (
   chainId: number,
-  contractAddress: `0x${string}`
+  contractAddress: Address,
+  url = URL
 ) => {
   const data = (await request(
-    URL,
+    url,
     gql`
         {
           erc1155Owners(where: {chainId: ${chainId}, contractAddress: \"${checksumAddress(
@@ -115,10 +105,7 @@ export const getErc1155Owners = async (
   return (data?.erc1155Owners?.items ?? []) as Erc1155Owner[];
 };
 
-export function useErc1155Owners(
-  chainId?: number,
-  contractAddress?: `0x${string}`
-) {
+export function useErc1155Owners(chainId?: number, contractAddress?: Address) {
   return useQuery({
     queryKey: ["erc1155Owners", chainId, contractAddress],
     queryFn: async () => {
@@ -128,9 +115,9 @@ export function useErc1155Owners(
   });
 }
 
-export const getErc721Tba = async (tbaAddress: Address) => {
+export const getErc721Tba = async (tbaAddress: Address, url = URL) => {
   const data = (await request(
-    URL,
+    url,
     gql`
         {
           erc721Tokens(where: {tbaAddress: \"${checksumAddress(

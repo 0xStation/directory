@@ -83,21 +83,15 @@ export async function getNftMetadata(
       erc721TokensForTraits,
       erc1155OwnersForTraits,
     ] = await Promise.all([
-      getErc20OwnersForTraits(
-        parsedChainId,
-        sourceContractAddresses,
-        tbaAddress
-      ),
-      getErc721TokensForTraits(
-        parsedChainId,
-        sourceContractAddresses,
-        tbaAddress
-      ),
-      getErc1155OwnersForTraits(
-        parsedChainId,
-        sourceContractAddresses,
-        tbaAddress
-      ),
+      getErc20OwnersForTraits(parsedChainId, sourceContractAddresses, [
+        tbaAddress,
+      ]),
+      getErc721TokensForTraits(parsedChainId, sourceContractAddresses, [
+        tbaAddress,
+      ]),
+      getErc1155OwnersForTraits(parsedChainId, sourceContractAddresses, [
+        tbaAddress,
+      ]),
     ]);
 
     const computedAttributes = generateComputedTraits({

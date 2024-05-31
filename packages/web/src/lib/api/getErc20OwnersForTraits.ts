@@ -1,5 +1,5 @@
 import { gql, request } from "graphql-request";
-import { checksumAddress } from "viem";
+import { Address, checksumAddress } from "viem";
 import { Erc20Owner } from "../types";
 import { getPonderUrl } from "../utils";
 
@@ -9,13 +9,13 @@ const query = gql`
   query getErc20OwnersForTraits(
     $chainId: Int!
     $contractAddresses: [String]!
-    $ownerAddress: String!
+    $ownerAddresses: [String]!
   ) {
     erc20Owners(
       where: {
         chainId: $chainId
         contractAddress_in: $contractAddresses
-        ownerAddress: $ownerAddress
+        ownerAddress_in: $ownerAddresses
       }
     ) {
       items {
@@ -31,21 +31,23 @@ const query = gql`
 
 export const getErc20OwnersForTraits = async (
   chainId: number,
-  contractAddresses: `0x${string}`[],
-  ownerAddress: `0x${string}`
+  contractAddresses: Address[],
+  ownerAddresses: Address[]
 ) => {
-  if (contractAddresses.length === 0) {
+  if (contractAddresses.length === 0 || ownerAddresses.length === 0) {
     return [];
   }
   const contractAddressesChecksumed = contractAddresses.map((v) =>
     checksumAddress(v)
   );
-  const ownerAddressChecksumed = checksumAddress(ownerAddress);
+  const ownerAddressesChecksumed = ownerAddresses.map((v) =>
+    checksumAddress(v)
+  );
 
   const variables = {
     chainId,
     contractAddresses: contractAddressesChecksumed,
-    ownerAddress: ownerAddressChecksumed,
+    ownerAddresses: ownerAddressesChecksumed,
   };
   const data = (await request(URL, query, variables)) as {
     erc20Owners: { items: any[] };
